@@ -13,7 +13,7 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <img id="img-illustrative" src="img/empreendedor-preto.svg" class="img-fluid rounded-start" alt="Imagem ilustrativa empreendedor">
+                                                <img id="img-illustrative" src="@if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']){{asset('img/investidor-preto.png')}}@else{{asset('img/empreendedor-preto.svg')}}@endif" class="img-fluid rounded-start" alt="Imagem ilustrativa empreendedor">
                                             </div>
                                         </div>
                                         <div id="btn-div" class="row">
@@ -26,8 +26,8 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="input-group mb-3">
-                                                            <button id="btn-entrepreneur" class="btn btn-outline-primary" type="button" onclick="alterar_img('img/empreendedor-preto.svg', 'entrepreneur-registration')">Empreendedor</button>
-                                                            <button id="btn-investor" class="btn btn-outline-secondary" type="button" onclick="alterar_img('img/investidor-preto.png', 'investor-registration')">Investidor-anjo</button>
+                                                            <button id="btn-entrepreneur" class="btn btn-outline-primary" type="button" onclick="alterar_img('{{asset('img/empreendedor-preto.svg')}}', 'entrepreneur-registration')">Empreendedor</button>
+                                                            <button id="btn-investor" class="btn btn-outline-secondary" type="button" onclick="alterar_img('{{asset('img/investidor-preto.png')}}', 'investor-registration')">Investidor-anjo</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -55,17 +55,22 @@
                                                 <h3 id="entrepreneur-registration" class="card-title">Cadastro de <span style="color: rgb(41, 103, 129);">empreendedor</span></h3>
                                             </div>
                                         </div>
-                                        <form method="POST" action="{{ route('register') }}">
+                                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                                             @csrf
                                             <input id="profile" type="hidden" name="profile" value="{{\App\Models\User::PROFILE_ENUM['entrepreneur']}}">
                                             <div class="row mb-3" style="text-align: right;">
                                                 <div class="col-md-9"></div>
                                                 <div class="col-md-3">
-                                                    <label id="label-photo" for="photo" class="form-label">Foto de perfil</label>
+                                                    <label id="label-photo" for="foto_de_perfil" class="form-label">Foto de perfil</label>
                                                     <img id="input-profile-photo" src="img/perfil.svg" alt="Imagem default perfil" onclick="click_file_input()">
                                                     <div style="display: none;">
-                                                        <input id="photo" name="photo" type="file" class="form-control" accept="png">
+                                                        <input id="foto_de_perfil" name="foto_de_perfil" type="file" class="form-control" accept="png">
                                                     </div>
+                                                    @error('foto_de_perfil')
+                                                        <div id="validationServer03Feedback" class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row" style="text-align: right;">
@@ -76,49 +81,85 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-12">
                                                     <label for="nome" class="form-label">Nome <span style="color: red;">*</span></label>
-                                                    <input id="nome" name="nome" type="text" class="form-control" placeholder="Digite seu nome aqui..." required>
+                                                    <input value="{{old('nome')}}" id="nome" name="nome" type="text" class="form-control @error('nome') is-invalid @enderror" placeholder="Digite seu nome aqui..." required>
+
+                                                    @error('nome')
+                                                        <div id="validationServer03Feedback" class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="email" class="form-label">Email <span style="color: red;">*</span></label>
-                                                    <input id="email" name="email" type="email" class="form-control" placeholder="email@gmail.com" required>
+                                                    <input value="{{old('email')}}" id="email" name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="email@gmail.com" required>
+
+                                                    @error('email')
+                                                        <div id="validationServer03Feedback" class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="cpf" class="form-label">CPF <span style="color: red;">*</span></label>
-                                                    <input id="cpf" name="cpf" type="text" class="form-control" placeholder="000.000.000-00" required>
+                                                    <input value="{{old('cpf')}}" id="cpf" name="cpf" type="text" class="form-control @error('cpf') is-invalid @enderror" placeholder="000.000.000-00" required>
+
+                                                    @error('cpf')
+                                                        <div id="validationServer03Feedback" class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="data_de_nascimento" class="form-label">Data de nascimento <span style="color: red;">*</span></label>
-                                                    <input id="data_de_nascimento" name="data_de_nascimento" type="date" class="form-control" placeholder="email@gmail.com" required>
+                                                    <input value="{{old('data_de_nascimento')}}" id="data_de_nascimento" name="data_de_nascimento" type="date" class="form-control @error('data_de_nascimento') is-invalid @enderror" placeholder="email@gmail.com" required>
+                                                
+                                                    @error('data_de_nascimento')
+                                                        <div id="validationServer03Feedback" class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="sexo" class="form-label">Sexo <span style="color: red;">*</span></label>
-                                                    <select id="sexo" name="sexo" class="form-select" required>
+                                                    <select id="sexo" name="sexo" class="form-select @error('sexo') is-invalid @enderror" required>
                                                         <option selected disabled>selecione</option>
-                                                        <option value="1">Feminino</option>
-                                                        <option value="2">Masculino</option>
+                                                        <option @if(old('sexo') == \App\Models\User::SEXO_ENUM['feminine']) selected @endif value="{{\App\Models\User::SEXO_ENUM['feminine']}}">Feminino</option>
+                                                        <option @if(old('sexo') == \App\Models\User::SEXO_ENUM['masculine']) selected @endif value="{{\App\Models\User::SEXO_ENUM['masculine']}}">Masculino</option>
                                                     </select>
+
+                                                    @error('sexo')
+                                                        <div id="validationServer03Feedback" class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="password" class="form-label">Senha <span style="color: red;">*</span></label>
                                                     <input id="password" name="password" type="password" class="form-control" required>
+                                                    
+                                                    @error('password')
+                                                        <div id="validationServer03Feedback" class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                     <small id="password-minimo"> Deve ter no mínimo 8 caracteres </small>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="password-confirmation" class="form-label">Confirmar senha <span style="color: red;">*</span></label>
-                                                    <input id="password-confirmation" name="password-confirmation" type="password" class="form-control" required>
+                                                    <input id="password_confirmation" name="password_confirmation" type="password" class="form-control" required>
                                                 </div>
                                             </div>
                                             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <input type="checkbox" name="terms" id="terms" required>
-                                                        <label for="terms" class="form-label">{!! __('Eu concordo com os :terms_of_service e :privacy_policy', [
+                                                        <input type="checkbox" name="termos" id="termos" required @if(old('termos')) selected @endif>
+                                                        <label for="termos" class="form-label">{!! __('Eu concordo com os :terms_of_service e :privacy_policy', [
                                                                                                     'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Termos de Serviço').'</a>',
                                                                                                     'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Política de Privacidade').'</a>',
                                                                                             ]) !!}
@@ -149,8 +190,8 @@
 
     <script>
         function alterar_img(path_img, title) {
-            value_entrepreneur = "{{\App\Models\User::PROFILE_ENUM['entrepreneur']}}"
-            value_investor = "{{\App\Models\User::PROFILE_ENUM['investor']}}"
+            value_entrepreneur = "{{\App\Models\User::PROFILE_ENUM['entrepreneur']}}";
+            value_investor = "{{\App\Models\User::PROFILE_ENUM['investor']}}";
 
             input_profile = document.getElementById('profile');
             img_tag = document.getElementById('img-illustrative');
@@ -171,7 +212,7 @@
         }
 
         function click_file_input() {
-            $('#photo').click();
+            $('#foto_de_perfil').click();
         }
 
         function read_image() {
@@ -184,7 +225,7 @@
             }
         }
 
-        document.getElementById("photo").addEventListener("change", read_image, false);
+        document.getElementById("foto_de_perfil").addEventListener("change", read_image, false);
     </script>
 
     {{-- <x-jet-validation-errors class="mb-4" /> --}}
