@@ -35,6 +35,7 @@ class UserFactory extends Factory
             'cpf' => $this->faker->cpf,
             'sexo' => 1,
             'tipo' => 1,
+            'data_de_nascimento' => date('1998-04-23'),
         ];
     }
 

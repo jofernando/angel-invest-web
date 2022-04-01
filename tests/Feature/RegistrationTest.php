@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Fortify\Features;
 use Laravel\Jetstream\Jetstream;
 use Tests\TestCase;
+use App\Models\User;
 
 class RegistrationTest extends TestCase
 {
@@ -41,11 +42,15 @@ class RegistrationTest extends TestCase
         }
 
         $response = $this->post('/register', [
-            'name' => 'Test User',
+            'profile' => User::PROFILE_ENUM['entrepreneur'],
+            'nome' => 'Test User',
             'email' => 'test@example.com',
+            'cpf' => '512.716.580-54',
             'password' => 'password',
             'password_confirmation' => 'password',
-            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
+            'data_de_nascimento' => date('1999-02-13'),
+            'sexo' => User::SEXO_ENUM['masculine'],
+            'termos' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
         ]);
 
         $this->assertAuthenticated();

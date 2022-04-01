@@ -7,11 +7,11 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        {{-- <!-- Fonts -->
+        <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
         @livewireStyles
         <link rel="stylesheet" href="{{ asset('bootstrap-5.1.3/css/bootstrap.min.css') }}">
