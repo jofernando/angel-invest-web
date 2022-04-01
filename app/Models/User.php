@@ -61,4 +61,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /*
+     * Array profile enum
+    */
+
+    public const PROFILE_ENUM = [
+        'entrepreneur' => 1,
+        'investor' => 2,
+    ];
+
 }
