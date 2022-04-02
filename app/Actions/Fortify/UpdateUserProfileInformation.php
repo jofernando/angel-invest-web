@@ -21,10 +21,10 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'foto_de_perfil' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'foto_do_perfil' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('updateProfileInformation');
 
-        if (isset($input['foto_de_perfil'])) {
+        if (isset($input['foto_do_perfil'])) {
             $user->save_profile_foto($input);
         }
 

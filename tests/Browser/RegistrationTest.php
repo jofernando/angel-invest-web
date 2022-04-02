@@ -21,7 +21,7 @@ class RegistrationTest extends DuskTestCase
     public function test_new_users_can_register() {
         $this->browse(function (Browser $browser) {
             $browser->visitRoute('register')
-                    ->attach('foto_de_perfil', __DIR__ . '/img/01.png')
+                    ->attach('foto_do_perfil', __DIR__ . '/img/01.png')
                     ->type('nome', "Daniela Bárbara Agatha Mendes")
                     ->type('email', "teste_view@teste.com")
                     ->type('cpf', '394.263.921-14')
@@ -39,7 +39,7 @@ class RegistrationTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->press('Deslogar')
                     ->visitRoute('register')
-                    ->attach('foto_de_perfil', __DIR__ . '/img/01.png')
+                    ->attach('foto_do_perfil', __DIR__ . '/img/01.png')
                     ->type('nome', "Daniela Bárbara Agatha Mendes")
                     ->type('email', "teste_view@teste.com")
                     ->type('cpf', '394.263.921-12')

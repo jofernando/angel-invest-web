@@ -9,11 +9,11 @@
                                 <div class="row">
                                     <div id="top-img-div" class="col-md-12"></div>
                                 </div>
-                                <div id="bottom-img-div" class="row">
+                                <div id="bottom-img-div" class="row" style="text-align: center">
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <img id="img-illustrative" src="@if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']){{asset('img/investidor-preto.png')}}@else{{asset('img/empreendedor-preto.svg')}}@endif" class="img-fluid rounded-start" alt="Imagem ilustrativa empreendedor">
+                                                <img id="img-illustrative" src="@if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']){{asset('img/investidor-preto-quad.png')}}@else{{asset('img/empreendedor-preto.svg')}}@endif" alt="Imagem ilustrativa empreendedor">
                                             </div>
                                         </div>
                                         <div id="btn-div" class="row">
@@ -27,20 +27,29 @@
                                                     <div class="col-md-12">
                                                         <div class="input-group mb-3">
                                                             <button id="btn-entrepreneur" class="btn btn-outline-primary" type="button" onclick="alterar_img('{{asset('img/empreendedor-preto.svg')}}', 'entrepreneur-registration')">Empreendedor</button>
-                                                            <button id="btn-investor" class="btn btn-outline-secondary" type="button" onclick="alterar_img('{{asset('img/investidor-preto.png')}}', 'investor-registration')">Investidor-anjo</button>
+                                                            <button id="btn-investor" class="btn btn-outline-secondary" type="button" onclick="alterar_img('{{asset('img/investidor-preto-quad.png')}}', 'investor-registration')">Investidor-anjo</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row justify-content-center">
-                                            <div class="col-md-12">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                                Proin sed eleifend risus, ac congue nibh. Pellentesque 
-                                                aliquam lobortis erat a elementum.  Nullam hendrerit 
-                                                commodo varius.  Etiam purus lacus, rutrum id tellus 
-                                                a, vehicula tincidunt dui.  Sed a molestie orci. 
-                                                Nunc luctus velit vitae metus molestie malesuada.
+                                        <div class="row justify-content-center" style="padding-top: 40px;">
+                                            <div id="text-entrepreneur" class="col-md-12">
+                                                Cadastrando-se como empreendedor você poderá criar sua startup, 
+                                                assim como suas propostas para aquela startup, 
+                                                podendo logo após utilizar da exibição da mesma, 
+                                                aonde investidores-anjo poderam visualizar sua prosposta por um
+                                                determinador periodo, caso desejem poderão também fazer ofertas de
+                                                negociações futuras caso você deseje.
+                                            </div>
+                                            <div id="text-investor" class="col-md-12" style="display: none;">
+                                                Cadastrando-se como investidor você poderá visualizar exibições de 
+                                                propostas das startups emergentes. Caso deseje fazer uma oferta de aporte 
+                                                a startup, você deve realizar um deposito na sua carteira da angel invest.
+                                                Deixamos claro que ofertas não são transferencias diretas as startups e sim 
+                                                valores simbólicos que poderão ser negociados após sua colocação ser definida
+                                                no final da exibição da proposta. Um valor é cobrado em cima da oferta, para
+                                                saber mais sobre os valores <a href="#">clique aqui</a>. 
                                             </div>
                                         </div>
                                     </div>
@@ -60,13 +69,13 @@
                                             <input id="profile" type="hidden" name="profile" value="{{\App\Models\User::PROFILE_ENUM['entrepreneur']}}">
                                             <div class="row mb-3" style="text-align: right;">
                                                 <div class="col-md-9"></div>
-                                                <div class="col-md-3">
-                                                    <label id="label-photo" for="foto_de_perfil" class="form-label">Foto de perfil</label>
+                                                <div class="col-md-3" style="text-align: center">
+                                                    <label id="label-photo" for="foto_do_perfil" class="form-label">Foto do perfil</label>
                                                     <img id="input-profile-photo" src="img/perfil.svg" alt="Imagem default perfil" onclick="click_file_input()">
                                                     <div style="display: none;">
-                                                        <input id="foto_de_perfil" name="foto_de_perfil" type="file" class="form-control" accept="png">
+                                                        <input id="foto_do_perfil" name="foto_do_perfil" type="file" class="form-control" accept="png">
                                                     </div>
-                                                    @error('foto_de_perfil')
+                                                    @error('foto_do_perfil')
                                                         <div id="validationServer03Feedback" class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -196,6 +205,8 @@
             input_profile = document.getElementById('profile');
             img_tag = document.getElementById('img-illustrative');
             img_tag.src = path_img;
+            div_entrepreneur = document.getElementById('text-entrepreneur');
+            div_investor = document.getElementById('text-investor');
 
             title_entrepreneur = document.getElementById('entrepreneur-registration');
             title_investor = document.getElementById('investor-registration');
@@ -203,16 +214,20 @@
             if (title == 'entrepreneur-registration') {
                 input_profile.value = value_entrepreneur;
                 title_entrepreneur.style.display = 'block';
+                div_entrepreneur.style.display = 'block';
                 title_investor.style.display = 'none';
+                div_investor.style.display = 'none';
             } else {
                 input_profile.value = value_investor;
                 title_entrepreneur.style.display = 'none';
+                div_entrepreneur.style.display = 'none';
                 title_investor.style.display = 'block';
+                div_investor.style.display = 'block';
             }
         }
 
         function click_file_input() {
-            $('#foto_de_perfil').click();
+            $('#foto_do_perfil').click();
         }
 
         function read_image() {
@@ -225,7 +240,7 @@
             }
         }
 
-        document.getElementById("foto_de_perfil").addEventListener("change", read_image, false);
+        document.getElementById("foto_do_perfil").addEventListener("change", read_image, false);
     </script>
 
     {{-- <x-jet-validation-errors class="mb-4" /> --}}
