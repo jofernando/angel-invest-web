@@ -26,7 +26,7 @@ class CreateNewUser implements CreatesNewUsers
             'cpf' => ['required', 'cpf'],
             'password' => $this->passwordRules(),
             'foto_de_perfil' => ['nullable', 'file', 'max:2048', 'mimes:png,jpg'],
-            'data_de_nascimento' => ['required', 'date'],
+            'data_de_nascimento' => ['required', 'date', 'before:' . now()->toDateString()],
             'sexo' => ['required', 'integer'],
             'termos' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();

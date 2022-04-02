@@ -115,7 +115,7 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="data_de_nascimento" class="form-label">Data de nascimento <span style="color: red;">*</span></label>
-                                                    <input value="{{old('data_de_nascimento')}}" id="data_de_nascimento" name="data_de_nascimento" type="date" class="form-control @error('data_de_nascimento') is-invalid @enderror" placeholder="email@gmail.com" required>
+                                                    <input value="{{old('data_de_nascimento')}}" id="data_de_nascimento" name="data_de_nascimento" type="date" class="form-control @error('data_de_nascimento') is-invalid @enderror date-picker" required>
                                                 
                                                     @error('data_de_nascimento')
                                                         <div id="validationServer03Feedback" class="invalid-feedback">
@@ -141,7 +141,7 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="password" class="form-label">Senha <span style="color: red;">*</span></label>
-                                                    <input id="password" name="password" type="password" class="form-control" required>
+                                                    <input id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror" required>
                                                     
                                                     @error('password')
                                                         <div id="validationServer03Feedback" class="invalid-feedback">
