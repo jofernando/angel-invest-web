@@ -271,6 +271,10 @@ footer {
     box-shadow: 0 0 0 0.2rem var(--btn-hover-color);
 }
 
+label {
+    font-weight: 600;
+}
+
 /* .teste {
     width: 200px;
     height: 200px;

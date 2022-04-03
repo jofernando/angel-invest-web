@@ -13,7 +13,7 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <img id="img-illustrative" src="@if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']){{asset('img/investidor-preto-quad.png')}}@else{{asset('img/empreendedor-preto.svg')}}@endif" alt="Imagem ilustrativa empreendedor">
+                                                <img id="img-illustrative" src="@if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']){{asset('img/investidor-preto.svg')}}@else{{asset('img/empreendedor-preto.svg')}}@endif" alt="Imagem ilustrativa empreendedor">
                                             </div>
                                         </div>
                                         <div id="btn-div" class="row">
@@ -27,7 +27,7 @@
                                                     <div class="col-md-12">
                                                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                                             <button id="btn-entrepreneur" class="btn btn-outline-investidor-empreendedor @if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']) @else selected @endif" type="button" onclick="alterar_img('{{asset('img/empreendedor-preto.svg')}}', 'entrepreneur-registration')">Empreendedor</button>
-                                                            <button id="btn-investor" class="btn btn-outline-investidor-empreendedor @if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']) selected @endif" type="button" onclick="alterar_img('{{asset('img/investidor-preto-quad.png')}}', 'investor-registration')">Investidor-anjo</button>
+                                                            <button id="btn-investor" class="btn btn-outline-investidor-empreendedor @if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']) selected @endif" type="button" onclick="alterar_img('{{asset('img/investidor-preto.svg')}}', 'investor-registration')">Investidor-anjo</button>
                                                         </div>
                                                     </div>
                                                 </div>
