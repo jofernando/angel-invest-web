@@ -22,27 +22,12 @@
         <script src="{{ asset('bootstrap-5.1.3/js/bootstrap.js') }}"></script>
         <script src="{{ asset('jquery/jquery-3.6.min.js') }}"></script>
     </head>
-    <body class="font-sans antialiased">
-        <x-jet-banner />
-
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-
+    <body>
+        @component('layouts.nav_bar')@endcomponent
+        <main>
+            {{ $slot }}
+        </main>
+        @component('layouts.footer')@endcomponent
         @stack('modals')
 
         @livewireScripts

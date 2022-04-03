@@ -17,6 +17,10 @@ body {
     background-color: white;
 }
 
+body img {
+    display: inline;
+}
+
 /* NAVBAR */
 
 .nav-color {
@@ -49,6 +53,7 @@ body {
 }
 
 #logo-angel-invest {
+    display: inline;
     width: 500px;
 }
 
@@ -280,30 +285,6 @@ footer {
     height: 80px;
 }
 
-.btn-color-dafault {
-    background-color: var(--ternary-color);
-    border-color: var(--ternary-color);
-}
-
-.btn-color-dafault:hover {
-    background-color: var(--btn-hover-color);
-    border-color: var(--btn-hover-color);
-}
-
-.btn-color-dafault:focus {
-    background-color: var(--btn-hover-color);
-    border-color: var(--btn-hover-color);
-    box-shadow: 0 0 0 0.2rem var(--btn-hover-color);
-}
-
-label {
-    font-weight: 600;
-}
-
-/* .teste {
-    width: 200px;
-    height: 200px;
-    background-color: red;
 #text-bnt-users {
     margin-top: 15px;
     margin-bottom: 15px;
