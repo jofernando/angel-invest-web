@@ -26,8 +26,8 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                                            <button id="btn-entrepreneur" class="btn btn-outline-investidor-empreendedor selected" type="button" onclick="alterar_img('{{asset('img/empreendedor-preto.svg')}}', 'entrepreneur-registration')">Empreendedor</button>
-                                                            <button id="btn-investor" class="btn btn-outline-investidor-empreendedor" type="button" onclick="alterar_img('{{asset('img/investidor-preto-quad.png')}}', 'investor-registration')">Investidor-anjo</button>
+                                                            <button id="btn-entrepreneur" class="btn btn-outline-investidor-empreendedor @if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']) @else selected @endif" type="button" onclick="alterar_img('{{asset('img/empreendedor-preto.svg')}}', 'entrepreneur-registration')">Empreendedor</button>
+                                                            <button id="btn-investor" class="btn btn-outline-investidor-empreendedor @if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']) selected @endif" type="button" onclick="alterar_img('{{asset('img/investidor-preto-quad.png')}}', 'investor-registration')">Investidor-anjo</button>
                                                         </div>
                                                     </div>
                                                 </div>
