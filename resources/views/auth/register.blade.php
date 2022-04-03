@@ -25,9 +25,9 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="input-group mb-3">
-                                                            <button id="btn-entrepreneur" class="btn btn-outline-primary" type="button" onclick="alterar_img('{{asset('img/empreendedor-preto.svg')}}', 'entrepreneur-registration')">Empreendedor</button>
-                                                            <button id="btn-investor" class="btn btn-outline-secondary" type="button" onclick="alterar_img('{{asset('img/investidor-preto-quad.png')}}', 'investor-registration')">Investidor-anjo</button>
+                                                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                            <button id="btn-entrepreneur" class="btn btn-outline-investidor-empreendedor selected" type="button" onclick="alterar_img('{{asset('img/empreendedor-preto.svg')}}', 'entrepreneur-registration')">Empreendedor</button>
+                                                            <button id="btn-investor" class="btn btn-outline-investidor-empreendedor" type="button" onclick="alterar_img('{{asset('img/investidor-preto-quad.png')}}', 'investor-registration')">Investidor-anjo</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -198,6 +198,16 @@
     </div>
 
     <script>
+        $('#btn-entrepreneur').on('click', function(){
+            $('#btn-investor').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $('#btn-investor').on('click', function(){
+            $('#btn-entrepreneur').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
         function alterar_img(path_img, title) {
             value_entrepreneur = "{{\App\Models\User::PROFILE_ENUM['entrepreneur']}}";
             value_investor = "{{\App\Models\User::PROFILE_ENUM['investor']}}";
