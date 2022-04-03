@@ -26,5 +26,20 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+
+        <script>
+            $(document).ready(function () {
+                var btn = document.getElementsByClassName("submit-form-btn");
+                if(btn.length > 0){
+                    $(document).on('submit', 'form', function() {
+                        $('button').attr('disabled', 'disabled');
+                        for (var i = 0; i < btn.length; i++) {
+                        btn[i].textContent = 'Aguarde...';
+                        btn[i].style.backgroundColor = btn[i].style.backgroundColor + 'd8';
+                    }
+                    });
+                }
+            })
+        </script>
     </body>
 </html>
