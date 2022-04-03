@@ -13,8 +13,10 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif !important;
-    background-color: var(--color-backgroud);
+    background-color: white;
 }
+
+/* NAVBAR */
 
 .nav-color {
     background-color: var(--primary-color) !important;
@@ -36,9 +38,17 @@ body {
     color: var(--color-nav-link-hover) !important;
 }
 
+/* X NAVBAR X */
+
+/* HOME */
+
 #container-home {
-    margin-top: 75px;
+    margin-top: -20px;
     margin-bottom: 20px;
+}
+
+#logo-angel-invest {
+    width: 500px;
 }
 
 #home-box {
@@ -46,6 +56,7 @@ body {
 }
 
 #home-text {
+    margin-top: -30px;
     padding-left: 75px;
     padding-right: 75px;
 }
@@ -55,6 +66,8 @@ body {
 }
 
 #row-cards-startups {
+    justify-content: center;
+    align-items: center;
     background-color: var(--secondary-color);
 }
 
@@ -74,30 +87,38 @@ body {
     margin-bottom: -30px;
 }
 
+.qtd-investor {
+    background-color: yellow;
+    padding: 4px;
+}
+
 .card-home .title-startup {
     font-size: 24px;
     padding-left: 13px;
 }
 
 .card-home .name-startup {
-    padding-left: 80px;
+    padding-left: 110px;
 }
 
 .card-home .area-startup {
-    position: relative;
     margin-top: -22px;
-    top: 35px;
-    text-align: right;
-    padding-right: 15px;
+    position: relative;
+    top: 40px;
 }
 
 .card-home .area-startup .span-area-startup {
+    padding: 4px;
     background-color: green;
 } 
 
 .img-logo {
     width: 100px;
 }
+
+/* X HOME X */
+
+/* CADASTRO */
 
 #colum-img {
     text-align: center;
@@ -192,6 +213,10 @@ body {
     transition: 0.3s;
 }
 
+/* X CADASTRO X */
+
+/* FOOTER */
+
 footer {
     background-color: var(--primary-color);
     margin-top: 70px;
@@ -218,3 +243,5 @@ footer {
 .text-users {
     font-size: 18px;
 }
+
+/* X FOOTER X */
