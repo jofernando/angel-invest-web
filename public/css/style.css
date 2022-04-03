@@ -9,6 +9,7 @@
     --color-background-create-user: rgb(217, 217, 217);
     --btn-primary-color: #0d6efd;
     --btn-secondary-color: #6c757d;
+    --btn-hover-color: rgb(1, 35, 49);
 }
 
 body {
@@ -260,14 +261,14 @@ footer {
 }
 
 .btn-color-dafault:hover {
-    background-color: var(--primaria);
-    border-color: var(--primaria);
+    background-color: var(--btn-hover-color);
+    border-color: var(--btn-hover-color);
 }
 
 .btn-color-dafault:focus {
-    background-color: var(--primaria);
-    border-color: var(--primaria);
-    box-shadow: 0 0 0 0.2rem var(--primaria);
+    background-color: var(--btn-hover-color);
+    border-color: var(--btn-hover-color);
+    box-shadow: 0 0 0 0.2rem var(--btn-hover-color);
 }
 
 /* .teste {
