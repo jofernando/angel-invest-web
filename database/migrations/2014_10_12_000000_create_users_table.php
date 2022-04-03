@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('cpf');
             $table->smallInteger('tipo');
             $table->smallInteger('sexo');
+            $table->date('data_de_nascimento');
             $table->rememberToken();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();

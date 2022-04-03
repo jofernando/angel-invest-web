@@ -21,7 +21,7 @@ return [
     'alpha_dash'           => 'O campo :attribute só pode conter letras, números e traços.',
     'alpha_num'            => 'O campo :attribute só pode conter letras e números.',
     'array'                => 'O campo :attribute deve ser uma matriz.',
-    'before'               => 'O campo :attribute deve ser uma data anterior :date.',
+    'before'               => 'O campo :attribute deve ser uma data anterior a hoje.',
     'before_or_equal'      => 'O campo :attribute deve ser uma data anterior ou igual a :date.',
     'between'              => [
         'numeric' => 'O campo :attribute deve ser entre :min e :max.',

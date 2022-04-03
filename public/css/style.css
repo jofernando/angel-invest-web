@@ -1,0 +1,220 @@
+:root {
+    --primary-color: rgb(41, 123, 129);
+    --secondary-color: rgb(77, 99, 95);
+    --ternary-color: rgb(3, 64, 90);
+    --color-nav-link: white;
+    --color-nav-link-hover: rgb(187, 187, 187);
+    --color-backgroud: rgb(236, 236, 236);
+    --color-img-backgroud: rgb(59, 146, 184);
+    --color-background-create-user: rgb(217, 217, 217);
+    --btn-primary-color: #0d6efd;
+    --btn-secondary-color: #6c757d;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif !important;
+    background-color: var(--color-backgroud);
+}
+
+.nav-color {
+    background-color: var(--primary-color) !important;
+}
+
+.nav-link-logo {
+    color: var(--color-nav-link) !important;
+}
+
+.nav-link {
+    margin-left: 15px;
+    margin-right: 15px;
+    color: var(--color-nav-link) !important;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    transition: 0.3s;
+    color: var(--color-nav-link-hover) !important;
+}
+
+#container-home {
+    margin-top: 75px;
+    margin-bottom: 20px;
+}
+
+#home-box {
+    text-align: center;
+}
+
+#home-text {
+    padding-left: 75px;
+    padding-right: 75px;
+}
+
+#row-startups {
+    background-color: white;
+}
+
+#row-cards-startups {
+    background-color: var(--secondary-color);
+}
+
+.card-img-top {
+    height: 150px;
+}
+
+.card-home {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 0px;
+}
+
+.card-home .titles-pitch {
+    position: relative;
+    bottom: 40px;
+    margin-bottom: -30px;
+}
+
+.card-home .title-startup {
+    font-size: 24px;
+    padding-left: 13px;
+}
+
+.card-home .name-startup {
+    padding-left: 80px;
+}
+
+.card-home .area-startup {
+    position: relative;
+    margin-top: -22px;
+    top: 35px;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.card-home .area-startup .span-area-startup {
+    background-color: green;
+} 
+
+.img-logo {
+    width: 100px;
+}
+
+#colum-img {
+    text-align: center;
+}
+
+#img-illustrative {
+    display: inline;
+    background-color: var(--color-img-backgroud);
+    border-radius: 50% !important;
+    padding: 10px;
+    height: 300px;
+    width: 300px;
+    margin-top: -75px;
+}
+
+#top-img-div {
+    height: 150px;
+    width: 100%;
+    background-color: var(--ternary-color);
+}
+
+#bottom-img-div {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 58%;
+    background-color: var(--color-background-create-user);
+}
+
+#btn-div {
+    text-align: center !important;
+    align-content: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+#btn-div .btn {
+    background-color: white;
+}
+
+#btn-div .btn-outline-primary:hover {
+    background-color: var(--btn-primary-color);
+}
+
+#btn-div .btn-outline-secondary:hover {
+    background-color: var(--btn-secondary-color);
+}
+
+#btn-div .input-group {
+    position: relative;
+    display: inline;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
+
+#form-registration {
+    padding: 20px;
+    padding-bottom: 0px;
+}
+
+#password-minimo {
+    font-size: 12px;
+}
+
+#bottom-img {
+    height: 80px;
+    background-color: var( --color-background-create-user);
+}
+
+#bottom-form {
+    height: 80px;
+    background-color: var(--ternary-color);
+}
+
+.card-register {
+    border-radius: 0px;
+    padding-right: 11px;
+    padding-left: 11px;
+}
+
+#input-profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--color-background-create-user);
+    transition: 0.3s;
+}
+
+#input-profile-photo:hover {
+    background-color: rgb(184, 184, 184);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+footer {
+    background-color: var(--primary-color);
+    margin-top: 70px;
+}
+
+.logo {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#logo-footer {
+    width: 200px;
+}
+
+#logo-ufape {
+    height: 80px;
+}
+
+#text-bnt-users {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.text-users {
+    font-size: 18px;
+}

@@ -14,9 +14,13 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
         @livewireStyles
+        <link rel="stylesheet" href="{{ asset('bootstrap-5.1.3/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="{{ asset('bootstrap-5.1.3/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('jquery/jquery-3.6.min.js') }}"></script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -42,5 +46,20 @@
         @stack('modals')
 
         @livewireScripts
+
+        <script>
+            $(document).ready(function () {
+                var btn = document.getElementsByClassName("submit-form-btn");
+                if(btn.length > 0){
+                    $(document).on('submit', 'form', function() {
+                        $('button').attr('disabled', 'disabled');
+                        for (var i = 0; i < btn.length; i++) {
+                        btn[i].textContent = 'Aguarde...';
+                        btn[i].style.backgroundColor = btn[i].style.backgroundColor + 'd8';
+                    }
+                    });
+                }
+            })
+        </script>
     </body>
 </html>

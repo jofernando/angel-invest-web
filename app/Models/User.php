@@ -9,8 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
@@ -61,4 +63,61 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /*
+     * Array profile enum
+    */
+
+    public const PROFILE_ENUM = [
+        'entrepreneur' => 1,
+        'investor' => 2,
+    ];
+
+    public const SEXO_ENUM = [
+        'feminine' => 1,
+        'masculine' => 2,
+        'prefer_not_to_inform' => 3,
+    ];
+
+    /**
+     * Save profile photo in the path
+     * 
+     * @param Array $input : input with profile photo
+     * @return void
+     */
+
+    public function save_profile_foto($input) {
+        if (array_key_exists('foto_do_perfil', $input)) {
+            if ($this->profile_photo_path != null) {
+                if (Storage::disk()->exists('public/' . $this->profile_photo_path)) {
+                    Storage::delete('public/' . $this->profile_photo_path);
+                }
+            }
+
+            $path = 'users/'.$this->id.'/';
+            $photo_name = $input['foto_do_perfil']->getClientOriginalName();
+            Storage::putFileAs('public/'.$path, $input['foto_do_perfil'], $photo_name);
+            $this->profile_photo_path = $path . $photo_name;
+            $this->update();
+        }
+
+        $this->save();
+    }
+
+    /**
+     * Set atributes user object
+     * 
+     * @param Array $input : input with atributes user
+     * @return void
+     */
+
+    public function set_atributes($input) {
+        $this->name = $input['nome'];
+        $this->email = $input['email'];
+        $this->password = Hash::make($input['password']);
+        $this->tipo = $input['profile'];
+        $this->cpf = $input['cpf'];
+        $this->data_de_nascimento = $input['data_de_nascimento'];
+        $this->sexo = $input['sexo'];
+    }
 }
