@@ -13,7 +13,7 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <img id="img-illustrative" src="@if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']){{asset('img/investidor-preto-quad.png')}}@else{{asset('img/empreendedor-preto.svg')}}@endif" alt="Imagem ilustrativa empreendedor">
+                                                <img id="img-illustrative" src="@if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']){{asset('img/investidor-preto.svg')}}@else{{asset('img/empreendedor-preto.svg')}}@endif" alt="Imagem ilustrativa empreendedor">
                                             </div>
                                         </div>
                                         <div id="btn-div" class="row">
@@ -25,19 +25,19 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="input-group mb-3">
-                                                            <button id="btn-entrepreneur" class="btn btn-outline-primary" type="button" onclick="alterar_img('{{asset('img/empreendedor-preto.svg')}}', 'entrepreneur-registration')">Empreendedor</button>
-                                                            <button id="btn-investor" class="btn btn-outline-secondary" type="button" onclick="alterar_img('{{asset('img/investidor-preto-quad.png')}}', 'investor-registration')">Investidor-anjo</button>
+                                                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                            <button id="btn-entrepreneur" class="btn btn-outline-investidor-empreendedor @if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']) @else selected @endif" type="button" onclick="alterar_img('{{asset('img/empreendedor-preto.svg')}}', 'entrepreneur-registration')">Empreendedor</button>
+                                                            <button id="btn-investor" class="btn btn-outline-investidor-empreendedor @if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']) selected @endif" type="button" onclick="alterar_img('{{asset('img/investidor-preto.svg')}}', 'investor-registration')">Investidor-anjo</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row justify-content-center" style="margin-top: 17px;">
-                                            <div id="text-entrepreneur" class="col-md-12 text-users">
+                                            <div id="text-entrepreneur" class="col-md-12 text-users" style="height: 50px;">
                                                 Cadastrando-se como empreendedor, você poderá adicionar uma startup e publicar a sua proposta de negócio. Então assim poderá deixar sua proposta visível para que investidores possam fazer ofertas.
                                             </div>
-                                            <div id="text-investor" class="col-md-12 text-users" style="display: none;">
+                                            <div id="text-investor" class="col-md-12 text-users" style="display: none; height: 50px;">
                                                 Cadastrando-se como investidor-anjo, você poderá fazer uma oferta às startups do seu interesse que tenham publicado uma proposta. 
                                             </div>
                                         </div>
@@ -62,7 +62,7 @@
                                                     <label id="label-photo" for="foto_do_perfil" class="form-label">Foto do perfil</label>
                                                     <img id="input-profile-photo" src="img/perfil.svg" alt="Imagem default perfil" onclick="click_file_input()">
                                                     <div style="display: none;">
-                                                        <input id="foto_do_perfil" name="foto_do_perfil" type="file" class="form-control" accept="png">
+                                                        <input id="foto_do_perfil" name="foto_do_perfil" type="file" class="form-control" accept=".png, .jpg">
                                                     </div>
                                                     @error('foto_do_perfil')
                                                         <div id="validationServer03Feedback" class="invalid-feedback">
@@ -188,6 +188,16 @@
     </div>
 
     <script>
+        $('#btn-entrepreneur').on('click', function(){
+            $('#btn-investor').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $('#btn-investor').on('click', function(){
+            $('#btn-entrepreneur').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
         function alterar_img(path_img, title) {
             value_entrepreneur = "{{\App\Models\User::PROFILE_ENUM['entrepreneur']}}";
             value_investor = "{{\App\Models\User::PROFILE_ENUM['investor']}}";
