@@ -76,6 +76,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public const SEXO_ENUM = [
         'feminine' => 1,
         'masculine' => 2,
+        'prefer_not_to_inform' => 3,
     ];
 
     /**

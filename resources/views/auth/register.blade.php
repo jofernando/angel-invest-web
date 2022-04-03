@@ -127,6 +127,7 @@
                                                         <option selected disabled>selecione</option>
                                                         <option @if(old('sexo') == \App\Models\User::SEXO_ENUM['feminine']) selected @endif value="{{\App\Models\User::SEXO_ENUM['feminine']}}">Feminino</option>
                                                         <option @if(old('sexo') == \App\Models\User::SEXO_ENUM['masculine']) selected @endif value="{{\App\Models\User::SEXO_ENUM['masculine']}}">Masculino</option>
+                                                        <option @if(old('sexo') == \App\Models\User::SEXO_ENUM['prefer_not_to_inform']) selected @endif value="{{\App\Models\User::SEXO_ENUM['prefer_not_to_inform']}}">Prefiro não informar</option>
                                                     </select>
 
                                                     @error('sexo')
