@@ -53,7 +53,7 @@
                                                 <h3 id="entrepreneur-registration" class="card-title">Cadastro de <span style="color: rgb(41, 103, 129);">empreendedor</span></h3>
                                             </div>
                                         </div>
-                                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                                        <form id="form-registration-user" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                                             @csrf
                                             <input id="profile" type="hidden" name="profile" value="{{\App\Models\User::PROFILE_ENUM['entrepreneur']}}">
                                             <div class="row mb-3" style="text-align: right;">
@@ -169,7 +169,7 @@
                                             <div class="row" style="text-align: right;">
                                                 <div class="col-md-6"></div>
                                                 <div class="col-md-6">
-                                                    <button type="submit" class="btn btn-success" style="width: 100%;">Cadastrar</button>
+                                                    <button type="submit" class="btn btn-success submit-form-btn" style="width: 100%;">Cadastrar</button>
                                                 </div>
                                             </div>
                                         </form>
