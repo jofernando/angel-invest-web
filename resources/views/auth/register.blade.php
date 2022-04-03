@@ -19,7 +19,7 @@
                                         <div id="btn-div" class="row">
                                             <div class="col-md-12">
                                                 <div class="row">
-                                                    <div class="col-md-12">
+                                                    <div id="text-bnt-users" class="col-md-12 text-users">
                                                         Você é... ?
                                                     </div>
                                                 </div>
@@ -33,23 +33,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row justify-content-center" style="padding-top: 40px;">
-                                            <div id="text-entrepreneur" class="col-md-12">
-                                                Cadastrando-se como empreendedor você poderá criar sua startup, 
-                                                assim como suas propostas para aquela startup, 
-                                                podendo logo após utilizar da exibição da mesma, 
-                                                aonde investidores-anjo poderam visualizar sua prosposta por um
-                                                determinador periodo, caso desejem poderão também fazer ofertas de
-                                                negociações futuras caso você deseje.
+                                        <div class="row justify-content-center" style="margin-top: 17px;">
+                                            <div id="text-entrepreneur" class="col-md-12 text-users">
+                                                Cadastrando-se como empreendedor, você poderá adicionar uma startup e publicar a sua proposta de negócio. Então assim poderá deixar sua proposta visível para que investidores possam fazer ofertas.
                                             </div>
-                                            <div id="text-investor" class="col-md-12" style="display: none;">
-                                                Cadastrando-se como investidor você poderá visualizar exibições de 
-                                                propostas das startups emergentes. Caso deseje fazer uma oferta de aporte 
-                                                a startup, você deve realizar um deposito na sua carteira da angel invest.
-                                                Deixamos claro que ofertas não são transferencias diretas as startups e sim 
-                                                valores simbólicos que poderão ser negociados após sua colocação ser definida
-                                                no final da exibição da proposta. Um valor é cobrado em cima da oferta, para
-                                                saber mais sobre os valores <a href="#">clique aqui</a>. 
+                                            <div id="text-investor" class="col-md-12 text-users" style="display: none;">
+                                                Cadastrando-se como investidor-anjo, você poderá fazer uma oferta às startups do seu interesse que tenham publicado uma proposta. 
                                             </div>
                                         </div>
                                     </div>
