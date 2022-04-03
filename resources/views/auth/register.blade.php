@@ -34,10 +34,10 @@
                                             </div>
                                         </div>
                                         <div class="row justify-content-center" style="margin-top: 17px;">
-                                            <div id="text-entrepreneur" class="col-md-12 text-users">
+                                            <div id="text-entrepreneur" class="col-md-12 text-users" style="height: 50px;">
                                                 Cadastrando-se como empreendedor, você poderá adicionar uma startup e publicar a sua proposta de negócio. Então assim poderá deixar sua proposta visível para que investidores possam fazer ofertas.
                                             </div>
-                                            <div id="text-investor" class="col-md-12 text-users" style="display: none;">
+                                            <div id="text-investor" class="col-md-12 text-users" style="display: none; height: 50px;">
                                                 Cadastrando-se como investidor-anjo, você poderá fazer uma oferta às startups do seu interesse que tenham publicado uma proposta. 
                                             </div>
                                         </div>
@@ -62,7 +62,7 @@
                                                     <label id="label-photo" for="foto_do_perfil" class="form-label">Foto do perfil</label>
                                                     <img id="input-profile-photo" src="img/perfil.svg" alt="Imagem default perfil" onclick="click_file_input()">
                                                     <div style="display: none;">
-                                                        <input id="foto_do_perfil" name="foto_do_perfil" type="file" class="form-control" accept="png">
+                                                        <input id="foto_do_perfil" name="foto_do_perfil" type="file" class="form-control" accept=".png, .jpg">
                                                     </div>
                                                     @error('foto_do_perfil')
                                                         <div id="validationServer03Feedback" class="invalid-feedback">
