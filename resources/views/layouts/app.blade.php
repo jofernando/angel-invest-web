@@ -22,7 +22,7 @@
         <script src="{{ asset('bootstrap-5.1.3/js/bootstrap.js') }}"></script>
         <script src="{{ asset('jquery/jquery-3.6.min.js') }}"></script>
     </head>
-    <body>
+    <body style="background-color: white;">
         @component('layouts.nav_bar')@endcomponent
         <main>
             {{ $slot }}

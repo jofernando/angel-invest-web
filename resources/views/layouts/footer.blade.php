@@ -23,17 +23,17 @@
                     </div>
                 </div>
                 <div class="row logo" style="margin-bottom: 0px;">
-                    <div class="col-md-3" style="text-align: right;"></div>
-                    <div class="col-md-2" style="text-align: right;">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-2">
                         <img id="logo-instagram" src="{{asset('img/Icon awesome-instagram.svg')}}" alt="Logo instagram">
                     </div>
                     <div class="col-md-2">
                         <img id="logo-facebook" src="{{asset('img/Icon awesome-facebook.svg')}}" alt="Logo facebook">
                     </div>
-                    <div class="col-md-2" style="text-align: left;">
+                    <div class="col-md-2">
                         <img id="logo-email" src="{{asset('img/Icon zocial-email-white.svg')}}" alt="Logo email">
                     </div>
-                    <div class="col-md-3" style="text-align: right;"></div>
+                    <div class="col-md-3"></div>
                 </div>
             </div>
         </div>

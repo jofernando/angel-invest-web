@@ -278,11 +278,33 @@ footer {
 }
 
 #logo-footer {
-    width: 200px;
+    padding-top: 25px;
+    width: 150px;
+    height: auto;
 }
 
 #logo-ufape {
     height: 80px;
+}
+
+.btn-color-dafault {
+    background-color: var(--ternary-color);
+    border-color: var(--ternary-color);
+}
+
+.btn-color-dafault:hover {
+    background-color: var(--btn-hover-color);
+    border-color: var(--btn-hover-color);
+}
+
+.btn-color-dafault:focus {
+    background-color: var(--btn-hover-color);
+    border-color: var(--btn-hover-color);
+    box-shadow: 0 0 0 0.2rem var(--btn-hover-color);
+}
+
+label {
+    font-weight: 600;
 }
 
 #text-bnt-users {
