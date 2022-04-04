@@ -188,6 +188,10 @@
     </div>
 
     <script>
+        $(document).ready(function($) {
+            $('#cpf').mask('000.000.000-00');
+        });
+        
         $('#btn-entrepreneur').on('click', function(){
             $('#btn-investor').removeClass('selected');
             $(this).addClass('selected');
