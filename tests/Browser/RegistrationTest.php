@@ -31,13 +31,13 @@ class RegistrationTest extends DuskTestCase
                     ->type('password_confirmation', 'password')
                     ->check('termos')
                     ->press('Cadastrar')
-                    ->assertSee('Deslogar');
+                    ->assertSee('Sair');
         });
     }
 
     public function test_new_users_showing_errors() {
         $this->browse(function (Browser $browser) {
-            $browser->press('Deslogar')
+            $browser->press('Sair')
                     ->visitRoute('register')
                     ->attach('foto_do_perfil', __DIR__ . '/img/01.png')
                     ->type('nome', "Daniela Bárbara Agatha Mendes")

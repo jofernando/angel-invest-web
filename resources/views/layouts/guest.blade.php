@@ -21,12 +21,14 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="{{ asset('bootstrap-5.1.3/js/bootstrap.js') }}"></script>
         <script src="{{ asset('jquery/jquery-3.6.min.js') }}"></script>
+        <script src="{{ asset('jquery/jquery.mask.min.js') }}"></script>
     </head>
-    <body>
+    <body style="background-color: white;">
+        @component('layouts.nav_bar')@endcomponent
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
-
+        @component('layouts.footer')@endcomponent
         <script>
             $(document).ready(function () {
                 var btn = document.getElementsByClassName("submit-form-btn");

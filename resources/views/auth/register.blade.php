@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div id="container-home" class="container">
+    <div id="container-home" class="container" style="margin-top: 40px;">
         <div class="col-md-12">
             <div class="card card-register mb-3" style="max-width: 100%;">
                 <div id="card-container" class="row">
@@ -188,6 +188,10 @@
     </div>
 
     <script>
+        $(document).ready(function($) {
+            $('#cpf').mask('000.000.000-00');
+        });
+        
         $('#btn-entrepreneur').on('click', function(){
             $('#btn-investor').removeClass('selected');
             $(this).addClass('selected');
