@@ -1,0 +1,62 @@
+name: Laravel Dusk Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  laravel-tests:
+
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: root
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: laravel
+          POSTGRES_USER: root
+        ports:
+          - 5432:5432
+    steps:
+    - uses: actions/checkout@v2
+    - name: Copy .env
+      run: cp .env.example .env
+    - name: Install Dependencies
+      run: composer install --quiet --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    - name: Generate Application Key
+      run: php artisan key:generate
+    - name: Run migrations
+      run: php artisan migrate --seed
+    - name: Upgrade Chrome Driver
+      run: php artisan dusk:chrome-driver --detect
+    - name: Start Chrome Driver
+      run: ./vendor/laravel/dusk/bin/chromedriver-linux &
+    - name: Run Laravel Server
+      run: php artisan serve --no-reload &
+    - name: Excute tests (Dusk tests)
+      env:
+        APP_URL: "http://127.0.0.1:8000"
+      run: php artisan dusk
+    - name: Upload Screenshots
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: screenshots
+        path: tests/Browser/screenshots
+    - name: Upload Console Logs
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: console
+        path: tests/Browser/console
+    - name: Upload Sources
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: sources
+        path: tests/Browser/source
