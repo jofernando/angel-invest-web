@@ -59,6 +59,6 @@ class RegistrationTest extends DuskTestCase
     private function generate_future_date($date) {
         $date = explode('-', $date);
         $date = array_reverse($date);
-        return implode($date, "");
+        return implode("", $date,);
     }
 }
