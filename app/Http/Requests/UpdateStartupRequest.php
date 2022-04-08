@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Startup;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateStartupRequest extends FormRequest
 {
@@ -28,7 +29,7 @@ class UpdateStartupRequest extends FormRequest
             'nome' => ['required', 'string'],
             'descricao' => ['required', 'string'],
             'logo' => ['nullable', 'image', 'max:10240'],
-            'cnpj' => ['required', 'cnpj'],
+            'cnpj' => ['required', 'cnpj', Rule::unique('startups')->ignore($this->route('startup'))],
             'email' => ['required', 'email'],
             'area' => ['required', 'numeric'],
         ];
