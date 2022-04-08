@@ -64,10 +64,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
+    public function startups()
+    {
+        return $this->hasMany(Startup::class);
+    }
+
     /*
      * Array profile enum
     */
-
     public const PROFILE_ENUM = [
         'entrepreneur' => 1,
         'investor' => 2,
@@ -81,11 +85,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Save profile photo in the path
-     * 
+     *
      * @param Array $input : input with profile photo
+     *
      * @return void
      */
-
     public function save_profile_foto($input) {
         if (array_key_exists('foto_do_perfil', $input)) {
             if ($this->profile_photo_path != null) {
@@ -106,11 +110,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Set atributes user object
-     * 
+     *
      * @param Array $input : input with atributes user
+     *
      * @return void
      */
-
     public function set_atributes($input) {
         $this->name = $input['nome'];
         $this->email = $input['email'];
