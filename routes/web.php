@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\StartupController;
 use Illuminate\Support\Facades\Route;
+use phpDocumentor\Reflection\Types\Resource_;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +27,5 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::resource('startups', StartupController::class);
 });
