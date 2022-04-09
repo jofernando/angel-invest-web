@@ -8,15 +8,8 @@ use App\Models\User;
 Use App\Models\Area;
 use App\Models\Startup;
 
-use function PHPUnit\Framework\assertEquals;
-
 class CreatePropostaTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     public function test_view_criar_proposta_esta_renderizando()
     {
         $startup = $this->criar_startup();

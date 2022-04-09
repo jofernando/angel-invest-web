@@ -28,7 +28,7 @@ class StartupFactory extends Factory
     /**
      * Cria uma startup model passando um usuário
      * 
-     * @return $startup
+     * @return Startup $startup
      */
 
     public function createStartup(User $user, Area $area) 
