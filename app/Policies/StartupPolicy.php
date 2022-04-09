@@ -12,6 +12,30 @@ class StartupPolicy
     use HandlesAuthorization;
 
     /**
+     * Determina se o usuário pode visualizar todas as propostas de uma startup.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Startup  $proposta
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewIndex(User $user, Startup $startup)
+    {
+        return $this->userOwnsTheStartup($user, $startup);
+    }
+
+    /**
+     * Determina se o usuário pode criar uma proposta para uma startup.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Startup  $proposta
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function createProposta(User $user, Startup $startup)
+    {
+        return $this->userOwnsTheStartup($user, $startup);
+    }
+
+    /**
      * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
@@ -93,7 +117,14 @@ class StartupPolicy
         return $this->userOwnsTheStartup($user, $startup);
     }
 
-    private function userOwnsTheStartup(User $user, Startup $startup)
+    /**
+     * Determina se o usuário é dono da startup.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Startup  $startup
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function userOwnsTheStartup(User $user, Startup $startup)
     {
         return $startup->user_id == $user->id;
     }

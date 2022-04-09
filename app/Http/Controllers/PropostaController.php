@@ -18,6 +18,7 @@ class PropostaController extends Controller
     public function index($startup)
     {   
         $startup = Startup::find($startup);
+        $this->authorize('viewIndex', $startup);
         $propostas = $startup->propostas;
         return view('proposta.index', compact('propostas', 'startup'));
     }
@@ -31,6 +32,7 @@ class PropostaController extends Controller
     public function create($startup)
     {
         $startup = Startup::find($startup);
+        $this->authorize('createProposta', $startup);
         return view('proposta.create', compact('startup'));
     }
 
@@ -43,11 +45,14 @@ class PropostaController extends Controller
      */
     public function store($startup, PropostaRequest $request)
     {
+        $startup = Startup::find($startup);
+        $this->authorize('createProposta', $startup);
+
         $request->validate([
             'vídeo_do_pitch'    => 'required|file|max:102400|mimes:mp4,mkv',
             'thumbnail'         => 'required|file|max:5120|mimes:png,jpg',
         ]);
-        $startup = Startup::find($startup);
+
         $proposta = new Proposta();
         $this->set_attributes($proposta, $request->all());
         $proposta->startup_id = $startup->id;
@@ -71,6 +76,8 @@ class PropostaController extends Controller
     {
         $startup = Startup::find($startup);
         $proposta = Proposta::find($proposta);
+        $this->authorize('view', $proposta);
+        $this->authorize('view', $startup);
 
         return view('proposta.show', compact('startup', 'proposta'));
     }
@@ -84,8 +91,11 @@ class PropostaController extends Controller
      */
     public function edit($startup, $proposta)
     {
-        $startup = Startup::find($startup);
         $proposta = Proposta::find($proposta);
+        $this->authorize('update', $proposta);
+
+        $startup = Startup::find($startup);
+        $this->authorize('update', $startup);
 
         return view('proposta.edit', compact('startup', 'proposta'));
     }
@@ -100,8 +110,12 @@ class PropostaController extends Controller
      */
     public function update(PropostaRequest $request, $startup, $proposta)
     {
-        $startup = Startup::find($startup);
         $proposta = Proposta::find($proposta);
+        $this->authorize('update', $proposta);
+
+        $startup = Startup::find($startup);
+        $this->authorize('update', $startup);
+
         $this->set_attributes($proposta, $request->all());
         $proposta->video_caminho = $this->salvar_arquivo($proposta, $request->file('vídeo_do_pitch'), $proposta->video_caminho, '/video/');
         $proposta->thumbnail_caminho = $this->salvar_arquivo($proposta, $request->file('thumbnail'), $proposta->thumbnail_caminho, '/thumb/');
@@ -121,6 +135,11 @@ class PropostaController extends Controller
     public function destroy($startup, $proposta)
     {
         $proposta = Proposta::find($proposta);
+        $this->authorize('delete', $proposta);
+
+        $startup = Startup::find($startup);
+        $this->authorize('update', $startup);
+
         $this->deletar_arquivo($proposta->video_caminho);
         $this->deletar_arquivo($proposta->thumbnail_caminho);
         $proposta->delete();

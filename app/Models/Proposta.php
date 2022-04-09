@@ -29,6 +29,6 @@ class Proposta extends Model
 
     public function startup()
     {   
-        $this->belongsTo(Startup::class);
+        return $this->belongsTo(Startup::class);
     }
 }
