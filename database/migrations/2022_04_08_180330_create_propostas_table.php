@@ -15,8 +15,10 @@ class CreatePropostasTable extends Migration
     {
         Schema::create('propostas', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
             $table->longText('descricao');
-            $table->string('video_caminho');
+            $table->string('video_caminho')->nullable(true);
+            $table->string('thumbnail_caminho')->nullable(true);
             $table->foreignId('startup_id')->constrained();
             $table->timestamps();
         });
