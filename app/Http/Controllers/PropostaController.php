@@ -77,25 +77,38 @@ class PropostaController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
+     * 
+     * @param  int  $proposta
+     * @param  int  $startup
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($startup, $proposta)
     {
-        //
+        $startup = Startup::find($startup);
+        $proposta = Proposta::find($proposta);
+
+        return view('proposta.edit', compact('startup', 'proposta'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $proposta
+     * @param  int  $startup
      * @return \Illuminate\Http\Response
      */
-    public function update(PropostaRequest $request, $id)
+    public function update(PropostaRequest $request, $startup, $proposta)
     {
-        //
+        $startup = Startup::find($startup);
+        $proposta = Proposta::find($proposta);
+        $this->set_attributes($proposta, $request->all());
+        $proposta->video_caminho = $this->salvar_arquivo($proposta, $request->file('vídeo_do_pitch'), $proposta->video_caminho, '/video/');
+        $proposta->thumbnail_caminho = $this->salvar_arquivo($proposta, $request->file('thumbnail'), $proposta->thumbnail_caminho, '/thumb/');
+        
+        $proposta->update();
+
+        return redirect(route('propostas.index', $startup))->with(['message' => 'Proposta salva com sucesso!']);
     }
 
     /**
