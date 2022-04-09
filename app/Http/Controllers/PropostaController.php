@@ -63,12 +63,16 @@ class PropostaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $proposta
+     * @param  int  $startup
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($startup, $proposta)
     {
-        //
+        $startup = Startup::find($startup);
+        $proposta = Proposta::find($proposta);
+
+        return view('proposta.show', compact('startup', 'proposta'));
     }
 
     /**
