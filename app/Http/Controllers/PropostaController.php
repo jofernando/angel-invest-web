@@ -108,18 +108,24 @@ class PropostaController extends Controller
         
         $proposta->update();
 
-        return redirect(route('propostas.index', $startup))->with(['message' => 'Proposta salva com sucesso!']);
+        return redirect(route('propostas.index', $startup))->with(['message' => 'Proposta atualizada com sucesso!']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $proposta
+     * @param  int  $startup
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($startup, $proposta)
     {
-        //
+        $proposta = Proposta::find($proposta);
+        $this->deletar_arquivo($proposta->video_caminho);
+        $this->deletar_arquivo($proposta->thumbnail_caminho);
+        $proposta->delete();
+
+        return redirect(route('propostas.index', $startup))->with(['message' => 'Proposta deletada com sucesso!']);
     }
 
 
@@ -150,11 +156,7 @@ class PropostaController extends Controller
     private function salvar_arquivo(Proposta $proposta, $file, $diretorio, $path)
     {
         if ($file != null) {
-            if ($diretorio != null) {
-                if (Storage::disk()->exists('public/' . $diretorio)) {
-                    Storage::delete('public/' . $diretorio);
-                }
-            }
+            $this->deletar_arquivo($diretorio);
 
             $path_completo = 'propostas/' . $proposta->id . $path;
             $nome_thumb = $file->getClientOriginalName();
@@ -165,5 +167,21 @@ class PropostaController extends Controller
         } else {
             return $diretorio;
         }        
+    }
+
+    /**
+     * Deleta um arquivo no diretorio especificado
+     * 
+     * @param string $diretorio : diretório do arquivo que será deletado
+     * @return void
+     */
+
+    private function deletar_arquivo($diretorio) 
+    {
+        if ($diretorio != null) {
+            if (Storage::disk()->exists('public/' . $diretorio)) {
+                Storage::delete('public/' . $diretorio);
+            }
+        }
     }
 }
