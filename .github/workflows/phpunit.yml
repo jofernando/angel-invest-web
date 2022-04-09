@@ -22,15 +22,13 @@ jobs:
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
       run: php artisan key:generate
-    - name: Bootstrap Directory Permissions
-      run: chmod 777 bootstrap/cache -R
-    - name: Storage Directory Permissions
-      run: chmod 777 storage -R
+    - name: Directory Permissions
+      run: chmod -R 777 storage/ bootstrap/cache/
     - name: Create Database
       run: |
         mkdir -p database
         touch database/database.sqlite
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
+    - name: Execute tests (Unit and Feature tests) via artisan
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
