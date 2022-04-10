@@ -7,8 +7,10 @@ use App\Http\Requests\UpdateStartupRequest;
 use App\Models\Area;
 use App\Models\Startup;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 
 class StartupController extends Controller
 {
@@ -30,8 +32,48 @@ class StartupController extends Controller
      */
     public function create()
     {
-        $areas = Area::pluck('nome', 'id');
-        return view('startups.create', compact('areas'));
+        $startup = Auth::user()->startups->last();
+        if(!is_null($startup)){
+            if(!is_null($startup->endereco) && !is_null($startup->telefone) && !is_null($startup->documentos)){
+                $startup = null;
+            }
+        }
+
+        if(is_null($startup)){
+            $etapa = "Informações básicas";
+            return view('startups.cadastro', compact('etapa', 'startup'));
+        }
+        elseif(is_null($startup->endereco)){
+            $etapa = "Endereço";
+            return view('startups.cadastro', compact('etapa', 'startup'));
+        }
+    }
+
+    /**
+     * Show the component for creating a new startup.
+     *
+     * @return \Illuminate\Support\Facades\View
+     */
+    public function startupGetComponent(Request $request)
+    {
+        switch($request->etapa_nome){
+            case "Informações básicas":
+                $areas = Area::pluck('nome', 'id');
+                $startup = Auth::user()->startups->last();
+                if(!is_null($startup)){
+                    if(!is_null($startup->endereco) && !is_null($startup->telefone) && !is_null($startup->documentos)){
+                        $startup = null;
+                    }
+                }
+                if(is_null($startup)){
+                    return View::make("startups.create", compact('areas'))
+                    ->render();
+                }else{
+                    return View::make("startups.edit", compact('startup', 'areas'))
+                    ->render();
+                }
+        }
+        
     }
 
     /**
@@ -52,7 +94,7 @@ class StartupController extends Controller
         $startup->user()->associate(Auth::user());
         $startup->area()->associate($validated['area']);
         $startup->save();
-        return redirect()->route('startups.show', $startup);
+        return redirect()->back();
     }
 
     /**

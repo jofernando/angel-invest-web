@@ -1,4 +1,3 @@
-<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Create startup') }}
@@ -81,4 +80,3 @@
     <script>
         $("#cnpj").mask("99.999.999/9999-99");
     </script>
-</x-app-layout>

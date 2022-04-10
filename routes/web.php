@@ -28,4 +28,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::resource('startups', StartupController::class);
+
+    Route::get('/get-component', [StartupController::class, 'startupGetComponent'])->name('startup.component.ajax');
+
 });
