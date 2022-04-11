@@ -95,7 +95,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-padding border" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$proposta->id}}">Deletar</button>
+                            <button type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$proposta->id}}">Deletar</button>
                         </div>
                     </div>
                     </div>
