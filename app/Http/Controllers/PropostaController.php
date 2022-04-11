@@ -19,7 +19,7 @@ class PropostaController extends Controller
     {   
         $startup = Startup::find($startup);
         $this->authorize('viewIndex', $startup);
-        $propostas = $startup->propostas;
+        $propostas = $startup->propostas()->orderBy('titulo')->get();
         return view('proposta.index', compact('propostas', 'startup'));
     }
 

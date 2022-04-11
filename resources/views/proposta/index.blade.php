@@ -50,7 +50,7 @@
                         {{-- {{dd($proposta->thumbnail_caminho)}} --}}
                         <video class="card-img-top" alt="video da startup" controls poster="{{asset('storage/'.$proposta->thumbnail_caminho)}}">
                             <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mp4">
-                            <source src="../video/mov_bbb.mp4" type="video/mkv">
+                            <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mkv">
                         </video>
                         <div class="titles-pitch" class="row">
                             <div class="col-md-12">
