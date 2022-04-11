@@ -406,6 +406,33 @@ button.selected{
 
 /* X CREATE PROPOSTA X */
 
+/* SHOW PROPOSTA */
+
+#btn-voltar {
+  position: relative;
+  top: 80px;
+  left: 30px;
+  margin-top: -30px;
+  text-decoration: none; 
+}
+
+#video-proposta {
+  margin-top: -25px;
+}
+
+#span-area-proposta-startup {
+  padding: 5px;
+}
+
+.documentos {
+  display: inline-block;
+  background-color: #c4c4c4;
+  padding: 4px;
+  margin: -3px;
+}
+
+/* X SHOW PROPOSTA X */
+
 /* FOOTER */
 
 footer {

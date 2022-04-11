@@ -47,7 +47,6 @@
                                 <span class="span-area-startup" style="color: white;">{{$proposta->startup->area->nome}}</span>
                             </div>
                         </div>
-                        {{-- {{dd($proposta->thumbnail_caminho)}} --}}
                         <video class="card-img-top" alt="video da startup" controls poster="{{asset('storage/'.$proposta->thumbnail_caminho)}}">
                             <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mp4">
                             <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mkv">
