@@ -10,6 +10,9 @@
         <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
             @auth
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('startups.index')}}">minhas startups</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('dashboard')}}">Dashboard</a>
                 </li>
                 <div class="ml-3 relative">
@@ -62,7 +65,7 @@
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
-            @else 
+            @else
                 <li class="nav-item">
                     <a class="nav-link" href="#">Investidores-anjo</a>
                 </li>
