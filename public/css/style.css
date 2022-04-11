@@ -265,6 +265,50 @@ button.selected{
 
 /* X CADASTRO X */
 
+/* INDEX PROPOSTA */
+
+.card {
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity));
+}
+
+.titulo-pag {
+  border-bottom: black solid 2px;
+  padding-left: 20px;
+}
+
+.btn-default {
+  background-color: #296781;
+}
+
+.btn-padding {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.border {
+  border-radius: 10px;
+}
+
+.btn-default:hover {
+  background-color: var(--ternary-color);
+}
+
+.btn-default:focus {
+  background-color: var(--ternary-color);
+}
+
+.span-btn-add {
+  position: relative;
+  bottom: 5px;
+}
+
+.index-proposta .titles-pitch .title-startup {
+  font-size: 18px;
+}
+
+/* X INDEX PROPOSTA X */
+
 /* FOOTER */
 
 footer {
