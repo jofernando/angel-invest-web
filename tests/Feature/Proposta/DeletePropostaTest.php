@@ -2,15 +2,7 @@
 
 namespace Tests\Feature\Proposta;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-use App\Models\User;
-Use App\Models\Area;
-use App\Models\Startup;
-use App\Models\Proposta;
-
-class DeletePropostaTest extends TestCase
+class DeletePropostaTest extends PropostaTest
 {
     public function test_deletar_uma_proposta_existente()
     {
@@ -28,18 +20,5 @@ class DeletePropostaTest extends TestCase
         $response = $this->delete('/startup/'.$proposta->startup->id.'/propostas/'.($proposta->id + 1));
 
         $response->assertStatus(403);
-    }
-
-    /**
-     * Cria um usuário, faz sua autenticação e cria uma proposta fake.
-     *
-     * @return Startup $startup
-     */
-    private function criar_proposta()
-    {
-        $this->actingAs($user = User::factory()->create());
-        $area = Area::factory()->create();
-        $startup = Startup::factory()->createStartup($user, $area);
-        return Proposta::factory()->createProposta($startup);
     }
 }

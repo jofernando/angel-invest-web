@@ -2,15 +2,9 @@
 
 namespace Tests\Feature\Proposta;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
-use Tests\TestCase;
-use App\Models\User;
-Use App\Models\Area;
-use App\Models\Startup;
 
-class CreatePropostaTest extends TestCase
+class CreatePropostaTest extends PropostaTest
 {
     public function test_view_criar_proposta_esta_renderizando()
     {
@@ -27,12 +21,7 @@ class CreatePropostaTest extends TestCase
         $video = UploadedFile::fake()->create('teste.mp4');
         $image = UploadedFile::fake()->create('teste.jpg');
 
-        $response = $this->post('/startup/'.$startup->id.'/propostas', [
-            'título' => 'Teste',
-            'descrição' => 'Isto é uma proposta teste',
-            'vídeo_do_pitch' => $video,
-            'thumbnail' => $image,
-        ]);
+        $response = $this->post('/startup/'.$startup->id.'/propostas', $this->get_array_proposta('Teste', 'Isto é uma proposta teste', $video, $image));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('propostas.index', $startup));
@@ -45,12 +34,7 @@ class CreatePropostaTest extends TestCase
         $video = UploadedFile::fake()->create('teste.mp4');
         $image = UploadedFile::fake()->create('teste.jpg');
 
-        $response = $this->post('/startup/'.($startup->id + 1).'/propostas', [
-            'título' => 'Teste',
-            'descrição' => 'Isto é uma proposta teste',
-            'vídeo_do_pitch' => $video,
-            'thumbnail' => $image,
-        ]);
+        $response = $this->post('/startup/'.($startup->id + 1).'/propostas', $this->get_array_proposta('Teste', 'Isto é uma proposta teste', $video, $image));
 
         $response->assertStatus(403);
     }
@@ -59,12 +43,7 @@ class CreatePropostaTest extends TestCase
     {
         $startup = $this->criar_startup();
 
-        $response = $this->post('/startup/'.$startup->id.'/propostas', [
-            'título' => null,
-            'descrição' => null,
-            'vídeo_do_pitch' => null,
-            'thumbnail' => null,
-        ]);
+        $response = $this->post('/startup/'.$startup->id.'/propostas', $this->get_array_proposta(null, null, null, null));
 
         $response->assertStatus(302);
         $response->assertInvalid([
@@ -77,12 +56,7 @@ class CreatePropostaTest extends TestCase
     {
         $startup = $this->criar_startup();
 
-        $response = $this->post('/startup/'.$startup->id.'/propostas', [
-            'título' => 'Teste',
-            'descrição' => 'Isto é uma proposta teste',
-            'vídeo_do_pitch' => null,
-            'thumbnail' => null,
-        ]);
+        $response = $this->post('/startup/'.$startup->id.'/propostas', $this->get_array_proposta('Teste', 'Isto é uma proposta teste', null, null));
 
         $response->assertStatus(302);
         $response->assertInvalid([
@@ -98,36 +72,14 @@ class CreatePropostaTest extends TestCase
         $video = UploadedFile::fake()->create('teste.mp4');
         $image = UploadedFile::fake()->create('teste.jpg');
 
-        $response = $this->post('/startup/'.$startup->id.'/propostas', [
-            'título' => 'Teste 1',
-            'descrição' => 'Isto é uma proposta teste 1',
-            'vídeo_do_pitch' => $video,
-            'thumbnail' => $image,
-        ]);
+        $response = $this->post('/startup/'.$startup->id.'/propostas', $this->get_array_proposta('Teste 1', 'Isto é uma proposta teste 1', $video, $image));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('propostas.index', $startup));
 
-        $response = $this->post('/startup/'.$startup->id.'/propostas', [
-            'título' => 'Teste 2',
-            'descrição' => 'Isto é uma proposta teste 2',
-            'vídeo_do_pitch' => $video,
-            'thumbnail' => $image,
-        ]);
+        $response = $this->post('/startup/'.$startup->id.'/propostas', $this->get_array_proposta('Teste 2', 'Isto é uma proposta teste 2', $video, $image));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('propostas.index', $startup));
-    }
-
-    /**
-     * Cria um usuário, faz sua autenticação e cria uma startup fake.
-     *
-     * @return Startup $startup
-     */
-    private function criar_startup()
-    {
-        $this->actingAs($user = User::factory()->create());
-        $area = Area::factory()->create();
-        return Startup::factory()->createStartup($user, $area);
     }
 }

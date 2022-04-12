@@ -2,16 +2,10 @@
 
 namespace Tests\Feature\Proposta;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
-use Tests\TestCase;
-use App\Models\User;
-Use App\Models\Area;
-use App\Models\Startup;
 use App\Models\Proposta;
 
-class UpdatePropostaTest extends TestCase
+class UpdatePropostaTest extends PropostaTest
 {
     public function test_view_editar_proposta_esta_renderizando()
     {
@@ -27,12 +21,7 @@ class UpdatePropostaTest extends TestCase
         $video = UploadedFile::fake()->create('teste.mp4');
         $image = UploadedFile::fake()->create('teste.jpg');
 
-        $response = $this->put('/startup/'.$proposta->startup->id.'/propostas/'.$proposta->id, [
-            'título' => 'Teste update',
-            'descrição' => 'Isto é uma proposta teste update',
-            'vídeo_do_pitch' => $video,
-            'thumbnail' => $image,
-        ]);
+        $response = $this->put('/startup/'.$proposta->startup->id.'/propostas/'.$proposta->id, $this->get_array_proposta('Teste update', 'Isto é uma proposta teste update', $video, $image));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('propostas.index', $proposta->startup));
@@ -48,12 +37,7 @@ class UpdatePropostaTest extends TestCase
         $video = UploadedFile::fake()->create('teste.mp4');
         $image = UploadedFile::fake()->create('teste.jpg');
 
-        $response = $this->put('/startup/'.$proposta->startup->id.'/propostas/'.($proposta->id+1), [
-            'título' => 'Teste update',
-            'descrição' => 'Isto é uma proposta teste update',
-            'vídeo_do_pitch' => $video,
-            'thumbnail' => $image,
-        ]);
+        $response = $this->put('/startup/'.$proposta->startup->id.'/propostas/'.($proposta->id+1),$this->get_array_proposta('Teste update', 'Isto é uma proposta teste update', $video, $image));
 
         $response->assertStatus(403);
     }
@@ -62,12 +46,7 @@ class UpdatePropostaTest extends TestCase
     {
         $proposta = $this->criar_proposta();
 
-        $response = $this->put('/startup/'.$proposta->startup->id.'/propostas/'.$proposta->id, [
-            'título' => 'Teste update',
-            'descrição' => 'Isto é uma proposta teste update',
-            'vídeo_do_pitch' => null,
-            'thumbnail' => null,
-        ]);
+        $response = $this->put('/startup/'.$proposta->startup->id.'/propostas/'.$proposta->id, $this->get_array_proposta('Teste update', 'Isto é uma proposta teste update', null, null));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('propostas.index', $proposta->startup));
@@ -75,18 +54,5 @@ class UpdatePropostaTest extends TestCase
         $proposta = Proposta::find($proposta->id);
         $this->assertEquals('Teste update', $proposta->titulo);
         $this->assertEquals('Isto é uma proposta teste update', $proposta->descricao);
-    }
-
-    /**
-     * Cria um usuário, faz sua autenticação e cria uma proposta fake.
-     *
-     * @return Startup $startup
-     */
-    private function criar_proposta()
-    {
-        $this->actingAs($user = User::factory()->create());
-        $area = Area::factory()->create();
-        $startup = Startup::factory()->createStartup($user, $area);
-        return Proposta::factory()->createProposta($startup);
     }
 }
