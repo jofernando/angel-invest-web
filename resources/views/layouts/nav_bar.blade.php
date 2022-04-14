@@ -7,7 +7,7 @@
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav mb-2 mb-lg-0">
             @auth
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('startups.index')}}">minhas startups</a>
