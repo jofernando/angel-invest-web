@@ -5,7 +5,7 @@
                 <h4>Minhas startups > {{mb_strimwidth($startup->nome, 0, 30, "...")}} > Propostas </h4>
             </div>
             <div class="col-md-4" style="text-align: right;">
-                <span class="span-btn-add"><a href="{{route('propostas.create', $startup)}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/idea.svg')}}" alt="ìcone de adicionar nova proposta"> Adicionar novo proposta</a></span>
+                <span class="span-btn-add"><a href="{{route('propostas.create', $startup)}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/idea.svg')}}" alt="ìcone de adicionar nova proposta"> Adicionar nova proposta</a></span>
             </div>
         </div>
         <div class="row">
@@ -38,68 +38,75 @@
             @endif
         </div>
         <div class="row">
-            @foreach ($propostas as $proposta)
-                <div class="col-md-4">
-                    <div class="card card-home" style="width: 100%;">
-                        <div class="row area-startup">
-                            <div class="col-md-8"></div>
-                            <div class="col-md-4">
-                                <span class="span-area-startup" style="color: white;">{{$proposta->startup->area->nome}}</span>
-                            </div>
-                        </div>
-                        <video class="card-img-top" alt="video da startup" controls poster="{{asset('storage/'.$proposta->thumbnail_caminho)}}">
-                            <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mp4">
-                            <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mkv">
-                        </video>
-                        <div class="titles-pitch" class="row">
-                            <div class="col-md-12">
-                                <span class="title-startup">{{$proposta->titulo}}</span>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h5 class="card-title">{{$proposta->startup->nome}}</h5>
+            @if ($propostas->count() > 0)
+                @foreach ($propostas as $proposta)
+                    <div class="col-md-4">
+                        <div class="card card-home" style="width: 100%;">
+                            <div class="row area-startup">
+                                <div class="col-md-8"></div>
+                                <div class="col-md-4">
+                                    <span class="span-area-startup" style="color: white;">{{$proposta->startup->area->nome}}</span>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="card-text">{!! mb_strimwidth($startup->descricao, 0, 90, "...") !!} <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}">Exibir proposta</a></p>
+                            <video class="card-img-top" alt="video da startup" controls poster="{{asset('storage/'.$proposta->thumbnail_caminho)}}">
+                                <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mp4">
+                                <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mkv">
+                            </video>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}" style="color: black; text-decoration: none;"><h4 class="card-title">{{$proposta->titulo}}</h4></a>
+                                        <h5 class="card-title">{{$proposta->startup->nome}}</h5>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-12" style="text-align: right;">
-                                    <a href="{{route('propostas.edit', ['startup' => $startup, 'proposta' => $proposta])}}" class="btn btn-success btn-default btn-padding border">Editar</a>
-                                    <button class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$proposta->id}}">Deletar</button>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="card-text">{!! mb_strimwidth($startup->descricao, 0, 90, "...") !!} <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}">Exibir proposta</a></p>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12" style="text-align: right;">
+                                        <a href="{{route('propostas.edit', ['startup' => $startup, 'proposta' => $proposta])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
+                                        <button class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$proposta->id}}"> <img src="{{asset('img/trash.svg')}}" alt="Icone de editar proposta" style="height: 20px;"> Deletar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Modal -->
-                <div class="modal fade" id="moda-delete-proposta-{{$proposta->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background-color: #dc3545;">
-                            <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Confirmação</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="moda-delete-proposta-{{$proposta->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #dc3545;">
+                                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Confirmação</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="form-deletar-proposta-{{$proposta->id}}" method="POST" action="{{route('propostas.destroy',  ['startup' => $startup, 'proposta' => $proposta])}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    Tem certeza que deseja deletar a proposta {{$proposta->titulo}}?
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-padding border" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$proposta->id}}">Deletar</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form id="form-deletar-proposta-{{$proposta->id}}" method="POST" action="{{route('propostas.destroy',  ['startup' => $startup, 'proposta' => $proposta])}}">
-                                @csrf
-                                @method('DELETE')
-                                Tem certeza que deseja deletar a proposta {{$proposta->titulo}}?
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-padding border" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$proposta->id}}">Deletar</button>
                         </div>
                     </div>
+                @endforeach
+            @else 
+                <div class="col-md-12">
+                    <div class="p-5 mb-4 bg-light rounded-3">
+                        <div class="container-fluid py-5">
+                            <h1 class="display-5 fw-bold">Propostas</h1>
+                            <p class="col-md-8 fs-4">Nenhuma proposta criada para a startup {{$startup->nome}}. <a href="{{route('propostas.create', $startup)}}">Clique aqui</a> para criar uma proposta.</p>
+                        </div>
                     </div>
                 </div>
-            @endforeach
+            @endif
         </div>   
     </div>
 </x-app-layout>

@@ -103,6 +103,13 @@ body img {
   padding-left: 13px;
 }
 
+.card-home .title-proposta {
+  position: relative;
+  left: 10px;
+  font-size: 20px;
+  padding: 5px;
+}
+
 .card-home .name-startup {
   padding-left: 110px;
 }
