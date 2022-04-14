@@ -41,7 +41,7 @@
             @if ($propostas->count() > 0)
                 @foreach ($propostas as $proposta)
                     <div class="col-md-4">
-                        <div class="card card-home" style="width: 100%;">
+                        <div class="card card-home border-none" style="width: 100%;">
                             <div class="row area-startup">
                                 <div class="col-md-8"></div>
                                 <div class="col-md-4">
@@ -52,16 +52,18 @@
                                 <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mp4">
                                 <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mkv">
                             </video>
+                            <div id="div-card-hearder" class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}" style="color: white; text-decoration: none;"><h4 class="card-title">{{$proposta->titulo}}</h4></a>
+                                        <h5 class="card-subtitle mb-2" style="color: white;">{{$proposta->startup->nome}}</h5>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}" style="color: black; text-decoration: none;"><h4 class="card-title">{{$proposta->titulo}}</h4></a>
-                                        <h5 class="card-title">{{$proposta->startup->nome}}</h5>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <p class="card-text">{!! mb_strimwidth($startup->descricao, 0, 90, "...") !!} <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}">Exibir proposta</a></p>
+                                        <p class="card-text">{!! mb_strimwidth($startup->descricao, 0, 90, "...") !!} @if(strlen($startup->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}">Exibir proposta</a> @endif</p>
                                     </div>
                                 </div>
                                 <div class="row mt-3">

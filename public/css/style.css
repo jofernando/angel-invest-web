@@ -279,6 +279,15 @@ button.selected{
   background-color: rgb(238 238 238 / var(--tw-bg-opacity));
 }
 
+#div-card-hearder {
+  background-color: var(--ternary-color);
+  border-color: var(--ternary-color);
+}
+
+.border-none {
+  border: none;
+}
+
 .titulo-pag {
   border-bottom: black solid 2px;
   padding-left: 20px;
@@ -396,7 +405,9 @@ button.selected{
 
 #img-input-video {
   width: 200px;
-  height: 100px;
+  height: 80px;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 
 .bottom-form {
