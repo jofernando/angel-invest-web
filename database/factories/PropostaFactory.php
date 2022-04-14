@@ -43,7 +43,7 @@ class PropostaFactory extends Factory
         $proposta->descricao = $this->faker->realText($maxNbChars = 200);
         $proposta->startup_id = $startup->id;
         $proposta->video_caminho = 'propostas/'.$this->faker->file(storage_path('app/test'), storage_path('app/test/propostas'), false);
-        $proposta->thumbnail_caminho = 'propostas/'.$this->faker->image($dir = storage_path('app/test/propostas'), $width = 640, $height = 480, null, false);
+        $proposta->thumbnail_caminho = 'propostas/'.$this->faker->image($dir = storage_path('app/test'), $width = 640, $height = 480, null, false);
         $proposta->save();
     
 
