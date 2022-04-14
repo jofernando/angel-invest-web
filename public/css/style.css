@@ -321,29 +321,29 @@ label {
 /* FORM CREATE STARTUP */
 
 .border-ternary {
-    border: 1px solid var(--ternary-color);
+  border: 1px solid var(--ternary-color);
 }
 
 .text-red {
-    color: red;
+  color: red;
 }
 
 label {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .text-ternary {
-    color: var(--ternary-color) !important;
+  color: var(--ternary-color) !important;
 }
 
 .branco-transparente {
-    background-color: rgba(241, 245, 249, 0.7);
+  background-color: rgba(241, 245, 249, 0.7);
 }
 
 .bg-verde {
-    background-color: #34A877;
+  background-color: #34A877;
 }
 
 .bg-verde:hover {
-    background-color: #1e5f44;
+  background-color: #1e5f44;
 }
