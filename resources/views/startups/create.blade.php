@@ -14,7 +14,7 @@
                 method="POST">
                 @csrf
                 <div class="pb-3">
-                    <label class="form-label pb-2" for="nome">Nome <span class="text-red">*</span></label>
+                    <label class="form-label text-xl pb-2" for="nome">Nome <span class="text-red">*</span></label>
                     <input type="text"
                         class="form-control border-ternary h-11 @error('nome') is-invalid @enderror"
                         id="nome"
@@ -26,7 +26,7 @@
                         @enderror
                 </div>
                 <div class="pb-3">
-                    <label class="form-label pb-2" for="descricao">Descrição <span class="text-red">*</span></label>
+                    <label class="form-label text-xl pb-2" for="descricao">Descrição <span class="text-red">*</span></label>
                     <small class="ps-4 ms-3">Forneça uma breve descrição da sua startup</small>
                     <textarea name="descricao"
                         id="descricao"
@@ -39,7 +39,7 @@
                 </div>
                 <div class="row">
                     <div class="pb-3 col-6">
-                        <label class="form-label pb-2" for="cnpj">CNPJ <span class="text-red">*</span></label>
+                        <label class="form-label text-xl pb-2" for="cnpj">CNPJ <span class="text-red">*</span></label>
                         <input type="text"
                             class="form-control border-ternary h-11 @error('cnpj') is-invalid @enderror"
                             id="cnpj"
@@ -51,7 +51,7 @@
                             @enderror
                     </div>
                     <div class="pb-3 col-6">
-                        <label class="form-label pb-2" for="area">Área <span class="text-red">*</span></label>
+                        <label class="form-label text-xl pb-2" for="area">Área <span class="text-red">*</span></label>
                         <select id="area"
                             name="area"
                             class="form-select border-ternary h-11 @error('area') is-invalid @enderror">
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="pb-3">
-                    <label class="form-label pb-2" for="email">E-mail <span class="text-red">*</span></label>
+                    <label class="form-label text-xl pb-2" for="email">E-mail <span class="text-red">*</span></label>
                     <input type="email"
                         class="form-control border-ternary h-11 @error('email') is-invalid @enderror"
                         id="email"
@@ -81,7 +81,7 @@
                         @enderror
                 </div>
                 <div class="pb-3">
-                    <label class="form-label pb-2" for="logo">Logo <span class="text-red">*</span></label>
+                    <label class="form-label text-xl pb-2" for="logo">Logo <span class="text-red">*</span></label>
                     <input type="file"
                         name="logo"
                         class="form-control-file d-none @error('logo') is-invalid @enderror"

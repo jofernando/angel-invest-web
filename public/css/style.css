@@ -328,10 +328,6 @@ label {
   color: red;
 }
 
-label {
-  font-size: 20px;
-}
-
 .text-ternary {
   color: var(--ternary-color) !important;
 }
