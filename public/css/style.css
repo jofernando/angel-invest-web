@@ -329,7 +329,7 @@ label {
 }
 
 .text-ternary {
-  color: var(--ternary-color) !important;
+  color: var(--ternary-color);
 }
 
 .branco-transparente {
@@ -337,7 +337,7 @@ label {
 }
 
 .bg-verde {
-  background-color: #34A877;
+  background-color: #34a877;
 }
 
 .bg-verde:hover {
