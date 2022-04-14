@@ -25,8 +25,8 @@ class PropostaFactory extends Factory
         return [
             'titulo' => $this->faker->name(),
             'descricao' =>  $this->faker->realText($maxNbChars = 200),
-            'video_caminho' => 'proposta/1/video/'.$this->faker->file(storage_path('app/public/propostas/1/video'), storage_path('app/public'), false),
-            'thumbnail_caminho' => 'proposta/1/thumbnail/'.$this->faker->image($dir = storage_path('app/public'), $width = 640, $height = 480, null, false),
+            'video_caminho' => 'proposta/1/video/'.$this->faker->file(storage_path('app/test/propostas/1/video'), storage_path('app/test'), false),
+            'thumbnail_caminho' => 'proposta/1/thumbnail/'.$this->faker->image($dir = storage_path('app/test'), $width = 640, $height = 480, null, false),
         ];
     }
 
@@ -41,11 +41,12 @@ class PropostaFactory extends Factory
         $proposta = new Proposta();
         $proposta->titulo =  $this->faker->name();
         $proposta->descricao = $this->faker->realText($maxNbChars = 200);
-        $proposta->video_caminho = 'proposta/1/video/'.$this->faker->file(storage_path('app/public/propostas/1/video'), storage_path('app/public'), false);
-        $proposta->thumbnail_caminho = 'proposta/1/thumbnail/'.$this->faker->image($dir = storage_path('app/public'), $width = 640, $height = 480, null, false);
         $proposta->startup_id = $startup->id;
-
+        $proposta->video_caminho = 'propostas/'.$this->faker->file(storage_path('app/test'), storage_path('app/test/propostas'), false);
+        $proposta->thumbnail_caminho = 'propostas/'.$this->faker->image($dir = storage_path('app/test/propostas'), $width = 640, $height = 480, null, false);
         $proposta->save();
+    
+
         return $proposta;
     }
 }

@@ -21,7 +21,7 @@ class StartupFactory extends Factory
             'descricao' => $this->faker->realText($maxNbChars = 200),
             'email' => $this->faker->email,
             'cnpj' => $this->faker->cnpj(false),
-            'logo' => 'startups/logos/'.$this->faker->image($dir = storage_path('app/public'), $width = 640, $height = 480, null, false),
+            'logo' => 'startups/logos/'.$this->faker->image($dir = storage_path('app/test'), $width = 640, $height = 480, null, false),
         ];
     }
 
@@ -38,7 +38,7 @@ class StartupFactory extends Factory
         $startup->descricao = $this->faker->realText($maxNbChars = 200);
         $startup->email = $this->faker->email;
         $startup->cnpj = $this->faker->cnpj(false);
-        $startup->logo = 'startups/logos/'.$this->faker->image($dir = storage_path('app/public'), $width = 640, $height = 480, null, false);
+        $startup->logo = 'startups/'.$this->faker->image($dir = storage_path('app/test/startups'), $width = 640, $height = 480, null, false);
         $startup->user_id = $user->id;
         $startup->area_id = $area->id;
         

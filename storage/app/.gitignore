@@ -1,3 +1,7 @@
 *
 !public/
+!test/
+!test/startups/
+!test/propostas/
+!test/teste.mp4
 !.gitignore
