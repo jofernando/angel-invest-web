@@ -17,7 +17,6 @@
         </div>
     </div>
     <script>
-        CKEDITOR.replace('descricao');
         $("#cnpj").mask("99.999.999/9999-99");
     </script>
 </x-app-layout>

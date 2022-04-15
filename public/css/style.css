@@ -123,7 +123,7 @@ body img {
 .card-home .area-startup .span-area-startup {
   padding: 4px;
   background-color: green;
-} 
+}
 
 .img-logo {
   width: 100px;
@@ -562,3 +562,29 @@ label {
 }
 
 /* X FOOTER X */
+
+/* FORM CREATE STARTUP */
+
+.border-ternary {
+  border: 1px solid var(--ternary-color);
+}
+
+.text-red {
+  color: red;
+}
+
+.text-ternary {
+  color: var(--ternary-color);
+}
+
+.branco-transparente {
+  background-color: rgba(241, 245, 249, 0.7);
+}
+
+.bg-verde {
+  background-color: #34a877;
+}
+
+.bg-verde:hover {
+  background-color: #1e5f44;
+}
