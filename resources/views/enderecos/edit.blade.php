@@ -21,7 +21,7 @@
                   <div id ="menu_startup" class="col-6 col-md-4">
                       <h5>Adicionando nova startup</h5>
                   </div>
-                  <div class="col-md-8">
+                  <div class="col-md-8" id="main">
                     <h4 id="titulo_end">Endereço Editar</h4>
                     <p class="text-right"><span style="color: red">*</span> Campos obrigatórios</p>
                     <form id="formulario" method="POST" action="{{route('enderecos.update', ['startup' => $startup, 'endereco' => $endereco])}}" enctype="multipart/form-data">

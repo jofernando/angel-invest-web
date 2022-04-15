@@ -2225,7 +2225,7 @@ select {
       'menu main main main main main';
 }
 
-.col-md-8{
+#main{
     background-color: #F3F3F3;
     height: 550px;
     margin-bottom: -80px;
@@ -2257,5 +2257,3 @@ select {
 #titulo_end{
     padding: 20px;
 }
-
-
