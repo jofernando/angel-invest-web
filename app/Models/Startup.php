@@ -41,4 +41,10 @@ class Startup extends Model
     {
         return $this->hasOne(Endereco::class);
     }
+    
+    public function documentos()
+    {
+        return $this->hasMany(Documento::class);
+    }
+
 }
