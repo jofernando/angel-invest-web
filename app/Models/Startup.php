@@ -26,4 +26,9 @@ class Startup extends Model
     {
         return $this->belongsTo(Area::class);
     }
+
+    public function endereco()
+    {
+        return $this->hasOne(Endereco::class);
+    }
 }

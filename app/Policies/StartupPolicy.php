@@ -93,7 +93,7 @@ class StartupPolicy
         return $this->userOwnsTheStartup($user, $startup);
     }
 
-    private function userOwnsTheStartup(User $user, Startup $startup)
+    public function userOwnsTheStartup(User $user, Startup $startup)
     {
         return $startup->user_id == $user->id;
     }
