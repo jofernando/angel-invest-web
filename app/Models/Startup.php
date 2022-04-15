@@ -36,4 +36,9 @@ class Startup extends Model
     {
         return $this->hasMany(Proposta::class);
     }
+
+    public function endereco()
+    {
+        return $this->hasOne(Endereco::class);
+    }
 }
