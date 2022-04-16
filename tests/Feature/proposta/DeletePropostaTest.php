@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Proposta;
+namespace Tests\Feature\proposta;
 
 class DeletePropostaTest extends PropostaTest
 {
