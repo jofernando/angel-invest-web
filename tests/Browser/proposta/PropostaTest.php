@@ -49,6 +49,7 @@ abstract class PropostaTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visitRoute('home')
                     ->press('#btnperfil')
+                    ->waitForText('Sair')
                     ->press('#btnsair');
         });
     }
