@@ -12,7 +12,9 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <img id="logo-ufape" src="{{asset('img/logo_ufape_white.png')}}" alt="Logo da UFAPE">
+                        <a target="_blank" href="http://ufape.edu.br/br">
+                            <img id="logo-ufape"  src="{{asset('img/logo_ufape_white.png')}}" alt="Logo da UFAPE">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -25,13 +27,19 @@
                 <div class="row logo" style="margin-bottom: 0px;">
                     <div class="col-md-3"></div>
                     <div class="col-md-2">
-                        <img id="logo-instagram" src="{{asset('img/Icon awesome-instagram.svg')}}" alt="Logo instagram">
+                        <a target="_blank" href="https://www.facebook.com/ufape.comunica">
+                            <img id="logo-instagram" src="{{asset('img/Icon awesome-instagram.svg')}}" alt="Logo instagram">
+                        </a>
                     </div>
                     <div class="col-md-2">
-                        <img id="logo-facebook" src="{{asset('img/Icon awesome-facebook.svg')}}" alt="Logo facebook">
+                        <a target="_blank" href="https://instagram.com/ufape.oficial?utm_medium=copy_link">
+                            <img id="logo-facebook" src="{{asset('img/Icon awesome-facebook.svg')}}" alt="Logo facebook">
+                        </a>
                     </div>
                     <div class="col-md-2">
-                        <img id="logo-email" src="{{asset('img/Icon zocial-email-white.svg')}}" alt="Logo email">
+                        <a target="_blank" href="mailto:comunicacao.ufape@ufrpe.br">
+                            <img id="logo-email" src="{{asset('img/Icon zocial-email-white.svg')}}" alt="Logo email">
+                        </a>
                     </div>
                     <div class="col-md-3"></div>
                 </div>
