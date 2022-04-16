@@ -43,6 +43,9 @@
                 <p>{{ $startup->nome }} <a href=" {{route('startups.edit', $startup)}} ">editar</a> <a href=" {{route('startups.destroy', $startup)}} ">deletar</a>
                     <a href=" {{route('enderecos.create', $startup)}} ">endereço</a>
                 </p>
+
+                <p>{{$startup->nome}} <a href=" {{route('startups.edit', $startup)}} ">editar</a> <a href=" {{route('startups.destroy', $startup)}} ">deletar</a></p>
+                <p><a href="{{route('propostas.index', $startup)}}">propostas</a></p>
             @endforeach
         </div>
     </div>

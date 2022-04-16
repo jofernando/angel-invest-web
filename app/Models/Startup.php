@@ -31,4 +31,14 @@ class Startup extends Model
     {
         return $this->hasOne(Endereco::class);
     }
+    /**
+     * Relacionamento n propostas
+     *
+     * @return Collection $propostas : propostas relacionadas à startup
+     */
+    public function propostas()
+    {
+        return $this->hasMany(Proposta::class);
+
+    }
 }

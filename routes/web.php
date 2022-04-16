@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PropostaController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\EnderecoController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,8 @@ Route::middleware([
     })->name('dashboard');
     Route::resource('startups', StartupController::class);
     Route::resource('startups/{startup}/enderecos', EnderecoController::class);
+    Route::resource('startup/{startup}/propostas', PropostaController::class);
+
 });
 
 

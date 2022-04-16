@@ -6,6 +6,7 @@ use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Laravel\Dusk\TestCase as BaseTestCase;
+use Laravel\Dusk\Browser;
 
 abstract class DuskTestCase extends BaseTestCase
 {
@@ -32,6 +33,7 @@ abstract class DuskTestCase extends BaseTestCase
     protected function driver()
     {
         \Artisan::call('migrate:fresh');
+        \Artisan::call('db:seed');
         $options = (new ChromeOptions)->addArguments(collect([
             '--window-size=1920,1080',
         ])->unless($this->hasHeadlessDisabled(), function ($items) {
@@ -58,5 +60,20 @@ abstract class DuskTestCase extends BaseTestCase
     {
         return isset($_SERVER['DUSK_HEADLESS_DISABLED']) ||
                isset($_ENV['DUSK_HEADLESS_DISABLED']);
+    }
+
+    /**
+     * Resetar sessão do dusk
+     * 
+     * @return void
+     */
+    protected function resetar_session()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visitRoute('home')
+                    ->press('#btnperfil')
+                    ->waitForText('Sair')
+                    ->press('#btnsair');
+        });
     }
 }
