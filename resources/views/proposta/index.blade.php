@@ -63,13 +63,13 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <p class="card-text">{!! mb_strimwidth($startup->descricao, 0, 90, "...") !!} @if(strlen($startup->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}">Exibir proposta</a> @endif</p>
+                                        <p class="card-text">{!! mb_strimwidth($proposta->descricao, 0, 90, "...") !!} @if(strlen($proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}">Exibir proposta</a> @endif</p>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-md-12" style="text-align: right;">
                                         <a href="{{route('propostas.edit', ['startup' => $startup, 'proposta' => $proposta])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
-                                        <button class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$proposta->id}}"> <img src="{{asset('img/trash.svg')}}" alt="Icone de editar proposta" style="height: 20px;"> Deletar</button>
+                                        <button id="btnmodaldelete{{$proposta->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$proposta->id}}"> <img src="{{asset('img/trash.svg')}}" alt="Icone de editar proposta" style="height: 20px;"> Deletar</button>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btn-padding border" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$proposta->id}}">Deletar</button>
+                                <button id="btnmodaldeleteform{{$proposta->id}}" type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$proposta->id}}">Deletar</button>
                             </div>
                         </div>
                         </div>

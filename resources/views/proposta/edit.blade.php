@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="row mt-4" style="text-align: center;">
                                     <div class="col-md-12">
-                                        <button class="btn btn-success submit-form-btn" style="width: 40%;">Salvar</button>
+                                        <button id="salvar" class="btn btn-success submit-form-btn" style="width: 40%;">Salvar</button>
                                     </div>
                                 </div>
                                 
