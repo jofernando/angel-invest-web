@@ -26,10 +26,20 @@ class Startup extends Model
     {
         return $this->belongsTo(Area::class);
     }
-    
+
     public function documentos()
     {
         return $this->hasMany(Documento::class);
     }
 
+    
+    /**
+     * Relacionamento n propostas
+     *
+     * @return Collection $propostas : propostas relacionadas à startup
+     */
+    public function propostas()
+    {
+        return $this->hasMany(Proposta::class);
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PropostaController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\DocumentoController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::middleware([
     })->name('dashboard');
     Route::resource('startups', StartupController::class);
     Route::resource('startups/{startup}/documentos', DocumentoController::class);
+    Route::resource('startup/{startup}/propostas', PropostaController::class);
 });
 
 

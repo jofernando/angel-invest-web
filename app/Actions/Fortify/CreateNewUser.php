@@ -32,7 +32,7 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         $user = new User();
-        $user->set_atributes($input);
+        $user->set_attributes($input);
         $user->save();
         $user->save_profile_foto($input);
 

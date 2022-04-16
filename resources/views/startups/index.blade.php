@@ -24,7 +24,9 @@
             </div>
             @foreach ($startups as $startup)
                 <p>{{ $startup->nome }} <a href=" {{route('startups.edit', $startup)}} ">editar</a> <a href=" {{route('startups.destroy', $startup)}} ">deletar</a></p>
-                <a href="{{route('documentos.create', $startup)}}">criar</a>
+                <a href="{{route('documentos.create', $startup)}}">criar documento</a>
+                <p>{{$startup->nome}} <a href=" {{route('startups.edit', $startup)}} ">editar</a> <a href=" {{route('startups.destroy', $startup)}} ">deletar</a></p>
+                <p><a href="{{route('propostas.index', $startup)}}">propostas</a></p>
             @endforeach
         </div>
     </div>
