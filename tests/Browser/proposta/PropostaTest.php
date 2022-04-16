@@ -38,19 +38,4 @@ abstract class PropostaTest extends DuskTestCase
         $startup = $this->criar_startup();
         return Proposta::factory()->createProposta($startup);
     }
-
-    /**
-     * Resetar sessão do dusk
-     * 
-     * @return void
-     */
-    protected function resetar_session()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visitRoute('home')
-                    ->press('#btnperfil')
-                    ->waitForText('Sair')
-                    ->press('#btnsair');
-        });
-    }
 }
