@@ -2,7 +2,12 @@
     <div class="container-fluid" style="margin-bottom: -70px;">
         <div class="row">
             <div class="col-md-12">
-                <a id="btn-voltar" href="{{route('propostas.index', $startup)}}" class="btn btn-success btn-padding border" style="font-size: 22px;"><img src="{{asset('img/back.svg')}}" alt="Icone de voltar" style="padding-right: 10px;"> Voltar</a>
+                <a href="{{route('propostas.index', $startup)}}" class="btn btn-success btn-padding border" style="margin-left: 15px;"><img src="{{asset('img/back.svg')}}" alt="Icone de voltar" style="height: 22px;"> Voltar</a>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <video id="video-proposta" controls poster="{{asset('storage/'.$proposta->thumbnail_caminho)}}" style="width: 100%; height: 350px;">
                     <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mp4">
                     <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mkv">
@@ -59,7 +64,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <span style="font-weight: bolder;">E-mail: </span> teste@example.com
+                                    <span style="font-weight: bolder;">E-mail: </span> {{$startup->email}}
                                 </div>
                             </div>
                             <div class="row">
