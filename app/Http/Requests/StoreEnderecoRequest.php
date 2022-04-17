@@ -29,8 +29,8 @@ class StoreEnderecoRequest extends FormRequest
             'numero'         => 'required|max:255',
             'cidade'         => 'required|max:255',
             'estado'         => 'required|max:255',
-            'cep'            => 'required|max:255',
-            'complemento'    => 'required|max:10000',
+            'cep'            => 'required|formato_cep|max:255',
+            'complemento'    => 'nullable|max:10000',
         ];
     }
 }

@@ -20,7 +20,7 @@ class CreateEnderecosTable extends Migration
             $table->string('numero');
             $table->string('cidade');
             $table->string('estado');
-            $table->text('complemento');
+            $table->text('complemento')->nullable(True);
             $table->string('cep');
             $table->foreignId('startup_id')->constrained();
             $table->timestamps();
