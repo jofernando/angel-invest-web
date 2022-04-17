@@ -20,7 +20,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                <h3>Titulo do pitch</h3>
+                                <h3>{{$proposta->titulo}}</h3>
                             </div>
                             <div class="col-md-6" style="text-align: right;">
                                 <span id="span-area-proposta-startup">{{$startup->area->nome}}</span>
@@ -30,7 +30,7 @@
                     <div class="card-body">
                         <div class="row mb-4">
                             <div class="col-md-12">
-                                <h4 class="card-title">{{$proposta->titulo}}</h4>
+                                <h4 class="card-title">{{$proposta->startup->nome}}</h4>
                                 <p class="card-text">
                                     {!! $proposta->descricao !!}
                                 </p>

@@ -140,6 +140,7 @@ class StartupController extends Controller
      */
     public function edit(Startup $startup)
     {
+        $this->authorize('update', $startup);
         $areas = Area::pluck('nome', 'id');
         return view('startups.edit', compact('startup', 'areas'));
     }
@@ -180,6 +181,7 @@ class StartupController extends Controller
      */
     public function destroy(Startup $startup)
     {
-        //
+        $startup->delete();
+        return redirect()->back();
     }
 }

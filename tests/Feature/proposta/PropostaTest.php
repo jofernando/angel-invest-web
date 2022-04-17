@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Proposta;
+namespace Tests\Feature\proposta;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -27,7 +27,7 @@ abstract class PropostaTest extends TestCase
     /**
      * Cria um usuário, faz sua autenticação e cria uma proposta fake.
      *
-     * @return Startup $startup
+     * @return Proposta $proposta
      */
     protected function criar_proposta()
     {

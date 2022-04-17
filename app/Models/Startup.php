@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Startup extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'nome',
@@ -29,10 +31,10 @@ class Startup extends Model
 
     /**
      * Relacionamento n propostas
-     * 
+     *
      * @return Collection $propostas : propostas relacionadas à startup
      */
-    public function propostas() 
+    public function propostas()
     {
         return $this->hasMany(Proposta::class);
     }

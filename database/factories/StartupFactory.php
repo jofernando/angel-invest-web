@@ -21,18 +21,26 @@ class StartupFactory extends Factory
             'descricao' => $this->faker->realText($maxNbChars = 200),
             'email' => $this->faker->email,
             'cnpj' => $this->faker->cnpj(false),
-            'logo' => 'startups/logos/'.$this->faker->image($dir = storage_path('app/test'), $width = 640, $height = 480, null, false),
         ];
+    }
+
+    public function withLogo()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'logo' => 'startups/logos/'.$this->faker->image($dir = storage_path('app/public/startups/logos'), $width = 640, $height = 480, null, false),
+            ];
+        });
     }
 
     /**
      * Cria uma startup model passando um usuário
-     * 
+     *
      * @return Startup $startup
      */
 
-    public function createStartup(User $user, Area $area) 
-    {   
+    public function createStartup(User $user, Area $area)
+    {
         $startup = new Startup();
         $startup->nome =  $this->faker->company;
         $startup->descricao = $this->faker->realText($maxNbChars = 200);
@@ -41,7 +49,7 @@ class StartupFactory extends Factory
         $startup->logo = 'startups/'.$this->faker->image($dir = storage_path('app/test'), $width = 640, $height = 480, null, false);
         $startup->user_id = $user->id;
         $startup->area_id = $area->id;
-        
+
         $startup->save();
         return $startup;
     }
