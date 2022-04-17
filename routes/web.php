@@ -30,7 +30,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::resource('startups', StartupController::class);
-    Route::resource('startups/{startup}/enderecos', EnderecoController::class);
+    Route::resource('startup/{startup}/enderecos', EnderecoController::class);
     Route::resource('startup/{startup}/propostas', PropostaController::class);
 
 });
