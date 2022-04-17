@@ -103,6 +103,13 @@ body img {
   padding-left: 13px;
 }
 
+.card-home .title-proposta {
+  position: relative;
+  left: 10px;
+  font-size: 20px;
+  padding: 5px;
+}
+
 .card-home .name-startup {
   padding-left: 110px;
 }
@@ -265,6 +272,185 @@ button.selected{
 
 /* X CADASTRO X */
 
+/* INDEX PROPOSTA */
+
+.card {
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity));
+}
+
+#div-card-hearder {
+  background-color: var(--ternary-color);
+  border-color: var(--ternary-color);
+}
+
+.border-none {
+  border: none;
+}
+
+.titulo-pag {
+  border-bottom: black solid 2px;
+  padding-left: 20px;
+}
+
+.btn-default {
+  background-color: #296781;
+}
+
+.btn-padding {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.border {
+  border-radius: 10px;
+}
+
+.btn-default:hover {
+  background-color: var(--ternary-color);
+}
+
+.btn-default:focus {
+  background-color: var(--ternary-color);
+}
+
+.span-btn-add {
+  position: relative;
+  bottom: 5px;
+}
+
+.index-proposta .titles-pitch .title-startup {
+  font-size: 18px;
+}
+
+/* X INDEX PROPOSTA X */
+
+/* CREATE PROPOSTA */
+
+
+.card-feature {
+  border-radius: 0px;
+}
+
+.card-feature .col-card {
+  position: relative;
+}
+
+.card-feature #bottom-form-startup {
+  background-color: var(--ternary-color);
+  height: 75px;
+}
+
+.card-feature .div-checks {
+  background-color: #eeeeee;
+}
+
+.card-feature .div-form {
+  background-color: #f3f3f3;
+  margin-top: -15px;
+  margin-bottom: -15px;
+  margin-right: 0px;
+  padding-right: 15px;
+  font-size: 14px;
+}
+
+.card-feature .card-title {
+  font-weight: bolder;
+}
+
+.card-feature .checks {
+  color: #6c757d;
+}
+
+.card-feature .btn-numeral {
+  font-weight: bolder;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  padding: 5px 9px 5px 9px;
+  border: #6c757d85 solid 1px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.card-feature .active {
+  color: #2c9cff;
+  cursor: pointer;
+}
+
+.card-feature .active .btn-numeral {
+  border: var(--btn-active-color-startup) solid 2px;
+  color: var(--btn-active-color-startup);
+  cursor: pointer;
+}
+
+.card-feature .step-form:hover {
+  color: var(--ternary-color);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.card-feature .step-form:hover > .btn-numeral {
+  border: var(--ternary-color) solid 2px;
+  color: var(--ternary-color);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card-feature .check-step-numeral {
+  width: 32px;
+  height: 32px;
+  padding: -5px;
+}
+
+#img-input-video {
+  width: 200px;
+  height: 80px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.bottom-form {
+  height: 100px;
+  width: 104%;
+  margin-top: 15px;
+  margin-bottom: -17px;
+  background-color: var(--ternary-color);
+}
+
+.card-click {
+  cursor: pointer;
+}
+
+/* X CREATE PROPOSTA X */
+
+/* SHOW PROPOSTA */
+
+#btn-voltar {
+  position: relative;
+  top: 80px;
+  left: 30px;
+  margin-top: -30px;
+  text-decoration: none;
+}
+
+#video-proposta {
+  /* margin-top: -15px; */
+}
+
+#span-area-proposta-startup {
+  padding: 5px;
+}
+
+.documentos {
+  display: inline-block;
+  background-color: #c4c4c4;
+  padding: 4px;
+  margin: -3px;
+}
+
+/* X SHOW PROPOSTA X */
+
 /* FOOTER */
 
 footer {
@@ -343,3 +529,44 @@ label {
 .bg-verde:hover {
   background-color: #1e5f44;
 }
+
+.form-envia-documentos {
+    width: 100%;
+}
+
+.form-envia-documentos [type='file'] {
+    display: none;
+}
+
+.form-envia-documentos .label-input {
+    border: 1px solid var(--ternary-color);
+    color: white;
+    background-color: var(--ternary-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px var(--ternary-color);
+    transition: 0.3s;
+}
+
+.form-envia-documentos .label-input:hover {
+    transition: 0.3s;
+    background-color: var(--btn-hover-color);
+    cursor: pointer;
+    padding: 8px;
+    box-shadow: 1px 2px 3px var(black);
+}
+
+.form-envia-documentos .label-input:after {
+    content: "Anexe o arquivo .pdf";
+}
+.form-envia-documentos .titulo-documento {
+    color: var(--secundaria);
+    font-weight: bolder;
+}
+
+.form-envia-documentos .form-input-radio:checked {
+    background-color: var(--primaria);
+}
+
+
