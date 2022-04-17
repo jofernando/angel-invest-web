@@ -27,7 +27,7 @@ class EnderecoTest extends TestCase
         return Endereco::factory()->createEndereco($startup);
     }
 
-    protected function get_array_endereco($cep, $bairro, $rua, $numero,$estado, $cidade, $complemento)
+    protected function get_array_endereco($cep, $bairro, $rua, $numero, $estado, $cidade, $complemento)
     {
         return [
             'cep' => $cep,
