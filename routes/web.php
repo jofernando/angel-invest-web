@@ -36,4 +36,6 @@ Route::middleware([
     Route::resource('startup/{startup}/propostas', PropostaController::class);
     Route::resource('startups/{startup}/enderecos', EnderecoController::class);
     Route::resource('startups/{startup}/documentos', DocumentoController::class);
+
+    Route::get('/documentos/{documento}/arquivo', [DocumentoController::class, 'arquivo'])->name('documento.arquivo');
 });

@@ -107,5 +107,18 @@ class DocumentoController extends Controller
         return redirect(route('startups.index', $startup))->with(['message' => 'Documento deletado com sucesso!']);
     }
 
+    /**
+     * Get the document file from storage.
+     *
+     * @param  \App\Models\Documento  $documento
+     * @return \Illuminate\Http\Response
+     */
+
+    public function arquivo($documento)
+    {
+        $documento = Documento::find($documento);
+        return Storage::disk()->exists($documento->caminho) ? response()->file(storage_path('app/'.$documento->caminho)) : abort(404);
+    }
+
 
 }
