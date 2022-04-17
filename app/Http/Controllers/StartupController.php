@@ -74,6 +74,7 @@ class StartupController extends Controller
      */
     public function edit(Startup $startup)
     {
+        $this->authorize('update', $startup);
         $areas = Area::pluck('nome', 'id');
         return view('startups.edit', compact('startup', 'areas'));
     }
