@@ -10,7 +10,7 @@ Use App\Models\Area;
 use App\Models\Startup;
 use App\Models\Endereco;
 
-class EnderecoTest extends TestCase
+abstract class EnderecoTest extends TestCase
 {
     protected function criar_startup()
     {
