@@ -595,6 +595,7 @@ select {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+
 .container {
   width: 100%;
 }
@@ -616,12 +617,14 @@ select {
     max-width: 1024px;
   }
 }
+
 @media (min-width: 1280px) {
 
   .container {
     max-width: 1280px;
   }
 }
+
 @media (min-width: 1536px) {
 
   .container {
@@ -1071,18 +1074,22 @@ select {
 .mb-4 {
   margin-bottom: 1rem;
 }
+
 .mb-3 {
   margin-bottom: 0.75rem;
 }
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
 .-mt-px {
   margin-top: -1px;
 }
+
 .mr-auto {
   margin-right: auto;
 }
+
 .mt-20 {
   margin-top: 5rem;
 }
@@ -1131,15 +1138,19 @@ select {
 .h-20 {
   height: 5rem;
 }
+
 .h-11 {
   height: 2.75rem;
 }
+
 .h-32 {
   height: 8rem;
 }
+
 .h-full {
   height: 100%;
 }
+
 .h-28 {
   height: 7rem;
 }
@@ -1287,6 +1298,7 @@ select {
 .justify-between {
   justify-content: space-between;
 }
+
 .justify-items-center {
   justify-items: center;
 }
@@ -1328,6 +1340,7 @@ select {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .break-all {
   word-break: break-all;
 }
@@ -1399,8 +1412,10 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(243 244 246 / var(--tw-border-opacity));
 }
+
 .border-gray-400 {
   --tw-border-opacity: 1;
+
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 .bg-white {
@@ -1451,12 +1466,16 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
+
 .bg-\[\#F3F3F3\] {
   --tw-bg-opacity: 1;
+
   background-color: rgb(243 243 243 / var(--tw-bg-opacity));
 }
+
 .bg-black {
   --tw-bg-opacity: 1;
+
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
@@ -1570,6 +1589,7 @@ select {
 .pt-8 {
   padding-top: 2rem;
 }
+
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -1582,6 +1602,7 @@ select {
 .text-right {
   text-align: right;
 }
+
 .align-middle {
   vertical-align: middle;
 }
@@ -1621,6 +1642,7 @@ select {
 .font-semibold {
   font-weight: 600;
 }
+
 .font-normal {
   font-weight: 400;
 }
@@ -1639,9 +1661,13 @@ select {
 .leading-4 {
   line-height: 1rem;
 }
+.leading-6 {
+  line-height: 1.5rem;
+}
 .tracking-widest {
   letter-spacing: 0.1em;
 }
+
 .tracking-wider {
   letter-spacing: 0.05em;
 }
