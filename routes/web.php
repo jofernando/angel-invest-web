@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PropostaController;
 use App\Http\Controllers\StartupController;
+use App\Http\Controllers\DocumentoController;
 use Illuminate\Support\Facades\Route;
 use phpDocumentor\Reflection\Types\Resource_;
 
@@ -29,5 +30,8 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::resource('startups', StartupController::class);
+    Route::resource('startups/{startup}/documentos', DocumentoController::class);
     Route::resource('startup/{startup}/propostas', PropostaController::class);
 });
+
+
