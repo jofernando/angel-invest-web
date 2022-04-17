@@ -1,5 +1,5 @@
-<div class="bg-[#F3F3F3]">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+<div class="card-feature">
+    <div class="col-md-12 div-form" style="margin-top: 0px;">
         <p class="text-right"><span style="color: red">*</span> Campos obrigatórios</p>
         <form method="POST" action="{{route('enderecos.update', ['startup' => $startup, 'endereco' => $endereco])}}" enctype="multipart/form-data">
             @csrf
@@ -61,10 +61,9 @@
                     @enderror
                 </div>
             </div>
-            <button id= "botao_voltar" type="" class="btn btn-primary mb-2 botaoVoltar" style=" ">&#x2190</button>
-            <div class="row" style="margin-top: 10px;">
+            <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
                 <div class="grid justify-items-center">
-                    <button type="submit" class="btn btn-secondary w-80 bg-verde">Salvar</button>
+                    <button type="submit" class="btn btn-secondary btn-padding border w-80 bg-verde submit-form-btn">Salvar</button>
                 </div>
             </div>
         </form>

@@ -330,6 +330,11 @@ button.selected{
   padding-top: 2px;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
 /* X CADASTRO STARTUP X*/
 /* INDEX PROPOSTA */
 

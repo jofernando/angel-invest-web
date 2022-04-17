@@ -23,11 +23,11 @@
                                                             </div>
                                                         </div>
                                                     @else
-                                                        <img width="30" src="{{asset('img/etapa-completa.svg')}}" alt="Ícone de etapa concluída">
+                                                        <img width="30" id="completo-info" src="{{asset('img/etapa-completa.svg')}}" alt="Ícone de etapa concluída">
                                                     @endif
                                                 </div>
                                                 <div class="col-md-11" >
-                                                    <button id="botao-info" class="etapa-nome-selected" onclick="alterarTituloEtapa(this, 'Informações básicas', false)">Informações básicas</button>
+                                                    <button id="botao-info" class="etapa-nome-selected" onclick=" alterarEtapa(this, 'Informações básicas', false)">Informações básicas</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -41,11 +41,11 @@
                                                             </div>
                                                         </div>
                                                     @else
-                                                        <img width="30" src="{{asset('img/etapa-completa.svg')}}" alt="Ícone de etapa concluída">
+                                                        <img id="completo-endereco" width="30" src="{{asset('img/etapa-completa.svg')}}" alt="Ícone de etapa concluída">
                                                     @endif
                                                 </div>
                                                 <div class="col-md-11">
-                                                    <button id="botao-endereco" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick="alterarTituloEtapa(this, 'Endereço', false)">Endereço</button>
+                                                    <button id="botao-endereco" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick=" alterarEtapa(this, 'Endereço', false)">Endereço</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -63,7 +63,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-11">
-                                                    <button id="botao-telefone" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick="alterarTituloEtapa(this, 'Telefone')">Telefone</button>
+                                                    <button id="botao-telefone" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick=" alterarEtapa(this, 'Telefone')">Telefone</button>
                                                 </div>
                                             </div>
                                         </div>--}}
@@ -77,11 +77,11 @@
                                                             </div>
                                                         </div>
                                                     @else
-                                                        <img width="30" src="{{asset('img/etapa-completa.svg')}}" alt="Ícone de etapa concluída">
+                                                        <img id="completo-docs" width="30" src="{{asset('img/etapa-completa.svg')}}" alt="Ícone de etapa concluída">
                                                     @endif
                                                 </div>
                                                 <div class="col-md-11">
-                                                    <button id="botao-docs" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick="alterarTituloEtapa(this, 'Documentos', false)">Documentos</button>
+                                                    <button id="botao-docs" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick=" alterarEtapa(this, 'Documentos', false)">Documentos</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,27 +101,27 @@
                                                         @if(is_null($startup))
                                                             <script>
                                                                 $(document).ready(function(){
-                                                                    alterarTituloEtapa($('#botao-info'), 'Informações básicas', true);
+                                                                     alterarEtapa($('#botao-info'), 'Informações básicas', true);
                                                                 });
                                                             </script>
                                                             <x-startup.create :areas="$areas"/>
                                                         @elseif(is_null($startup->endereco))
                                                             <script>
                                                                 $(document).ready(function(){
-                                                                    alterarTituloEtapa($('#botao-endereco')[0], 'Endereço', true);
+                                                                     alterarEtapa($('#botao-endereco')[0], 'Endereço', true);
                                                                 });
                                                             </script>
                                                             <x-endereco.create :startup="$startup"/>
                                                         {{--@elseif(is_null($startup->telefones))
                                                             <script>
                                                                 $(document).ready(function(){
-                                                                    alterarTituloEtapa($('#botao-telefone')[0], 'Telefone', true);
+                                                                     alterarEtapa($('#botao-telefone')[0], 'Telefone', true);
                                                                 });
                                                             </script>--}}
                                                         @elseif(is_null($startup->documentos->first()))
                                                             <script>
                                                                 $(document).ready(function(){
-                                                                    alterarTituloEtapa($('#botao-docs')[0], 'Documentos', true);
+                                                                     alterarEtapa($('#botao-docs')[0], 'Documentos', true);
                                                                 });
                                                             </script>
                                                             <x-documentos.create :startup="$startup"/>
@@ -130,7 +130,7 @@
                                                         @if(!is_null(old('cnpj')))
                                                             <script>
                                                                 $(document).ready(function(){
-                                                                    alterarTituloEtapa($('#botao-info'), 'Informações básicas', true);
+                                                                     alterarEtapa($('#botao-info'), 'Informações básicas', true);
                                                                 });
                                                             </script>
                                                             @if(is_null($startup))
@@ -141,7 +141,7 @@
                                                         @elseif(!is_null(old('cep')))
                                                             <script>
                                                                 $(document).ready(function(){
-                                                                    alterarTituloEtapa($('#botao-endereco')[0], 'Endereço', true);
+                                                                     alterarEtapa($('#botao-endereco')[0], 'Endereço', true);
                                                                 });
                                                             </script>
                                                             @if(is_null($startup->endereco))
@@ -155,7 +155,7 @@
                                                         @elseif(!is_null(old('nomes')))
                                                             <script>
                                                                 $(document).ready(function(){
-                                                                    alterarTituloEtapa($('#botao-docs')[0], 'Documentos', true);
+                                                                     alterarEtapa($('#botao-docs')[0], 'Documentos', true);
                                                                 });
                                                             </script>
                                                             @if(is_null($startup->documentos->first()))
@@ -180,7 +180,7 @@
         </div>
     </div>
     <script>
-        function alterarTituloEtapa(botao, nome_etapa, erro){
+        function alterarEtapa(botao, nome_etapa, erro){
             var titulo = document.getElementById("titulo-etapa");
             if(nome_etapa != titulo.innerText){
                 $(".etapa-nome-selected").addClass('etapa-nome');
@@ -192,25 +192,29 @@
 
                 $(botao).removeClass('etapa-nome');
                 $(botao).addClass('etapa-nome-selected');
-                $(botao.parentElement.parentElement.children[0].children[0]).removeClass('circulo');
-                $(botao.parentElement.parentElement.children[0].children[0]).addClass('circulo-selected');
-                $(botao.parentElement.parentElement.children[0].children[0].children[0]).removeClass('numero');
-                $(botao.parentElement.parentElement.children[0].children[0].children[0]).addClass('numero-selected');
+                if((nome_etapa == 'Informações básicas' && document.getElementById('completo-info') == null) ||
+                    (nome_etapa == 'Endereço' && document.getElementById('completo-endereco') == null) ||
+                    (nome_etapa == 'Documentos' && document.getElementById('completo-documento') == null)){
 
+                    $(botao.parentElement.parentElement.children[0].children[0]).removeClass('circulo');
+                    $(botao.parentElement.parentElement.children[0].children[0]).addClass('circulo-selected');
+                    $(botao.parentElement.parentElement.children[0].children[0].children[0]).removeClass('numero');
+                    $(botao.parentElement.parentElement.children[0].children[0].children[0]).addClass('numero-selected');
+                }
+                
+                if(!erro){
+                    $.ajax({
+                        url:"{{route('startup.component.ajax')}}",
+                        type:"get",
+                        data: {"etapa_nome": nome_etapa},
+                        success: function(component) {
+                            $("#componente").html(component);
+                        }
+                    });
+                }
                 
             }
             titulo.innerText = nome_etapa;
-            if(!erro){
-                console.log('carrega ajax');
-                $.ajax({
-                url:"{{route('startup.component.ajax')}}",
-                type:"get",
-                data: {"etapa_nome": nome_etapa},
-                success: function(component) {
-                    $("#componente").html(component);
-                }
-            });
-            }
         }
     </script>
 </x-app-layout>
