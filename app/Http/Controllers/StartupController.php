@@ -115,6 +115,7 @@ class StartupController extends Controller
      */
     public function destroy(Startup $startup)
     {
-        //
+        $startup->delete();
+        return redirect()->back();
     }
 }
