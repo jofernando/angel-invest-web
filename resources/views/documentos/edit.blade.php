@@ -129,7 +129,7 @@
                                             </div>
                                             <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
                                                 <div class="grid justify-items-center">
-                                                    <button type="submit" class="btn btn-secondary btn-padding border w-80 bg-verde submit-form-btn">Salvar</button>
+                                                    <button id="submitForm" type="submit" class="btn btn-secondary btn-padding border w-80 bg-verde submit-form-btn">Salvar</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -157,13 +157,13 @@
                             <div class="row mb-3">
                                 <div class="col-md-12">
                                     <label for="nomes" class="form-label ">Nome do documento<span style="color: red;">*</span></label>
-                                    <input name="nomes[]" type="text" class="form-control" placeholder="Digite o nome do documento aqui..." required">
+                                    <input name="nomes[]" type="text" class="form-control" placeholder="Digite o nome do documento aqui..." required>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <label class="label-input" for="enviar_arquivo_`+ doc_indice+ `"></label>
                                 <label for="label-input-arquivo" for="enviar_arquivo_`+ doc_indice+`">Nenhum arquivo selecionado</label>
-                                <input id="enviar_arquivo_`+ doc_indice+ `" name="documentos[]" type="file" class="input-enviar-arquivo" accept=".pdf" onchange="trocarNome(this)"  required>
+                                <input id="enviar_arquivo_`+ doc_indice+ `" name="documentos[]" type="file" class="input-enviar-arquivo" accept=".pdf" onchange="trocarNome(this)">
                                 <a  onclick="this.parentElement.parentElement.remove()" style="margin-top: 10px; cursor: pointer">
                                     <img width="20px;" src="{{asset('img/trash.svg')}}"  alt="Apagar" title="Apagar">
                                 </a>
@@ -172,19 +172,33 @@
             $('#docs').append(doc);
         }
         function trocarNome(botao) {
-            console.log(botao);
             var label = botao.parentElement.children[1];
-            label.textContent = editar_caminho($(botao).val());
+            if(botao.files[0]){
+                const fileSize = botao.files[0].size / 1024 / 1024;
+                if(fileSize > 5){
+                    alert("O arquivo deve ter no máximo 5MB!");
+                    this.value = "";
+                    label.textContent = editar_caminho("Nenhum arquivo selecionado");
+                }
+                else{
+                    label.textContent = editar_caminho($(botao).val());
+                }
+            }
         }
     </script>
 
     <script>
-       $("input").change(function(){
-            const fileSize = this.files[0].size / 1024 / 1024;
-            if(fileSize > 5){
-                alert("O arquivo deve ter no máximo 5MB!");
-                this.value = "";
-            };
+        $("form").submit(function() {
+            var elements = document.getElementsByClassName("input-enviar-arquivo");
+            for(let i=0; i < elements.length; i++){
+                if(elements[i].parentElement.parentElement.children[0].nodeName != "INPUT"){
+                    if(!elements[i].files[0]){
+                        alert("Anexe o .pdf para "+elements[i].parentElement.parentElement.children[0].children[0].children[1].value);
+                        return false
+                    }
+                }
+            }
+            return true;
         });
     </script>
 
