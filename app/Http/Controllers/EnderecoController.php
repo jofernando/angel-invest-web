@@ -66,9 +66,13 @@ class EnderecoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($startup, $endereco)
     {
-        //
+        $startup = Startup::find($startup);
+        $endereco = Endereco::find($endereco);
+
+        return $endereco;
+
     }
 
     /**
@@ -118,12 +122,12 @@ class EnderecoController extends Controller
      */
     public function destroy($startup, $endereco)
     {
-        $proposta = Endereco::find($endereco);
+
+        $endereco = Endereco::find($endereco);
         $this->authorize('delete', $endereco);
 
         $startup = Startup::find($startup);
         $this->authorize('update', $startup);
-
         $endereco->delete();
         return redirect(route('startups.index', $startup))->with(['message' => 'Endereço deletado com sucesso!']);
     }
