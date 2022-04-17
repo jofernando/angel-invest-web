@@ -86,7 +86,7 @@
                                                             <input id="enviar_arquivo_{{$i}}" name="documentos[]" type="file" onchange="trocarNome(this)" class="input-enviar-arquivo @error('documentos.'.$i) is-invalid @enderror" accept=".pdf"  required >
                                                             @if($i > 0)
                                                                 <a  onclick="this.parentElement.parentElement.remove()" style="margin-top: 10px; cursor: pointer">
-                                                                    <img width="20px;" src="{{asset('img/trash.svg')}}"  alt="Apagar" title="Apagar">
+                                                                    <img width="20px;" src="{{asset('img/trashVermelho.svg')}}"  alt="Apagar" title="Apagar">
                                                                 </a>
                                                             @endif
                                                             @error('documentos.' . $i)
@@ -141,7 +141,7 @@
                                 <label for="label-input-arquivo" for="enviar_arquivo_`+ doc_indice+`">Nenhum arquivo selecionado</label>
                                 <input id="enviar_arquivo_`+ doc_indice+ `" name="documentos[]" type="file" class="input-enviar-arquivo" accept=".pdf" onchange="trocarNome(this)"  required>
                                 <a  onclick="this.parentElement.parentElement.remove()" style="margin-top: 10px; cursor: pointer">
-                                    <img width="20px;" src="{{asset('img/trash.svg')}}"  alt="Apagar" title="Apagar">
+                                    <img width="20px;" src="{{asset('img/trashVermelho.svg')}}"  alt="Apagar" title="Apagar">
                                 </a>
                             </div>
                         </div>`;

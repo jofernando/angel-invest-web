@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\User;
-use App\Models\Startup;
 use App\Models\Area;
+use App\Models\Startup;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
 
 class StartupFactory extends Factory
 {
@@ -49,7 +50,6 @@ class StartupFactory extends Factory
         $startup->logo = 'startups/'.$this->faker->image($dir = storage_path('app/test'), $width = 640, $height = 480, null, false);
         $startup->user_id = $user->id;
         $startup->area_id = $area->id;
-
         $startup->save();
         return $startup;
     }

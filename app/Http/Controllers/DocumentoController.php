@@ -29,6 +29,7 @@ class DocumentoController extends Controller
     public function create($startup)
     {
         $startup = Startup::find($startup);
+        $this->authorize('update',$startup);
         return view('documentos.create',compact('startup'));
     }
 
@@ -41,7 +42,7 @@ class DocumentoController extends Controller
     public function store(StoreDocumentoRequest $request, $startup)
     {
         $startup = Startup::find($startup);
-
+        $this->authorize('update',$startup);
         if ($request->documentos != null) {
             foreach ($request->documentos as $indice => $arquivo) {
                 if ($arquivo != null) {
@@ -171,6 +172,7 @@ class DocumentoController extends Controller
     public function destroy($startup, $documento)
     {
         $documento = Documento::find($documento);
+        $this->authorize('delete',$documento);
         $startup = Startup::find($startup);
         $this->authorize('update', $startup);
         $documento->deletarArquivo($documento->caminho);
