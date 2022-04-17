@@ -29,8 +29,13 @@ class Startup extends Model
         return $this->belongsTo(Area::class);
     }
 
-    public function salvarLogo($logo)
+    /**
+     * Relacionamento n propostas
+     *
+     * @return Collection $propostas : propostas relacionadas à startup
+     */
+    public function propostas()
     {
-        
+        return $this->hasMany(Proposta::class);
     }
 }

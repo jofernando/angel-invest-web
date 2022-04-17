@@ -115,7 +115,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return void
      */
-    public function set_atributes($input) {
+    public function set_attributes($input) {
         $this->name = $input['nome'];
         $this->email = $input['email'];
         $this->password = Hash::make($input['password']);

@@ -11,7 +11,8 @@
                 <a href="{{route('startups.create')}}">criar</a>
             </div>
             @foreach ($startups as $startup)
-                <p>{{ $startup->nome }} <a href=" {{route('startups.edit', $startup)}} ">editar</a> <a href=" {{route('startups.destroy', $startup)}} ">deletar</a></p>
+                <p>{{$startup->nome}} <a href=" {{route('startups.edit', $startup)}} ">editar</a> <a href=" {{route('startups.destroy', $startup)}} ">deletar</a></p>
+                <p><a href="{{route('propostas.index', $startup)}}">propostas</a></p>
             @endforeach
         </div>
     </div>
