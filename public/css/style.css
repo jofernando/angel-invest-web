@@ -123,7 +123,7 @@ body img {
 .card-home .area-startup .span-area-startup {
   padding: 4px;
   background-color: green;
-} 
+}
 
 .img-logo {
   width: 100px;
@@ -503,3 +503,44 @@ label {
 }
 
 /* X FOOTER X */
+
+.form-envia-documentos {
+    width: 100%;
+}
+
+.form-envia-documentos [type='file'] {
+    display: none;
+}
+
+.form-envia-documentos .label-input {
+    border: 1px solid var(--ternary-color);
+    color: white;
+    background-color: var(--ternary-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px var(--ternary-color);
+    transition: 0.3s;
+}
+
+.form-envia-documentos .label-input:hover {
+    transition: 0.3s;
+    background-color: var(--btn-hover-color);
+    cursor: pointer;
+    padding: 8px;
+    box-shadow: 1px 2px 3px var(black);
+}
+
+.form-envia-documentos .label-input:after {
+    content: "Anexe o arquivo .pdf";
+}
+.form-envia-documentos .titulo-documento {
+    color: var(--secundaria);
+    font-weight: bolder;
+}
+
+.form-envia-documentos .form-input-radio:checked {
+    background-color: var(--primaria);
+}
+
+
