@@ -44,7 +44,7 @@ class Startup extends Model
     
     public function documentos()
     {
-        return $this->hasMany(Documento::class);
+        return $this->hasMany(Documento::class)->orderBy('nome');;
     }
 
 }

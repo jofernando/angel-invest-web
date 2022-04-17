@@ -93,8 +93,8 @@ class StartupController extends Controller
                     ->render();
                 }elseif(!is_null($startup) && !is_null($startup->documentos->first())){
                     $documentos = $startup->documentos;
-                    /*return View::make("documentos.edit", compact('startup', 'documentos'))
-                    ->render()*/;
+                    return View::make("components.documentos.edit", compact('startup', 'documentos'))
+                    ->render();
                 }
         }
         

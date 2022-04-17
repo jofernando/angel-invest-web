@@ -35,7 +35,10 @@ Route::middleware([
 
     Route::resource('startup/{startup}/propostas', PropostaController::class);
     Route::resource('startups/{startup}/enderecos', EnderecoController::class);
-    Route::resource('startups/{startup}/documentos', DocumentoController::class);
+    Route::resource('startups/{startup}/documentos', DocumentoController::class)->except('edit', 'update');
+
+    Route::get('startups/{startup}/documentos-edit', [DocumentoController::class, 'edit'])->name('documentos.edit');
+    Route::put('startups/{startup}/documentos-update', [DocumentoController::class, 'update'])->name('documentos.update');
 
     Route::get('/documentos/{documento}/arquivo', [DocumentoController::class, 'arquivo'])->name('documento.arquivo');
 });

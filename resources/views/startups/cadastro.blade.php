@@ -155,11 +155,16 @@
                                                         @elseif(!is_null(old('nomes')))
                                                             <script>
                                                                 $(document).ready(function(){
-                                                                     alterarEtapa($('#botao-docs')[0], 'Documentos', true);
+                                                                    alterarEtapa($('#botao-docs')[0], 'Documentos', true);
                                                                 });
                                                             </script>
                                                             @if(is_null($startup->documentos->first()))
-                                                                <x-documentos.create :startup="$startup" :documentos="$startup->documentos"/>
+                                                                <x-documentos.create :startup="$startup"/>
+                                                            @else
+                                                                @php
+                                                                    $documentos = $startup->documentos;
+                                                                @endphp
+                                                                <x-documentos.edit :startup="$startup" :documentos="documentos"/>
                                                             @endif
                                                         @endif
                                                     @endif
@@ -194,7 +199,7 @@
                 $(botao).addClass('etapa-nome-selected');
                 if((nome_etapa == 'Informações básicas' && document.getElementById('completo-info') == null) ||
                     (nome_etapa == 'Endereço' && document.getElementById('completo-endereco') == null) ||
-                    (nome_etapa == 'Documentos' && document.getElementById('completo-documento') == null)){
+                    (nome_etapa == 'Documentos' && document.getElementById('completo-docs') == null)){
 
                     $(botao.parentElement.parentElement.children[0].children[0]).removeClass('circulo');
                     $(botao.parentElement.parentElement.children[0].children[0]).addClass('circulo-selected');

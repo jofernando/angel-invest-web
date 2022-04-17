@@ -10,7 +10,7 @@
         <ul class="navbar-nav mb-2 mb-lg-0">
             @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('startups.index')}}">minhas startups</a>
+                    <a class="nav-link" href="{{route('startups.index')}}">Minhas startups</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('dashboard')}}">Dashboard</a>

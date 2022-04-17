@@ -148,7 +148,16 @@
             </div>
             <div class="py-2">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <h2>Documentos</h2>
+                    <div class="col-md-12">
+                        <div class="d-flex align-items-center justify-content-between pt-3">
+                            <div class="col-md-6">
+                                <h2>Documentos</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{{route('documentos.edit', ['startup' => $startup])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
+                            </div>
+                        </div>
+                    </div>
                     @foreach ($startup->documentos as $i => $documento)
                         <div class="row">
                             <div class="col-md-6">
