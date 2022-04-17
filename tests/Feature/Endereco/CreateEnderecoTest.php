@@ -19,7 +19,7 @@ class CreateEnderecoTest extends EnderecoTest
     {
         $startup = $this->criar_startup();
 
-        $response = $this->post('/startup/'.$startup->id.'/enderecos', $this->get_array_endereco('55293041', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
+        $response = $this->post(route('enderecos.store', $startup), $this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('startups.index', $startup));
@@ -29,7 +29,7 @@ class CreateEnderecoTest extends EnderecoTest
     {
         $startup = $this->criar_startup();
 
-        $response = $this->post('/startup/'.($startup->id + 1).'/enderecos', $this->get_array_endereco('55293041', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
+        $response = $this->post(route('enderecos.store', $startup->id+1), $this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
 
         $response->assertStatus(403);
     }
@@ -38,7 +38,7 @@ class CreateEnderecoTest extends EnderecoTest
     {
         $startup = $this->criar_startup();
 
-        $response = $this->post('/startup/'.$startup->id.'/enderecos', $this->get_array_endereco('55293041', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
+        $response = $this->post(route('enderecos.store', $startup), $this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('startups.index', $startup));
@@ -48,12 +48,13 @@ class CreateEnderecoTest extends EnderecoTest
     {
         $startup = $this->criar_startup();
 
-        $response = $this->post('/startup/'.$startup->id.'/enderecos', $this->get_array_endereco('55293041', null, 'rua teste', null,'estado teste', 'cidade teste', 'complemento teste'));
+        $response = $this->post(route('enderecos.store', $startup), $this->get_array_endereco('76961-602', null, 'rua teste', null,'estado teste', 'cidade teste', 'complemento teste'));
 
         $response->assertStatus(302);
         $response->assertInvalid([
-            'numero' => 'O campo número é obrigatório.',
             'bairro' => 'O campo bairro é obrigatório.',
+            'numero' => 'O campo numero é obrigatório.',
+
         ]);
     }
 
@@ -61,14 +62,16 @@ class CreateEnderecoTest extends EnderecoTest
     {
         $startup = $this->criar_startup();
 
-        $response = $this->post('/startup/'.$startup->id.'/enderecos', $this->get_array_endereco(null, null, null, null, null, null, null));
+        $response = $this->post(route('enderecos.store',$startup), $this->get_array_endereco(null, null, null, null, null, null, null));
 
         $response->assertStatus(302);
         $response->assertInvalid([
-            'Cep' => 'O campo CEP é obrigatório.',
+
             'bairro' => 'O campo bairro é obrigatório.',
             'rua' => 'O campo rua é obrigatório.',
-            'numero' => 'O campo número é obrigatório.',
+            'numero' => 'O campo numero é obrigatório.',
+            'estado' => 'O campo estado é obrigatório.',
+            'cidade' => 'O campo cidade é obrigatório.',
 
         ]);
     }
