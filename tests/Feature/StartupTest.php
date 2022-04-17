@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Area;
+use App\Models\Documento;
+use App\Models\Endereco;
 use App\Models\Startup;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -33,12 +35,13 @@ class StartupTest extends TestCase
         $this->file_2 = UploadedFile::fake()->image('logo_2.jpg');
         $file_path_2 = 'startups/logos/logo_2.jpg';
         $this->startup = Startup::factory()->for($this->user)->forArea()->create(['logo' => $file_path_1]);
+        Endereco::factory()->createEndereco($this->startup);
+        Documento::create([
+            'nome' => 'comprovante',
+            'caminho' => 'startups/documentos/logo_1.jpg',
+            'startup_id' => $this->startup->id
+        ]);
         $this->unsavedStartup = Startup::factory()->for($this->user)->forArea()->make(['logo' => $file_path_2]);
-    }
-
-    protected function tearDown(): void
-    {
-        Storage::fake('public');
     }
 
     public function test_screens_can_be_rendered()
@@ -82,7 +85,7 @@ class StartupTest extends TestCase
     public function test_owner_user_can_not_edit_non_existent_startup()
     {
         $attributes = $this->unsavedStartup->only([ 'nome', 'descricao', 'email', 'cnpj']);
-        $response = $this->actingAs($this->user)->put("startups/2", $attributes);
+        $response = $this->actingAs($this->user)->put("startups/0", $attributes);
         $response->assertStatus(404);
     }
 
@@ -109,7 +112,6 @@ class StartupTest extends TestCase
         $created = Startup::all()->last();
         $response->assertSessionDoesntHaveErrors();
         Storage::disk('public')->assertExists($created->logo);
-        $this->assertDatabaseCount('startups', 2);
         $this->assertFileEquals($file, Storage::disk('public')->path($created->logo));
         $this->assertDatabaseHas('startups', [
             'nome' => $this->unsavedStartup->nome,
