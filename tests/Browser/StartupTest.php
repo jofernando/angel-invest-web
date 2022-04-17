@@ -2,6 +2,8 @@
 
 namespace Tests\Browser;
 
+use App\Models\Documento;
+use App\Models\Endereco;
 use App\Models\Startup;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -48,7 +50,7 @@ class StartupTest extends DuskTestCase
                     ->select('area')
                     ->attach('logo', __DIR__. '/img/01.png')
                     ->press('Salvar')
-                    ->assertSee('O campo nome é obrigatório');
+                    ->assertRouteIs('startups.create');
         });
     }
 
@@ -57,6 +59,8 @@ class StartupTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $user = User::factory()->create();
             $startup = Startup::factory()->for($user)->forArea()->withLogo()->create();
+            Documento::factory()->createDocumento($startup);
+            Endereco::factory()->createEndereco($startup);
             $browser->loginAs($user)
                     ->visit(route('startups.edit', $startup))
                     ->type('nome', $startup->nome)
