@@ -34,19 +34,24 @@ class StartupController extends Controller
     {
         $startup = Auth::user()->startups->last();
         if(!is_null($startup)){
-            if(!is_null($startup->endereco) && !is_null($startup->telefone) && !is_null($startup->documentos)){
+            if(!is_null($startup->endereco) && !is_null($startup->documentos->first())){
                 $startup = null;
             }
         }
 
         if(is_null($startup)){
             $etapa = "Informações básicas";
-            return view('startups.cadastro', compact('etapa', 'startup'));
         }
         elseif(is_null($startup->endereco)){
             $etapa = "Endereço";
-            return view('startups.cadastro', compact('etapa', 'startup'));
         }
+        elseif(is_null($startup->documentos->first())){
+            $etapa = "Documentos";
+        }
+
+        $areas = Area::pluck('nome', 'id');
+
+        return view('startups.cadastro', compact('etapa', 'startup', 'areas'));
     }
 
     /**
@@ -56,21 +61,40 @@ class StartupController extends Controller
      */
     public function startupGetComponent(Request $request)
     {
+        $startup = Auth::user()->startups->last();
+        if(!is_null($startup)){
+            if(!is_null($startup->endereco) && !is_null($startup->documentos->first())){
+                $startup = null;
+            }
+        }
         switch($request->etapa_nome){
             case "Informações básicas":
                 $areas = Area::pluck('nome', 'id');
-                $startup = Auth::user()->startups->last();
-                if(!is_null($startup)){
-                    if(!is_null($startup->endereco) && !is_null($startup->telefone) && !is_null($startup->documentos)){
-                        $startup = null;
-                    }
-                }
+                
                 if(is_null($startup)){
-                    return View::make("startups.create", compact('areas'))
+                    return View::make("components.startup.create", compact('areas'))
                     ->render();
                 }else{
-                    return View::make("startups.edit", compact('startup', 'areas'))
+                    return View::make("components.startup.edit", compact('startup', 'areas'))
                     ->render();
+                }
+            case "Endereço":
+                if(!is_null($startup) && $startup->endereco == null){
+                    return View::make('components.endereco.create', compact('startup'))
+                    ->render();
+                }elseif(!is_null($startup) && $startup->endereco != null){
+                    $endereco = $startup->endereco;
+                    return View::make("components.endereco.edit", compact('startup', 'endereco'))
+                    ->render();
+                }
+            case "Documentos":
+                if(!is_null($startup) && is_null($startup->documentos->first())){
+                    return View::make('components.documentos.create', compact('startup'))
+                    ->render();
+                }elseif(!is_null($startup) && !is_null($startup->documentos->first())){
+                    $documentos = $startup->documentos;
+                    /*return View::make("documentos.edit", compact('startup', 'documentos'))
+                    ->render()*/;
                 }
         }
         

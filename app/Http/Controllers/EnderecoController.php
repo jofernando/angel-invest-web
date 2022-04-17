@@ -55,7 +55,7 @@ class EnderecoController extends Controller
         $endereco->startup_id = $startup->id;
         $endereco->save();
 
-        return redirect(route('startups.index', $startup))->with(['message' => 'Endereço salvo com sucesso!']);
+        return redirect()->back();
     }
 
     /**

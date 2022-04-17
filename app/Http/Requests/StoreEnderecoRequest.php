@@ -24,13 +24,13 @@ class StoreEnderecoRequest extends FormRequest
     public function rules()
     {
         return [
-            'rua'            => 'required|string|max:255',
-            'bairro'         => 'required|string|max:255',
-            'numero'         => 'required|string|max:255',
-            'cidade'         => 'required|string|max:255',
-            'estado'         => 'required|string|max:255',
-            'cep'            => 'required|string|max:255',
-            'complemento'    => 'required|string|max:10000',
+            'rua'            => 'required|max:255',
+            'bairro'         => 'required|max:255',
+            'numero'         => 'required|max:255',
+            'cidade'         => 'required|max:255',
+            'estado'         => 'required|max:255',
+            'cep'            => 'required|max:255',
+            'complemento'    => 'required|max:10000',
         ];
     }
 }

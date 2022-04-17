@@ -27,7 +27,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-11" >
-                                                    <button id="botao-info" class="etapa-nome-selected" onclick="alterarTituloEtapa(this, 'Informações básicas')">Informações básicas</button>
+                                                    <button id="botao-info" class="etapa-nome-selected" onclick="alterarTituloEtapa(this, 'Informações básicas', false)">Informações básicas</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -45,11 +45,11 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-11">
-                                                    <button id="botao-endereco" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick="alterarTituloEtapa(this, 'Endereço')">Endereço</button>
+                                                    <button id="botao-endereco" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick="alterarTituloEtapa(this, 'Endereço', false)">Endereço</button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        {{--<div class="col-md-12">
                                             <div class="d-flex align-items-center justify-content-between pt-3">
                                                 <div class="col-md-1">
                                                     @if(is_null($startup) || is_null($startup->telefones))
@@ -66,14 +66,14 @@
                                                     <button id="botao-telefone" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick="alterarTituloEtapa(this, 'Telefone')">Telefone</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--}}
                                         <div class="col-md-12">
                                             <div class="d-flex align-items-center justify-content-between pt-3">
                                                 <div class="col-md-1">
-                                                    @if(is_null($startup) || is_null($startup->documentos))
+                                                    @if(is_null($startup) || is_null($startup->documentos->first()))
                                                         <div class="circulo">
                                                             <div class="numero">
-                                                                4
+                                                                3
                                                             </div>
                                                         </div>
                                                     @else
@@ -81,7 +81,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-11">
-                                                    <button id="botao-docs" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick="alterarTituloEtapa(this, 'Documentos')">Documentos</button>
+                                                    <button id="botao-docs" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick="alterarTituloEtapa(this, 'Documentos', false)">Documentos</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -95,32 +95,75 @@
                                             <div class="col-md-12">
                                                 <h3 id="titulo-etapa" class="card-title">Informações básicas</h3>
                                             </div>
-                                            <div id="componente">
-                                                @if(is_null($startup))
-                                                    <script>
-                                                        $(document).ready(function(){
-                                                            alterarTituloEtapa($('#botao-info'), 'Informações básicas');
-                                                        });
-                                                    </script>
-                                                @elseif(is_null($startup->endereco))
-                                                    <script>
-                                                        $(document).ready(function(){
-                                                            alterarTituloEtapa($('#botao-endereco')[0], 'Endereço');
-                                                        });
-                                                    </script>
-                                                @elseif(is_null($startup->telefones))
-                                                    <script>
-                                                        $(document).ready(function(){
-                                                            alterarTituloEtapa($('#botao-telefone')[0], 'Telefone');
-                                                        });
-                                                    </script>
-                                                @elseif(is_null($startup->documentos))
-                                                    <script>
-                                                        $(document).ready(function(){
-                                                            alterarTituloEtapa($('#botao-docs')[0], 'Documentos');
-                                                        });
-                                                    </script>
-                                                @endif
+                                            <div class="col-md-12">
+                                                <div id="componente">
+                                                    @if(!$errors->any())
+                                                        @if(is_null($startup))
+                                                            <script>
+                                                                $(document).ready(function(){
+                                                                    alterarTituloEtapa($('#botao-info'), 'Informações básicas', true);
+                                                                });
+                                                            </script>
+                                                            <x-startup.create :areas="$areas"/>
+                                                        @elseif(is_null($startup->endereco))
+                                                            <script>
+                                                                $(document).ready(function(){
+                                                                    alterarTituloEtapa($('#botao-endereco')[0], 'Endereço', true);
+                                                                });
+                                                            </script>
+                                                            <x-endereco.create :startup="$startup"/>
+                                                        {{--@elseif(is_null($startup->telefones))
+                                                            <script>
+                                                                $(document).ready(function(){
+                                                                    alterarTituloEtapa($('#botao-telefone')[0], 'Telefone', true);
+                                                                });
+                                                            </script>--}}
+                                                        @elseif(is_null($startup->documentos->first()))
+                                                            <script>
+                                                                $(document).ready(function(){
+                                                                    alterarTituloEtapa($('#botao-docs')[0], 'Documentos', true);
+                                                                });
+                                                            </script>
+                                                            <x-documentos.create :startup="$startup"/>
+                                                        @endif
+                                                    @else
+                                                        @if(!is_null(old('cnpj')))
+                                                            <script>
+                                                                $(document).ready(function(){
+                                                                    alterarTituloEtapa($('#botao-info'), 'Informações básicas', true);
+                                                                });
+                                                            </script>
+                                                            @if(is_null($startup))
+                                                                <x-startup.create :areas="$areas"/>
+                                                            @else
+                                                                <x-startup.edit :areas="$areas" :startup="$startup"/>
+                                                            @endif
+                                                        @elseif(!is_null(old('cep')))
+                                                            <script>
+                                                                $(document).ready(function(){
+                                                                    alterarTituloEtapa($('#botao-endereco')[0], 'Endereço', true);
+                                                                });
+                                                            </script>
+                                                            @if(is_null($startup->endereco))
+                                                                <x-endereco.create :startup="$startup"/>
+                                                            @else
+                                                                @php
+                                                                    $endereco = $startup->endereco;
+                                                                @endphp
+                                                                <x-endereco.edit :startup="$startup" :endereco="$endereco"/>
+                                                            @endif
+                                                        @elseif(!is_null(old('nomes')))
+                                                            <script>
+                                                                $(document).ready(function(){
+                                                                    alterarTituloEtapa($('#botao-docs')[0], 'Documentos', true);
+                                                                });
+                                                            </script>
+                                                            @if(is_null($startup->documentos->first()))
+                                                                <x-documentos.create :startup="$startup" :documentos="$startup->documentos"/>
+                                                            @endif
+                                                        @endif
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -137,9 +180,8 @@
         </div>
     </div>
     <script>
-        function alterarTituloEtapa(botao, nome_etapa){
+        function alterarTituloEtapa(botao, nome_etapa, erro){
             var titulo = document.getElementById("titulo-etapa");
-            console.log(botao);
             if(nome_etapa != titulo.innerText){
                 $(".etapa-nome-selected").addClass('etapa-nome');
                 $(".etapa-nome-selected").removeClass('etapa-nome-selected');
@@ -158,14 +200,17 @@
                 
             }
             titulo.innerText = nome_etapa;
-            $.ajax({
+            if(!erro){
+                console.log('carrega ajax');
+                $.ajax({
                 url:"{{route('startup.component.ajax')}}",
                 type:"get",
                 data: {"etapa_nome": nome_etapa},
                 success: function(component) {
                     $("#componente").html(component);
                 }
-            }); 
+            });
+            }
         }
     </script>
 </x-app-layout>
