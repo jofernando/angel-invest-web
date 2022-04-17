@@ -30,6 +30,7 @@ class EnderecoController extends Controller
     public function create($startup)
     {
         $startup = Startup::find($startup);
+        $this->authorize('update', $startup);
 
         if ($startup->endereco == null){
             return view('enderecos.create', compact('startup'));
@@ -49,6 +50,7 @@ class EnderecoController extends Controller
     public function store($startup, StoreEnderecoRequest $request)
     {
         $startup = Startup::find($startup);
+        $this->authorize('update', $startup);
 
         $endereco = new Endereco();
         $this->set_attributes($endereco, $request->all());
@@ -137,3 +139,8 @@ class EnderecoController extends Controller
         $endereco->cep = $array_inputs['cep'];
     }
 }
+
+
+
+
+
