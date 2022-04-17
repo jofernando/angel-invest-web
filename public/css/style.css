@@ -495,7 +495,7 @@ button:disabled {
   top: 80px;
   left: 30px;
   margin-top: -30px;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 #video-proposta {
@@ -593,6 +593,7 @@ label {
 .bg-verde:hover {
   background-color: #1e5f44;
 }
+
 .form-envia-documentos {
     width: 100%;
 }
