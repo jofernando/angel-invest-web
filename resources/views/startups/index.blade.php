@@ -1,10 +1,102 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create startup') }}
-        </h2>
-    </x-slot>
-    @if(session('message'))
+    <div class="container index-proposta" style="margin-top: 50px; padding-bottom: 100px;">
+        <div class="row titulo-pag">
+            <div class="col-md-6">
+                <h4>Minhas startups </h4>
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+                <span href="{{route('startups.create')}}" class="span-btn-add">
+                  <a class="btn btn-success btn-default btn-padding border"> 
+                    <img src="{{asset('img/bi_plus-circle.png')}}" alt="">
+                    <img src="{{asset('img/Vector.png')}}" alt=""> 
+                    Adicionar nova startup
+                  </a>
+                </span>
+            </div>
+        </div>
+        @if ($startups->count() > 0)
+            <div class="row mt-4">
+                @foreach ($startups as $startup)
+                    <div class="col-md-4">
+                        <div class="card card-startup mb-3">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-5" style="text-align: center;">
+                                        <img class="img-circle" src="@if($startup->logo != null){{asset('storage/'.$startup->logo)}}@else{{asset('img/empresa-logo.svg')}}@endif" alt="Logo startup">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="row mt-2">
+                                            <div class="col-md-12">
+                                                <a href="{{route('startups.show', $startup)}}" style="text-decoration: none; color: black;"><h5>{{$startup->nome}}</h5></a>
+                                                <span class="categoria">{{$startup->area->nome}}</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="text-startup">{{$startup->email}}</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                {{-- <span class="text-startup">(87) 99999-9999</span> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <a href="{{route('propostas.index', $startup)}}" style="text-decoration: none; color: black;">Propostas</a>
+                                    </div>
+                                    @if ($startup->propostas->count() > 0)
+                                        <div class="col-md-2" style="text-align: right;">
+                                            <a class="arrow-collapse" data-bs-toggle="collapse" href="#collapse_propostas_{{$startup->id}}" role="button" aria-expanded="false" aria-controls="collapse_propostas_{{$startup->id}}">
+                                                <img class="arrow-down" src="{{asset('img/arrow-down.svg')}}" alt="Icone exibir proposta">
+                                            </a>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="row mt-2">
+                                    @foreach ($startup->propostas as $proposta)
+                                        <a href="{{route('propostas.show', ['proposta' => $proposta, 'startup' => $startup])}}" style="text-decoration: none; color: black;">
+                                            <div class="col-md-12">
+                                                <div class="collapse" id="collapse_propostas_{{$startup->id}}">
+                                                    <div class="card card-body mb-3">
+                                                        <div class="row">
+                                                            <div class="col-md-8">
+                                                                <h6>{{$proposta->titulo}}</h6>
+                                                                {{-- <span class="text-proposta"><img class="icon" src="{{asset('img/calendar.svg')}}" alt="Ícone de calendario"> Lances durande: <b>06/04 a 28/04</b></span>
+                                                                <span class="text-proposta"><img class="icon" src="{{asset('img/preco.svg')}}" alt="Ícone de lance mínimo"> Lance mínimo: <b>R$ 8.000,00</b></span> --}}
+                                                            </div>
+                                                            <div class="col-md-4" style="text-align: center;">
+                                                                <div class="row">
+                                                                    <img class="icon-investidor" src="{{asset('img/investidor-preto.png')}}" alt="Ícone do investidor">
+                                                                </div>
+                                                                <div class="row">
+                                                                    {{-- <span class="text-proposta">10 investidores</span> --}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else 
+            <div class="col-md-12">
+                <div class="p-5 mb-4 bg-light rounded-3">
+                    <div class="container-fluid py-5">
+                        <h1 class="display-5 fw-bold">Minhas Startups</h1>
+                        <p class="col-md-8 fs-4">Nenhuma startup criada. <a href="{{route('startups.create')}}">Clique aqui</a> para criar sua primeira startup.</p>
+                    </div>
+                </div>
+            </div>
+        @endif   
+      </div> 
+    {{-- @if(session('message'))
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
             <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -65,5 +157,21 @@
     <script>
         CKEDITOR.replace('descricao');
         $("#cnpj").mask("99.999.999/9999-99");
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            $('.arrow-collapse').click(function() {
+                var img = this.children[0];
+        
+                if(this.ariaExpanded == "true") {
+                console.log('img/arrow-up.svg')
+                img.src = "../img/arrow-up.svg";
+                } else if (this.ariaExpanded == "false") {
+                console.log('img/arrow-down.svg')
+                img.src = "../img/arrow-down.svg";
+                }
+            });
+        });
     </script>
 </x-app-layout>
