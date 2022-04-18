@@ -120,16 +120,9 @@ class EnderecoController extends Controller
      * @param  \App\Models\Endereco  $endereco
      * @return \Illuminate\Http\Response
      */
-    public function destroy($startup, $endereco)
+    public function destroy()
     {
-
-        $endereco = Endereco::find($endereco);
-        $this->authorize('delete', $endereco);
-
-        $startup = Startup::find($startup);
-        $this->authorize('update', $startup);
-        $endereco->delete();
-        return redirect(route('startups.index', $startup))->with(['message' => 'Endereço deletado com sucesso!']);
+        return abort(404);
     }
 
     private function set_attributes(Endereco $endereco, $array_inputs)
