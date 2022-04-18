@@ -29,7 +29,7 @@ class StartupFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'logo' => 'startups/logos/'.$this->faker->image($dir = storage_path('app/public/startups/logos'), $width = 640, $height = 480, null, false),
+                'logo' => 'startups/logos/'.$this->faker->image($dir = storage_path('app/test'), $width = 640, $height = 480, null, false),
             ];
         });
     }

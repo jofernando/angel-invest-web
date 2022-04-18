@@ -31,7 +31,7 @@ class RegistrationTest extends DuskTestCase
                     ->type('password_confirmation', 'password')
                     ->check('termos')
                     ->press('Cadastrar')
-                    ->assertSee('Sair');
+                    ->assertSee('Minhas startups');
             $this->resetar_session();
         });
     }
@@ -39,6 +39,7 @@ class RegistrationTest extends DuskTestCase
     public function test_new_users_showing_errors() {
         $this->browse(function (Browser $browser) {
             $browser->visitRoute('register')
+                    ->waitForText('Cadastro')
                     ->attach('foto_do_perfil', __DIR__ . '/img/01.png')
                     ->type('nome', "Daniela Bárbara Agatha Mendes")
                     ->type('email', "teste_view@teste.com")
