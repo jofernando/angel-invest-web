@@ -148,7 +148,6 @@
             $('#docs').append(doc);
         }
         function trocarNome(botao) {
-            console.log(botao);
             var label = botao.parentElement.children[1];
             label.textContent = editar_caminho($(botao).val());
         }

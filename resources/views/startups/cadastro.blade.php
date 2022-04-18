@@ -1,7 +1,12 @@
 <x-app-layout>
     <div id="container-home" class="container" style="margin-top: 40px;">
+        <div class="row titulo-pag">
+            <div class="col-md-8">
+                <h4><a class="link-default" href="{{route('startups.index')}}">Minhas startups</a> > Adicionando nova startup </h4>
+            </div>
+        </div>
         <div class="col-md-12">
-            <div class="card card-register mb-3" style="max-width: 100%;">
+            <div class="card card-register mb-3" style="max-width: 100%; margin-top:25px;">
                 <div id="card-container" class="row">
                     <div class="col-md-12">
                         <div class="row">
@@ -10,7 +15,7 @@
                                     <div id ="left-div-create" class="col-md-12"> 
                                         <div class="row">
                                             <div class="col-md-12 side-titulo"  style="text-align: center">
-                                                Adicionando nova startup
+                                                Etapas
                                             </div>
                                         </div>
                                         <div class="col-md-12">

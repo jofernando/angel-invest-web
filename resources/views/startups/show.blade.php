@@ -6,7 +6,7 @@
             </div>
         </div>
         <div id="info">
-            <div class="py-12 ">
+            <div class="py-6">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="col-md-12">
                         <div class="d-flex align-items-center justify-content-between pt-3">
@@ -144,7 +144,7 @@
             </div>
         </div>
         <div id="documentos">
-            <div class="row titulo-pag">
+            <div class="row titulo-pag" style="margin-top: 30px;">
             </div>
             <div class="py-2">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

@@ -53,11 +53,11 @@
                                     <div class="col-md-7">
                                         <div class="row mt-2">
                                             <div class="col-md-12">
-                                                <a href="{{route('startups.show', $startup)}}" style="text-decoration: none; color: black;"><h5>{{$startup->nome}}</h5></a>
+                                                <a @if(!is_null($startup->endereco) && !is_null($startup->documentos->first())) href="{{route('startups.show', $startup)}}" @endif style="text-decoration: none; color: white;"><h5>{{$startup->nome}}</h5></a>
                                                 <span class="categoria">{{$startup->area->nome}}</span>
                                             </div>
                                             <div class="col-md-12">
-                                                <span class="text-startup">{{$startup->email}}</span>
+                                                <span class="text-startup" style="color: white;">{{$startup->email}}</span>
                                             </div>
                                             <div class="col-md-12">
                                                 {{-- <span class="text-startup">(87) 99999-9999</span> --}}
@@ -69,8 +69,11 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <a href="{{route('propostas.index', $startup)}}" style="text-decoration: none; color: black;">Propostas</a>
+                                        <a  @if(!is_null($startup->endereco) && !is_null($startup->documentos->first())) href="{{route('propostas.index', $startup)}}" @endif style="text-decoration: none; color: black; font-size: 20px;">Propostas</a>
                                     </div>
+                                    @if(is_null($startup->endereco) || is_null($startup->documentos->first()))
+                                        <small class="text-red">Conclua o cadastro da startup em <span style="font-weight: bold">Adicionar nova startup</span></small>
+                                    @endif
                                     @if ($startup->propostas->count() > 0)
                                         <div class="col-md-2" style="text-align: right;">
                                             <a class="arrow-collapse" data-bs-toggle="collapse" href="#collapse_propostas_{{$startup->id}}" role="button" aria-expanded="false" aria-controls="collapse_propostas_{{$startup->id}}">
@@ -129,10 +132,10 @@
                 var img = this.children[0];
         
                 if(this.ariaExpanded == "true") {
-                console.log('img/arrow-up.svg')
+                //console.log('img/arrow-up.svg')
                 img.src = "../img/arrow-up.svg";
                 } else if (this.ariaExpanded == "false") {
-                console.log('img/arrow-down.svg')
+                //console.log('img/arrow-down.svg')
                 img.src = "../img/arrow-down.svg";
                 }
             });
