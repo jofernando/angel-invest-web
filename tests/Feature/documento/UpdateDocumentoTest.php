@@ -21,8 +21,8 @@ class UpdateDocumentoTest extends TestCase
     public function test_redenrizar_update_documento()
     {
         $startup = $this->criar_startup();
-        $documento = $this->criar_documento($startup);
-        $response = $this->get('/startups/'.$documento->startup_id.'/documentos-edit/');
+        $this->criar_documento($startup);
+        $response = $this->get(route('documentos.edit', $startup));
         $response->assertStatus(200);
     }
 
