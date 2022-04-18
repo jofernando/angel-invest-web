@@ -10,6 +10,7 @@
   --btn-primary-color: #0d6efd;
   --btn-secondary-color: #6c757d;
   --btn-hover-color: rgb(1, 35, 49);
+  --card-startup: #1782AF;
 }
 
 body {
@@ -633,4 +634,66 @@ label {
     background-color: var(--primaria);
 }
 
+/* STARTUP */ 
 
+.card-startup {
+  border: none;
+  border-radius: 0px;
+}
+
+.card-startup .card-header {
+  border: none;
+  border-radius: 0px;
+}
+
+.card-startup .card-header {
+  background-color: var(--card-startup);
+}
+
+.card-startup .categoria {
+  padding: 3px;
+  background-color: rgb(230, 97, 119);
+}
+
+.card-startup .text-startup {
+  font-size: 12px;
+}
+
+.card-startup .arrow-down {
+  width: 30px;
+}
+
+.card-startup .card {
+  background-color: white;
+}
+
+.card-startup .icon-investidor {
+  width: 100px;
+  height: auto;
+}
+
+.card-startup .row-collapse {
+  border-top: 2px solid rgb(95, 95, 95);
+}
+
+.card-startup .text-proposta {
+  font-size: 10px;
+}
+
+.card-startup .icon {
+  height: 20px;
+  width: auto;
+}
+
+.card-startup  .img-circle {
+  border-radius: 50%;
+  width: 110px;
+  height: 110px;
+}
+
+.link-default {
+  text-decoration: none;
+  color: black;
+}
+
+/* X STARTUP X */

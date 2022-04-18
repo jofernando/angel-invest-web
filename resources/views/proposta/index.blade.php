@@ -2,7 +2,7 @@
     <div class="container index-proposta" style="margin-top: 50px;">
         <div class="row titulo-pag">
             <div class="col-md-8">
-                <h4>Minhas startups > {{mb_strimwidth($startup->nome, 0, 30, "...")}} > Propostas </h4>
+                <h4><a class="link-default" href="{{route('startups.index')}}">Minhas startups</a> > <a class="link-default" href="{{route('startups.show', $startup)}}">{{mb_strimwidth($startup->nome, 0, 30, "...")}}</a> > Propostas </h4>
             </div>
             <div class="col-md-4" style="text-align: right;">
                 <span class="span-btn-add"><a href="{{route('propostas.create', $startup)}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/idea.svg')}}" alt="ìcone de adicionar nova proposta"> Adicionar nova proposta</a></span>

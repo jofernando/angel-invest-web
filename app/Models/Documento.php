@@ -49,7 +49,7 @@ class Documento extends Model
 
             $path_completo = 'documentos/startups/'. $this->startup->id . '/';
             $nome_documento = $this->nome . $this->id . '.' . $file->getClientOriginalExtension();
-            Storage::putFileAs($path_completo, $file, $nome_documento);
+            Storage::putFileAs('public/'.$path_completo, $file, $nome_documento);
             $novo_diretorio = $path_completo . $nome_documento;
 
             return $novo_diretorio;
@@ -67,8 +67,8 @@ class Documento extends Model
     public function deletarArquivo($diretorio)
     {
         if ($diretorio != null) {
-            if (Storage::disk()->exists($diretorio)) {
-                Storage::delete($diretorio);
+            if (Storage::disk()->exists('public/'.$diretorio)) {
+                Storage::delete('public/'.$diretorio);
             }
         }
     }

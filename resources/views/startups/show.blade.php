@@ -2,7 +2,7 @@
     <div class="container index-proposta" style="margin-top: 30px;">
         <div class="row titulo-pag">
             <div class="col-md-12">
-                <h4>Minhas startups > {{mb_strimwidth($startup->nome, 0, 30, "...")}}</h4>
+                <h4><a class="link-default" href="{{route('startups.index')}}">Minhas startups</a> > {{mb_strimwidth($startup->nome, 0, 30, "...")}}</h4>
             </div>
         </div>
         <div id="info">

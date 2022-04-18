@@ -54,6 +54,7 @@ class UpdatePropostaTest extends PropostaTest
         $this->browse(function (Browser $browser) { 
             $proposta = $this->criar_proposta();
             $browser->visitRoute('propostas.edit', ['startup' => $proposta->startup, 'proposta' => $proposta])
+                    ->waitForText('Informações da proposta')
                     ->type('título', 'Teste edit')
                     ->script("CKEDITOR.instances['descricao'].insertHtml('')");
             $browser->script("CKEDITOR.instances['descricao'].insertHtml('<p>Descrição teste editada</p>')");

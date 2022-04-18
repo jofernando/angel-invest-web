@@ -2,8 +2,7 @@
     <div class="container-fluid" style="margin-bottom: -70px;">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{route('propostas.index', $startup)}}" class="btn btn-success btn-padding border" style="margin-left: 15px;"><img src="{{asset('img/back.svg')}}" alt="Icone de voltar" style="height: 22px;"> Voltar</a>
-                
+                <a href="javascript:window.history.back();" class="btn btn-success btn-padding border" style="margin-left: 15px;"><img src="{{asset('img/back.svg')}}" alt="Icone de voltar" style="height: 22px;"> Voltar</a>
             </div>
         </div>
         <div class="row">
