@@ -7,8 +7,10 @@ use App\Http\Requests\UpdateStartupRequest;
 use App\Models\Area;
 use App\Models\Startup;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 
 class StartupController extends Controller
 {
@@ -30,8 +32,72 @@ class StartupController extends Controller
      */
     public function create()
     {
+        $startup = Auth::user()->startups->last();
+        if(!is_null($startup)){
+            if(!is_null($startup->endereco) && !is_null($startup->documentos->first())){
+                $startup = null;
+            }
+        }
+
+        if(is_null($startup)){
+            $etapa = "Informações básicas";
+        }
+        elseif(is_null($startup->endereco)){
+            $etapa = "Endereço";
+        }
+        elseif(is_null($startup->documentos->first())){
+            $etapa = "Documentos";
+        }
+
         $areas = Area::pluck('nome', 'id');
-        return view('startups.create', compact('areas'));
+
+        return view('startups.cadastro', compact('etapa', 'startup', 'areas'));
+    }
+
+    /**
+     * Show the component for creating a new startup.
+     *
+     * @return \Illuminate\Support\Facades\View
+     */
+    public function startupGetComponent(Request $request)
+    {
+        $startup = Auth::user()->startups->last();
+        if(!is_null($startup)){
+            if(!is_null($startup->endereco) && !is_null($startup->documentos->first())){
+                $startup = null;
+            }
+        }
+        switch($request->etapa_nome){
+            case "Informações básicas":
+                $areas = Area::pluck('nome', 'id');
+                
+                if(is_null($startup)){
+                    return View::make("components.startup.create", compact('areas'))
+                    ->render();
+                }else{
+                    return View::make("components.startup.edit", compact('startup', 'areas'))
+                    ->render();
+                }
+            case "Endereço":
+                if(!is_null($startup) && $startup->endereco == null){
+                    return View::make('components.endereco.create', compact('startup'))
+                    ->render();
+                }elseif(!is_null($startup) && $startup->endereco != null){
+                    $endereco = $startup->endereco;
+                    return View::make("components.endereco.edit", compact('startup', 'endereco'))
+                    ->render();
+                }
+            case "Documentos":
+                if(!is_null($startup) && is_null($startup->documentos->first())){
+                    return View::make('components.documentos.create', compact('startup'))
+                    ->render();
+                }elseif(!is_null($startup) && !is_null($startup->documentos->first())){
+                    $documentos = $startup->documentos;
+                    return View::make("components.documentos.edit", compact('startup', 'documentos'))
+                    ->render();
+                }
+        }
+        
     }
 
     /**
@@ -52,7 +118,7 @@ class StartupController extends Controller
         $startup->user()->associate(Auth::user());
         $startup->area()->associate($validated['area']);
         $startup->save();
-        return redirect()->route('startups.show', $startup);
+        return redirect()->back();
     }
 
     /**
@@ -74,6 +140,7 @@ class StartupController extends Controller
      */
     public function edit(Startup $startup)
     {
+        $this->authorize('update', $startup);
         $areas = Area::pluck('nome', 'id');
         return view('startups.edit', compact('startup', 'areas'));
     }
@@ -114,6 +181,7 @@ class StartupController extends Controller
      */
     public function destroy(Startup $startup)
     {
-        //
+        $startup->delete();
+        return redirect()->back();
     }
 }

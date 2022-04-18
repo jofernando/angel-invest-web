@@ -1,63 +1,165 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit startup') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+    <div class="container" style="margin-top: 50px;">
+        <div class="card card-feature">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 div-checks">
+                        <div class="row mb-4 mt-4" style="text-align: center;">
+                            <div class="col-md-12">
+                                <a href="{{route('startups.show', $startup)}}" class="btn btn-success btn-padding border"><img src="{{asset('img/back.svg')}}" alt="Icone de voltar" style="padding-right: 5px; height: 22px;"> Voltar</a>
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div id ="left-div-create" class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12 side-titulo"  style="text-align: center">
+                                        Editando informações de {{$startup->nome}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 div-form">
+                        <div class="card-body">
+                            <div style="margin-top: 15px; margin-bottom: 15px;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3 id="titulo-etapa" class="card-title">Informações básicas</h3>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="bg-[#F3F3F3]">
+                                            <div class="row" style="text-align: right;">
+                                                <div class="col-md-8"></div>
+                                                <div class="col-md-4">
+                                                    <label><span style="color: red;">*</span> Campo obrigatório</label>
+                                                </div>
+                                            </div>
+                                            <form action="{{ route('startups.update', $startup) }}"
+                                                enctype="multipart/form-data"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="pb-3">
+                                                    <label class="form-label pb-2" for="nome">Nome <span class="text-red">*</span></label>
+                                                    <input type="text"
+                                                        class="form-control border-ternary h-11 @error('nome') is-invalid @enderror"
+                                                        id="nome"
+                                                        name="nome"
+                                                        value="{{ old('nome', $startup->nome) }}"
+                                                        placeholder="Insira o nome da startup aqui...">
+                                                        @error('nome')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                </div>
+                                                <div class="pb-3">
+                                                    <label class="form-label pb-2" for="descricao">Descrição <span class="text-red">*</span></label>
+                                                    <small class="ps-4 ms-3">Forneça uma breve descrição da sua startup</small>
+                                                    <textarea name="descricao"
+                                                        id="descricao"
+                                                        class="form-control border-ternary @error('descricao') is-invalid @enderror"
+                                                        cols="30"
+                                                        rows="3">{{ old('descricao', $startup->descricao) }}</textarea>
+                                                        @error('descricao')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                </div>
+                                                <div class="row">
+                                                    <div class="pb-3 col-6">
+                                                        <label class="form-label pb-2" for="cnpj">CNPJ <span class="text-red">*</span></label>
+                                                        <input type="text"
+                                                            class="form-control border-ternary h-11 @error('cnpj') is-invalid @enderror"
+                                                            id="cnpj"
+                                                            name="cnpj"
+                                                            value="{{ old('cnpj', $startup->cnpj) }}"
+                                                            placeholder="Digite aqui o CNPJ da startup...">
+                                                            @error('cnpj')
+                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                            @enderror
+                                                    </div>
+                                                    <div class="pb-3 col-6">
+                                                        <label class="form-label pb-2" for="area">Área <span class="text-red">*</span></label>
+                                                        <select id="area"
+                                                            name="area"
+                                                            class="form-select border-ternary h-11 @error('area') is-invalid @enderror">
+                                                            <option selected disabled hidden>Selecione a área que mais se aproxima da sua startup...</option>
+                                                            @foreach ($areas as $id => $area)
+                                                                <option value="{{ $id }}"
+                                                                    {{ old('area', $startup->area->id) == $id ? 'selected' : '' }}>
+                                                                    {{ $area }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('area')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="pb-3">
+                                                    <label class="form-label pb-2" for="email">E-mail <span class="text-red">*</span></label>
+                                                    <input type="email"
+                                                        class="form-control border-ternary h-11 @error('email') is-invalid @enderror"
+                                                        id="email"
+                                                        name="email"
+                                                        value="{{ old('email', $startup->email) }}"
+                                                        placeholder="Digite o email para contato...">
+                                                        @error('email')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                </div>
+                                                <div class="pb-3">
+                                                    <label class="form-label pb-2" for="logo">Logo <span class="text-red">*</span></label>
+                                                    <input type="file"
+                                                        name="logo"
+                                                        class="form-control-file d-none @error('logo') is-invalid @enderror"
+                                                        id="logo">
+                                                    <div class="w-32 h-32" onclick="$('#logo').click()" style="cursor: pointer">
+                                                        <div class="w-full h-full bg-black rounded-full flex items-center justify-center align-middle relative overflow-hidden">
+                                                            <img id="logo-display" src="{{ asset('storage/'.$startup->logo) }}" alt="" class="h-28 py-2">
+                                                            <div id="desc-logo" class="absolute inset-0 branco-transparente mt-20 h-8">
+                                                                <div class="text-xs font-normal text-center opacity-100 text-ternary flex justify-center">
+                                                                    <div class="w-3/4">
+                                                                        Altere o logo da startup
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @error('logo')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="grid justify-items-center">
+                                                    <button type="submit" class="btn btn-secondary btn-padding border w-80 bg-verde submit-form-btn">Salvar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            @endif
-            <form action="{{route('startups.update', $startup)}}" enctype="multipart/form-data" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="form-group">
-                    <label for="nome">nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" value="{{old('nome', $startup->nome)}}">
+                <div class="row" style="text-align: left;">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8" style="position: relative; left: -22px; padding-right: -200px;">
+                        <div class="bottom-form" class="row mt-3" style="margin-left: 10px;"></div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="cnpj">cnpj</label>
-                    <input type="text" class="form-control" id="cnpj" name="cnpj" value="{{old('cnpj', $startup->cnpj)}}">
-                </div>
-                <div class="form-group">
-                    <label for="email">email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{old('email', $startup->email)}}">
-                </div>
-                <div class="form-group">
-                    <label for="descricao">descricao</label>
-                    <textarea name="descricao" id="descricao" class="form-control" cols="30" rows="3">{{old('descricao', $startup->descricao)}}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="logo">logo</label>
-                    <input type="file" name="logo" class="form-control-file" id="logo">
-                </div>
-                <div class="form-group">
-                    <label for="area">area</label>
-                    <select id="area"
-                        name="area"
-                        class="form-control">
-                        @foreach ($areas as $id => $area)
-                            <option value="{{ $id }}"
-                                {{ old('area', $startup->area->id) == $id ? 'selected' : '' }}>
-                                {{ $area }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary mb-2">Confirm</button>
-            </form>
+            </div>
         </div>
     </div>
     <script>
-        CKEDITOR.replace( 'descricao' );
         $("#cnpj").mask("99.999.999/9999-99");
+        function display(input) {
+            const [file] = input.files
+            if (file) {
+                $("#logo-display").attr('src', URL.createObjectURL(file))
+            }
+        }
+
+        $("#logo").change(function() {
+            display(this);
+            $('#desc-logo').addClass('d-none');
+        });
     </script>
 </x-app-layout>

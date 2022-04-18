@@ -1,75 +1,117 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit endereco') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="container">
+    <div class="container" style="margin-top: 50px;">
+        <div class="card card-feature">
+            <div class="card-body">
                 <div class="row">
-                  <div id ="menu_startup" class="col-6 col-md-4">
-                      <h5>Adicionando nova startup</h5>
-                  </div>
-                  <div class="col-md-8" id="main">
-                    <h4 id="titulo_end">Endereço Editar</h4>
-                    <p class="text-right"><span style="color: red">*</span> Campos obrigatórios</p>
-                    <form id="formulario" method="POST" action="{{route('enderecos.update', ['startup' => $startup, 'endereco' => $endereco])}}" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        @csrf
-                        @method('PUT')
-                        <div class="lado-a-lado1">
-                            <div class="form-group">
-                                <label for="cep" class="required" style="font-weight: normal">CEP</label>
-                                <input type="cep" class="form-control" id="cep" name="cep" value="{{old('cep', $endereco->cep)}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="bairro" class="required" style="font-weight: normal">Bairro</label>
-                                <input type="text" class="form-control" id="bairro" name="bairro" value="{{old('bairro', $endereco->bairro)}}">
+                    <div class="col-md-4 div-checks">
+                        <div class="row mb-4 mt-4" style="text-align: center;">
+                            <div class="col-md-12">
+                                <a href="{{route('startups.show', $startup)}}" class="btn btn-success btn-padding border"><img src="{{asset('img/back.svg')}}" alt="Icone de voltar" style="padding-right: 5px; height: 22px;"> Voltar</a>
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div id ="left-div-create" class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12 side-titulo"  style="text-align: center">
+                                        Editando endereço de {{$startup->nome}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="lado-a-lado2">
-                            <div class="form-group">
-                                <label for="rua" class="required lado-a-lado" style="font-weight: normal">Rua</label>
-                                <input type="text" class="form-control" id="rua" name="rua" value="{{old('rua', $endereco->rua)}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="numero" class="required" style="font-weight: normal">Número</label>
-                                <input type="numero" class="form-control" id="numero" name="numero" value="{{old('numero', $endereco->numero)}}">
-                            </div>
-                        </div>
-                        <div class="lado-a-lado3">
-                            <div class="form-group">
-                                <label for="estado" class="required" style="font-weight: normal">Estado</label>
-                                <input type="text" class="form-control" id="estado" name="estado" value="{{old('estado', $endereco->estado)}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="cidade" class="required" style="font-weight: normal">Cidade</label>
-                                <input type="text" class="form-control" id="cidade" name="cidade" value="{{old('cidade', $endereco->cidade)}}">
-                            </div>
-                        </div>
-                        <div class="form-group" id="complemento_editar">
-                            <label for="complemento" style="font-weight: normal">Complemento</label>
-                            <textarea name="complemento" id="complemento" class="form-control" cols="30" rows="3">{{old('complemento', $endereco->complemento)}}</textarea>
-                        </div>
-                            <button id= "botao_voltar" type="" class="btn btn-primary mb-2 botaoVoltar" style=" ">&#x2190</button>
-                            <button id= "botao_enviar" type="submit" class="btn btn-primary mb-2 botaoEnviar">Salvar</button>
-                    </form>
-                    <div class="row">
-                        <div id="bottom_form" class="col-md-12"></div>
                     </div>
-                  </div>
+                    <div class="col-md-8 div-form">
+                        <div class="card-body" >
+                            <div style="margin-top: 15px; margin-bottom: 15px;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3 id="titulo-etapa" class="card-title">Endereço</h3>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="bg-[#F3F3F3]">
+                                            <div class="row" style="text-align: right;">
+                                                <div class="col-md-8"></div>
+                                                <div class="col-md-4">
+                                                    <label><span style="color: red;">*</span> Campo obrigatório</label>
+                                                </div>
+                                            </div>
+                                            <form id="formulario" method="POST" action="{{route('enderecos.update', ['startup' => $startup, 'endereco' => $endereco])}}" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="cep" class="form-label pb-1 mt-2">CEP <span class="text-red">*</span></label>
+                                                        <input type="cep" id="cep" name="cep" class="form-control border-ternary h-11 @error('cep') is-invalid @enderror" value="{{old('cep', $endereco->cep)}}" required>
+                                                        @error('cep')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="bairro" class="form-label pb-1 mt-2">Bairro <span class="text-red">*</span></label>
+                                                        <input type="text" id="bairro" name="bairro" class="form-control border-ternary h-11 @error('bairro') is-invalid @enderror" value="{{old('bairro', $endereco->bairro)}}" required>
+                                                        @error('bairro')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="rua" class="form-label pb-1 mt-2">Rua <span class="text-red">*</span></label>
+                                                        <input type="text" id="rua" name="rua" class="form-control border-ternary h-11 @error('rua') is-invalid @enderror" value="{{old('rua', $endereco->rua)}}" required>
+                                                        @error('rua')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="numero" class="form-label pb-1 mt-2" >Número <span class="text-red">*</span></label>
+                                                        <input type="numero" id="numero" name="numero" class="form-control border-ternary h-11 @error('numero') is-invalid @enderror" value="{{old('numero', $endereco->numero)}}" required>
+                                                        @error('numero')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="estado" class="form-label pb-1 mt-2">Estado <span class="text-red">*</span></label>
+                                                        <input type="text" id="estado" name="estado" class="form-control border-ternary h-11 @error('estado') is-invalid @enderror" value="{{old('estado', $endereco->estado)}}" required>
+                                                        @error('estado')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="cidade" class="form-label pb-1 mt-2">Cidade <span class="text-red">*</span></label>
+                                                        <input type="text" id="cidade" name="cidade" class="form-control border-ternary h-11 @error('cidade') is-invalid @enderror" value="{{old('cidade', $endereco->cidade)}}" required>
+                                                        @error('cidade')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label for="complemento" class="form-label pb-1 mt-2">Complemento</label>
+                                                        <textarea name="complemento" id="complemento" class="form-control border-ternary  @error('complemento') is-invalid @enderror" cols="30" rows="5">{{old('complemento', $endereco->complemento)}}</textarea>
+                                                        @error('complemento')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <div class="grid justify-items-center">
+                                                        <button type="submit" class="btn btn-secondary btn-padding border w-80 bg-verde submit-form-btn">Salvar</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="text-align: left;">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8" style="position: relative; left: -22px; padding-right: -200px;">
+                        <div class="bottom-form" class="row mt-3" style="margin-left: 10px;"></div>
+                    </div>
                 </div>
             </div>
         </div>

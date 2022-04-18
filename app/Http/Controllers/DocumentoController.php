@@ -7,6 +7,7 @@ use App\Models\Documento;
 use App\Models\Startup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class DocumentoController extends Controller
 {
@@ -74,9 +75,11 @@ class DocumentoController extends Controller
      * @param  \App\Models\Documento  $documento
      * @return \Illuminate\Http\Response
      */
-    public function edit(Documento $documento)
+    public function edit($startup)
     {
-        //
+        $startup = Startup::find($startup);
+        $documentos = $startup->documentos;
+        return view('documentos.edit',compact('startup', 'documentos'));
     }
 
     /**
@@ -86,9 +89,78 @@ class DocumentoController extends Controller
      * @param  \App\Models\Documento  $documento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Documento $documento)
+    public function update(Request $request, $startup)
     {
-        //
+        $startup = Startup::find($startup);
+        if($request->nomes != null){
+            $input_data = $request->all();
+
+            $validator = Validator::make(
+                $input_data, [
+                    'documentos.*' => ['file','max:5120','mimes:pdf'],
+                    'nomes.*' => ['max:255']
+                ],[
+                    'documentos.*.required' => 'O arquivo é obrigatório.',
+                    'documentos.*.max' => 'O tamanho máximo do arquivo é 5MB.',
+                    'documentos.*.mimes' => 'O arquivo só pode ser um PDF.',
+                    'nomes.*.required' => 'O nome do arquivo é obrigatório.',
+                    'nomes.*.max' => 'O tamanho máximo do nome do arquivo é de 255 caracteres.'
+                ]
+            );
+
+            if ($validator->fails()) {
+                return redirect()->back()->withInput();
+            }
+        }
+
+        if($request->docsID != null){
+            $docsEditados = Documento::whereIn('id', $request->docsID)->get();
+            $indice = count($request->docsID);
+        }else{
+            $docsEditados = collect();
+            $indice = 0;
+        }
+        $docsExcluidos = $startup->documentos->diff($docsEditados);
+        if($request->nomes != null){
+            if(count($request->nomes) - $docsEditados->count()!= 0){
+                $docsNovos = array_slice($request->nomes, -(count($request->nomes) - $docsEditados->count()));
+            }else{
+                $docsNovos = collect();
+            }
+        }else{
+            $docsNovos = collect();
+            $indice = 0;
+        }
+        
+        foreach($docsNovos as $i => $nome){
+            $doc = new Documento();
+            $doc->setAttributes($nome, $startup);
+            $doc->save();
+            $doc->caminho = $doc->salvarArquivo($request->documentos[$indice+$i], $nome);
+            $doc->update();
+        }
+
+        //Editando docs//
+        if ($docsEditados != null && $docsEditados->count() > 0) {
+            foreach($request->docsID as $i => $id) {
+                $doc = Documento::find($id);
+                $doc->nome = $request->nomes[$i];
+                if($request->documentos != null && array_key_exists($i, $request->documentos)){
+                    $doc->caminho = $doc->salvarArquivo($request->documentos[$i], $doc->caminho);
+                }
+                $doc->update();
+            }
+        }
+
+        //Excluindo docs
+        if ($docsExcluidos != null && $docsExcluidos->count() > 0) {
+            foreach ($docsExcluidos as $doc) {
+                $doc->deletarArquivo($doc->caminho);
+                $doc->delete();
+            }
+        }
+
+        return redirect()->back()->with('message', 'Salvo');
     }
 
     /**
@@ -107,6 +179,19 @@ class DocumentoController extends Controller
         $documento->delete();
 
         return redirect(route('startups.index', $startup))->with(['message' => 'Documento deletado com sucesso!']);
+    }
+
+    /**
+     * Get the document file from storage.
+     *
+     * @param  \App\Models\Documento  $documento
+     * @return \Illuminate\Http\Response
+     */
+
+    public function arquivo($documento)
+    {
+        $documento = Documento::find($documento);
+        return Storage::disk()->exists($documento->caminho) ? response()->file(storage_path('app/'.$documento->caminho)) : abort(404);
     }
 
 
