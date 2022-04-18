@@ -22,6 +22,7 @@ class CreateStartupsTable extends Migration
             $table->string('logo');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('area_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

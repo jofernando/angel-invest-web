@@ -5,7 +5,6 @@ use App\Http\Controllers\StartupController;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\DocumentoController;
 use Illuminate\Support\Facades\Route;
-use phpDocumentor\Reflection\Types\Resource_;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +30,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::resource('startups', StartupController::class);
-    Route::resource('startup/{startup}/enderecos', EnderecoController::class);
-    Route::resource('startups/{startup}/documentos', DocumentoController::class);
-    Route::resource('startup/{startup}/propostas', PropostaController::class);
 
+    Route::get('/get-component', [StartupController::class, 'startupGetComponent'])->name('startup.component.ajax');
+
+    Route::resource('startup/{startup}/propostas', PropostaController::class);
+    Route::resource('startups/{startup}/enderecos', EnderecoController::class);
+    Route::resource('startups/{startup}/documentos', DocumentoController::class)->except('edit', 'update');
+
+    Route::get('startups/{startup}/documentos-edit', [DocumentoController::class, 'edit'])->name('documentos.edit');
+    Route::put('startups/{startup}/documentos-update', [DocumentoController::class, 'update'])->name('documentos.update');
+
+    Route::get('/documentos/{documento}/arquivo', [DocumentoController::class, 'arquivo'])->name('documento.arquivo');
 });

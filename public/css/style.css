@@ -272,6 +272,70 @@ button.selected{
 
 /* X CADASTRO X */
 
+/* X CADASTRO STARTUP X*/
+#left-div-create {
+  width: 100%;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 100%;
+  background-color: #EEEEEE;
+}
+
+#bottom-left-div-create {
+  height: 80px;
+  background-color:  #EEEEEE;
+}
+
+.side-titulo {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.etapa-nome-selected {
+  padding-left: 20px;
+  color: #009FC2;
+  font-weight: bold;
+}
+
+.etapa-nome {
+  padding-left: 20px;
+}
+
+.circulo-selected {
+  width: 28px; 
+  height: 28px; 
+  border:3px solid #009FC2; 
+  border-radius: 60%; 
+  background-color: white;
+
+}
+
+.circulo {
+  width: 28px;
+  height: 28px;
+  border:1px solid #8E8E8E;
+  border-radius: 60%;
+  background-color: white;
+}
+
+.numero-selected {
+  text-align: center; 
+  color: #009FC2; 
+  font-weight: bold;
+}
+
+.numero {
+  text-align: center;
+  padding-top: 2px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
+/* X CADASTRO STARTUP X*/
 /* INDEX PROPOSTA */
 
 .card {
@@ -431,7 +495,7 @@ button.selected{
   top: 80px;
   left: 30px;
   margin-top: -30px;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 #video-proposta {
@@ -503,6 +567,32 @@ label {
 }
 
 /* X FOOTER X */
+
+/* FORM CREATE STARTUP */
+
+.border-ternary {
+  border: 1px solid var(--ternary-color);
+}
+
+.text-red {
+  color: red;
+}
+
+.text-ternary {
+  color: var(--ternary-color);
+}
+
+.branco-transparente {
+  background-color: rgba(241, 245, 249, 0.7);
+}
+
+.bg-verde {
+  background-color: #34a877;
+}
+
+.bg-verde:hover {
+  background-color: #1e5f44;
+}
 
 .form-envia-documentos {
     width: 100%;

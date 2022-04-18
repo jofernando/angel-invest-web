@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Startup extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'nome',
@@ -27,17 +29,6 @@ class Startup extends Model
         return $this->belongsTo(Area::class);
     }
 
-
-    public function endereco()
-    {
-        return $this->hasOne(Endereco::class);
-    }
-
-    public function documentos()
-    {
-        return $this->hasMany(Documento::class);
-    }
-
     /**
      * Relacionamento n propostas
      *
@@ -46,6 +37,16 @@ class Startup extends Model
     public function propostas()
     {
         return $this->hasMany(Proposta::class);
-
     }
+
+    public function endereco()
+    {
+        return $this->hasOne(Endereco::class);
+    }
+    
+    public function documentos()
+    {
+        return $this->hasMany(Documento::class)->orderBy('nome');;
+    }
+
 }

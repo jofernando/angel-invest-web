@@ -69,7 +69,7 @@
                                 <div class="row mt-3">
                                     <div class="col-md-12" style="text-align: right;">
                                         <a href="{{route('propostas.edit', ['startup' => $startup, 'proposta' => $proposta])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
-                                        <button id="btnmodaldelete{{$proposta->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$proposta->id}}"> <img src="{{asset('img/trash.svg')}}" alt="Icone de editar proposta" style="height: 20px;"> Deletar</button>
+                                        <button id="btnmodaldelete{{$proposta->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$proposta->id}}"> <img src="{{asset('img/trash-white.svg')}}" alt="Icone de editar proposta" style="height: 20px;"> Deletar</button>
                                     </div>
                                 </div>
                             </div>

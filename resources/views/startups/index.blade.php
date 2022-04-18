@@ -52,18 +52,18 @@
                 <a href="{{route('startups.create')}}">criar</a>
             </div>
             @foreach ($startups as $startup)
+                <p>{{$startup->nome}} <a href=" {{route('startups.show', $startup)}} ">mostrar</a> 
+                <p>{{$startup->nome}} <a href=" {{route('startups.edit', $startup)}} ">editar</a> <a href=" {{route('startups.destroy', $startup)}} ">deletar</a></p>
+                <p><a href="{{route('propostas.index', $startup)}}">propostas</a></p>
                 <p>{{ $startup->nome }} <a href=" {{route('startups.edit', $startup)}} ">editar</a> <a href=" {{route('startups.destroy', $startup)}} ">deletar</a>
                     <a href=" {{route('enderecos.create', $startup)}} ">endereço</a>
                 </p>
                 <p>{{ $startup->nome }} <a href=" {{route('startups.edit', $startup)}} ">editar</a> <a href=" {{route('startups.destroy', $startup)}} ">deletar</a></p>
-                <a href="{{route('documentos.create', $startup)}}">criar documento</a>
-                <p>{{$startup->nome}} <a href=" {{route('startups.edit', $startup)}} ">editar</a> <a href=" {{route('startups.destroy', $startup)}} ">deletar</a></p>
-                <p><a href="{{route('propostas.index', $startup)}}">propostas</a></p>
+                <a href="{{route('documentos.create', $startup)}}">criar</a>
             @endforeach
         </div>
     </div>
     <script>
-        CKEDITOR.replace('descricao');
         $("#cnpj").mask("99.999.999/9999-99");
     </script>
 </x-app-layout>
