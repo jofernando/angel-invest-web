@@ -50,6 +50,7 @@ class CreatePropostaTest extends PropostaTest
         $this->browse(function (Browser $browser) {
             $startup = $this->criar_startup();
             $browser->visitRoute('propostas.create', ['startup' => $startup])
+                    ->waitForText('Salvar')
                     ->press('#salvar')
                     ->assertRouteIs('propostas.create', ['startup' => $startup]);
 
