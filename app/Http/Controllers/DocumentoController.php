@@ -191,7 +191,7 @@ class DocumentoController extends Controller
     public function arquivo($documento)
     {
         $documento = Documento::find($documento);
-        return Storage::disk()->exists($documento->caminho) ? response()->file(storage_path('app/'.$documento->caminho)) : abort(404);
+        return Storage::disk()->exists('public/'.$documento->caminho) ? response()->file(storage_path('app/public/'.$documento->caminho)) : abort(404);
     }
 
 
