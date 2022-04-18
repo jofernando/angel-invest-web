@@ -1,6 +1,11 @@
 <x-app-layout>
-    <div class="container" style="margin-top: 50px;">
-        <div class="card card-feature">
+    <div class="container" style="margin-top: 30px;">
+        <div class="row titulo-pag">
+            <div class="col-md-8">
+                <h4><a class="link-default" href="{{route('startups.index')}}">Minhas startups</a> > <a class="link-default" href="{{route('startups.show', $startup)}}">{{mb_strimwidth($startup->nome, 0, 30, "...")}}</a> > Editando documentos</h4>
+            </div>
+        </div>
+        <div class="card card-feature" style="margin-top:25px;">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 div-checks">
