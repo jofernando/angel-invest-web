@@ -48,10 +48,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="documentos"><img  src="{{asset('img/pdf-icon.svg')}}" alt="Ícone de documento" title="Nome do documento"></div>
-                                    <div class="documentos"><img  src="{{asset('img/pdf-icon.svg')}}" alt="Ícone de documento" title="Nome do documento"></div>
-                                    <div class="documentos"><img  src="{{asset('img/pdf-icon.svg')}}" alt="Ícone de documento" title="Nome do documento"></div>
-                                    <div class="documentos"><img  src="{{asset('img/pdf-icon.svg')}}" alt="Ícone de documento" title="Nome do documento"></div>
+                                    @foreach ($startup->documentos as $i => $documento)
+                                        <div class="documentos">
+                                            <a href="{{route('documento.arquivo', ['documento' => $documento->id])}}" target="_blank">
+                                                <img  src="{{asset('img/pdf-icon.svg')}}" alt="Ícone de documento" title="Nome do documento">
+                                            </a>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -78,7 +81,7 @@
         </div>
     </div>
     <script>
-        cores = ['#00ffff', '#7fffd4', '#8a2be2', '#a52a2a', '#5f9ea0', '#6495ed', '#008b8b', '#bdb76b', '#ff8c00', 
+        cores = ['#00ffff', '#7fffd4', '#8a2be2', '#a52a2a', '#5f9ea0', '#6495ed', '#008b8b', '#bdb76b', '#ff8c00',
                  '#483d8b', '#8fbc8f', '#2f4f4f', '#ffd700', '#20b2aa', '#ffa07a', '#87cefa', '#66cdaa', '#9370db', '#3cb371', '#191970'];
 
         $(document).ready(function(){

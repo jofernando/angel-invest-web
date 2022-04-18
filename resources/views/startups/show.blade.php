@@ -46,7 +46,7 @@
                                 name="cnpj"
                                 value="{{ old('cnpj', $startup->cnpj) }}"
                                 disabled>
-        
+
                         </div>
                         <div class="pb-3 col-6">
                             <label class="form-label" for="area">Área</label>
