@@ -303,11 +303,15 @@ button.selected{
   padding-left: 20px;
 }
 
+div#descricao {
+    background-color: rgb(233, 236, 239);
+}
+
 .circulo-selected {
-  width: 28px; 
-  height: 28px; 
-  border:3px solid #009FC2; 
-  border-radius: 60%; 
+  width: 28px;
+  height: 28px;
+  border:3px solid #009FC2;
+  border-radius: 60%;
   background-color: white;
 
 }
@@ -321,8 +325,8 @@ button.selected{
 }
 
 .numero-selected {
-  text-align: center; 
-  color: #009FC2; 
+  text-align: center;
+  color: #009FC2;
   font-weight: bold;
 }
 
@@ -634,7 +638,7 @@ label {
     background-color: var(--primaria);
 }
 
-/* STARTUP */ 
+/* STARTUP */
 
 .card-startup {
   border: none;

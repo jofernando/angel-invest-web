@@ -106,6 +106,7 @@
         </div>
     </div>
     <script>
+        CKEDITOR.replace( 'descricao' );
         $("#cnpj").mask("99.999.999/9999-99");
         function display(input) {
             const [file] = input.files

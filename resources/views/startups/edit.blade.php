@@ -12,7 +12,7 @@
                         <div class="row mb-4 mt-4" style="text-align: center;">
                             <div class="col-md-12">
                                 <a href="{{route('startups.show', $startup)}}" class="btn btn-success btn-padding border"><img src="{{asset('img/back.svg')}}" alt="Icone de voltar" style="padding-right: 5px; height: 22px;"> Voltar</a>
-                            </div>  
+                            </div>
                         </div>
                         <div class="row">
                             <div id ="left-div-create" class="col-md-12">
@@ -154,6 +154,7 @@
         </div>
     </div>
     <script>
+        CKEDITOR.replace( 'descricao' );
         $("#cnpj").mask("99.999.999/9999-99");
         function display(input) {
             const [file] = input.files

@@ -30,12 +30,12 @@
                     </div>
                     <div class="pb-3">
                         <label class="form-label" for="descricao">Descrição</label>
-                        <textarea name="descricao"
+                        <div name="descricao"
                             id="descricao"
                             class="form-control border-ternary"
                             cols="30"
                             rows="3"
-                            disabled>{{ old('descricao', $startup->descricao) }}</textarea>
+                            disabled> {!! $startup->descricao !!} </div>
                     </div>
                     <div class="row">
                         <div class="pb-3 col-6">
@@ -46,7 +46,7 @@
                                 name="cnpj"
                                 value="{{ old('cnpj', $startup->cnpj) }}"
                                 disabled>
-        
+
                         </div>
                         <div class="pb-3 col-6">
                             <label class="form-label" for="area">Área</label>
