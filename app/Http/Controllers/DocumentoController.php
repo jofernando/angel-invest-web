@@ -78,6 +78,7 @@ class DocumentoController extends Controller
     public function edit($startup)
     {
         $startup = Startup::find($startup);
+        $this->authorize('update',$startup);
         $documentos = $startup->documentos;
         return view('documentos.edit',compact('startup', 'documentos'));
     }
@@ -91,7 +92,9 @@ class DocumentoController extends Controller
      */
     public function update(Request $request, $startup)
     {
+
         $startup = Startup::find($startup);
+        $this->authorize('update',$startup);
         if($request->nomes != null){
             $input_data = $request->all();
 
@@ -131,7 +134,7 @@ class DocumentoController extends Controller
             $docsNovos = collect();
             $indice = 0;
         }
-        
+
         foreach($docsNovos as $i => $nome){
             $doc = new Documento();
             $doc->setAttributes($nome, $startup);
@@ -191,6 +194,7 @@ class DocumentoController extends Controller
     public function arquivo($documento)
     {
         $documento = Documento::find($documento);
+        $this->authorize('view',$documento);
         return Storage::disk()->exists('public/'.$documento->caminho) ? response()->file(storage_path('app/public/'.$documento->caminho)) : abort(404);
     }
 

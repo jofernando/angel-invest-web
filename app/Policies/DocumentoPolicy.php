@@ -30,7 +30,7 @@ class DocumentoPolicy
      */
     public function view(User $user, Documento $documento)
     {
-        //
+        return $user->id == $documento->startup->user_id;
     }
 
     /**
