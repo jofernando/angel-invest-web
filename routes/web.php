@@ -4,6 +4,7 @@ use App\Http\Controllers\PropostaController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\LeilaoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,7 @@ Route::middleware([
     Route::resource('startup/{startup}/propostas', PropostaController::class);
     Route::resource('startups/{startup}/enderecos', EnderecoController::class);
     Route::resource('startups/{startup}/documentos', DocumentoController::class)->except('edit', 'update');
+    Route::resource('leilao', LeilaoController::class);
 
     Route::get('startups/{startup}/documentos-edit', [DocumentoController::class, 'edit'])->name('documentos.edit');
     Route::put('startups/{startup}/documentos-update', [DocumentoController::class, 'update'])->name('documentos.update');
