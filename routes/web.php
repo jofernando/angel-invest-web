@@ -37,7 +37,8 @@ Route::middleware([
     Route::resource('startup/{startup}/propostas', PropostaController::class);
     Route::resource('startups/{startup}/enderecos', EnderecoController::class);
     Route::resource('startups/{startup}/documentos', DocumentoController::class)->except('edit', 'update');
-    Route::resource('leilao', LeilaoController::class);
+    Route::resource('leilao', LeilaoController::class)->except('show');
+    Route::get('leilao/{leilao}/termo', [LeilaoController::class, 'show_termo'])->name('leilao.termo');
 
     Route::get('startups/{startup}/documentos-edit', [DocumentoController::class, 'edit'])->name('documentos.edit');
     Route::put('startups/{startup}/documentos-update', [DocumentoController::class, 'update'])->name('documentos.update');

@@ -44,13 +44,14 @@ class LeilaoController extends Controller
      */
     public function store(LeilaoRequest $request)
     {
+        $request->validate([
+            'termo_de_porcentagem_do_produto' => 'required|file|max:5120|mimes:pdf',
+        ]);
+
         $produto = Proposta::find($request->input('produto_do_leilão'));
         $this->authorize('userOwnsThePorposta', $produto);
 
-        $ultimo_leilao = $produto->leiloes()->orderBy('data_fim', 'desc')->first();
-        $inicio = new Carbon($request->input('data_de_início'));
-
-        if ($ultimo_leilao != null && $ultimo_leilao->data_fim >= $inicio) {
+        if ($this->viola_intervalo_tempo($request->input('data_de_início'), $request->input('data_de_fim'))) {
             return redirect(route('leilao.create'))->withErrors(['leilao_existente' => 'Já existe um leilão para esse produto que engloba o período escolhido.'])->withInput($request->all());
         }
 
@@ -60,18 +61,22 @@ class LeilaoController extends Controller
         $leilao->porcetagem_caminho = $this->salvar_termo_porcetagem($leilao, $request->file('termo_de_porcentagem_do_produto'));
         $leilao->update();
 
-        return redirect(route('leilao.index'))->with('mesage', 'Leilão salvo com sucesso!');
+        return redirect(route('leilao.index'))->with('mensage', 'Leilão salvo com sucesso!');
     }
 
     /**
-     * Display the specified resource.
+     * Mostra o documento do termo ligado ao leilão.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show_termo($id)
     {
-        //
+        $leilao = Leilao::find($id);
+        if (Storage::disk()->exists('public/' . $leilao->porcetagem_caminho)) {
+            return response()->file('storage/'.$leilao->porcetagem_caminho);
+        }
+        return abort(404);
     }
 
     /**
@@ -82,7 +87,10 @@ class LeilaoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $leilao = Leilao::find($id);
+        $produtos = $this->produto_do_usuario();
+        
+        return view('leilao.edit', compact('leilao', 'produtos'));
     }
 
     /**
@@ -92,9 +100,21 @@ class LeilaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(LeilaoRequest $request, $id)
     {
-        //
+        $produto = Proposta::find($request->input('produto_do_leilão'));
+        $leilao = Leilao::find($id);
+        $this->authorize('userOwnsThePorposta', $produto);
+
+        if ($this->viola_intervalo_tempo($request->input('data_de_início'), $request->input('data_de_fim'), $leilao)) {
+            return redirect(route('leilao.edit', $leilao))->withErrors(['leilao_existente' => 'Já existe um leilão para esse produto que engloba o período escolhido.'])->withInput($request->all());
+        }
+
+        $this->set_atributos_no_leilao($leilao, $request->all());
+        $leilao->porcetagem_caminho = $this->salvar_termo_porcetagem($leilao, $request->file('termo_de_porcentagem_do_produto'));
+        $leilao->update();
+
+        return redirect(route('leilao.index'))->with('mensage', 'Leilão atualizado com sucesso!');
     }
 
     /**
@@ -168,5 +188,34 @@ class LeilaoController extends Controller
             return $path_completo . $nome;
         }
         return $leilao->porcetagem_caminho;
+    }
+
+    /**
+     * Checa se existe algum leilão que englobe aquele determinado período de tempo
+     *
+     * @param date $data_inicio : Data de início do objeto que será criado
+     * @param date $data_fim :  Data de fim do objeto que será criado
+     * @param Leilao|null $leilao : Para ignorar o objeto leilão passado
+     * @return boolean
+     */
+    private function viola_intervalo_tempo($data_inicio, $data_fim, Leilao $leilao = null)
+    {
+        $inicio = new Carbon($data_inicio);
+        $fim = new Carbon($data_fim);
+        $query = Leilao::query();
+
+        if ($leilao) {
+            $query->where([['id', '!=', $leilao->id], ['data_inicio', '>', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
+            $query->orWhere([['id', '!=', $leilao->id], ['data_inicio', '<', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
+            $query->orWhere([['id', '!=', $leilao->id], ['data_inicio', '<', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
+            $query->orWhere([['id', '!=', $leilao->id], ['data_inicio', '>', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
+            return $query->first() ? true : false;
+        }
+        
+        $query->where([['data_inicio', '>', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
+        $query->orWhere([['data_inicio', '<', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
+        $query->orWhere([['data_inicio', '<', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
+        $query->orWhere([['data_inicio', '>', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
+        return $query->first() ? true : false;
     }
 }

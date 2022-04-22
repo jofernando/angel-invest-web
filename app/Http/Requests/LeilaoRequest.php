@@ -30,7 +30,7 @@ class LeilaoRequest extends FormRequest
             'número_de_garanhadores' => 'required|integer',
             'data_de_início' => 'required|date',
             'data_de_fim' => 'required|date|after:data_de_início',
-            'termo_de_porcentagem_do_produto' => 'required|file|max:5120|mimes:pdf',
+            'termo_de_porcentagem_do_produto' => 'nullable|file|max:5120|mimes:pdf',
         ];
     }
 }
