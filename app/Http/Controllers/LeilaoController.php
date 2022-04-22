@@ -61,7 +61,7 @@ class LeilaoController extends Controller
         $leilao->porcetagem_caminho = $this->salvar_termo_porcetagem($leilao, $request->file('termo_de_porcentagem_do_produto'));
         $leilao->update();
 
-        return redirect(route('leilao.index'))->with('mensage', 'Leilão salvo com sucesso!');
+        return redirect(route('leilao.index'))->with('message', 'Leilão salvo com sucesso!');
     }
 
     /**
@@ -114,7 +114,7 @@ class LeilaoController extends Controller
         $leilao->porcetagem_caminho = $this->salvar_termo_porcetagem($leilao, $request->file('termo_de_porcentagem_do_produto'));
         $leilao->update();
 
-        return redirect(route('leilao.index'))->with('mensage', 'Leilão atualizado com sucesso!');
+        return redirect(route('leilao.index'))->with('message', 'Leilão atualizado com sucesso!');
     }
 
     /**
@@ -125,7 +125,11 @@ class LeilaoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $leilao = Leilao::find($id);
+        $this->deletar_arquivo_termo($leilao);
+        $leilao->delete();
+
+        return redirect(route('leilao.index'))->with('message', 'Leilão deletado com sucesso!');
     }
 
     /**
@@ -176,11 +180,7 @@ class LeilaoController extends Controller
     private function salvar_termo_porcetagem(Leilao $leilao, $file) 
     {
         if ($file != null) {
-            if ($leilao->porcetagem_caminho != null) {
-                if (Storage::disk()->exists('public/' . $leilao->porcetagem_caminho)) {
-                    Storage::delete('public/' . $leilao->porcetagem_caminho);
-                }
-            } 
+            $this->deletar_arquivo_termo($leilao);
 
             $path_completo = 'leiloes/' . $leilao->id . '/';
             $nome = $file->getClientOriginalName();
@@ -217,5 +217,20 @@ class LeilaoController extends Controller
         $query->orWhere([['data_inicio', '<', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
         $query->orWhere([['data_inicio', '>', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
         return $query->first() ? true : false;
+    }
+
+    /**
+     * Deleta o arquivo do termo de porcentagem do leilão caso exista
+     *
+     * @param Leilao $leilao
+     * @return void
+     */
+    private function deletar_arquivo_termo(Leilao $leilao)
+    {
+        if ($leilao->porcetagem_caminho != null) {
+            if (Storage::disk()->exists('public/' . $leilao->porcetagem_caminho)) {
+                Storage::delete('public/' . $leilao->porcetagem_caminho);
+            }
+        }
     }
 }
