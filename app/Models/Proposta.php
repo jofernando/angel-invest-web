@@ -31,4 +31,14 @@ class Proposta extends Model
     {   
         return $this->belongsTo(Startup::class);
     }
+
+    /**
+     * Relacionamento para leilão
+     *
+     * @return Collect $leioes : Collect de leilões a qual a proposta está relacionada
+     */
+    public function leiloes() 
+    {
+        return $this->hasMany(Leilao::class);
+    }
 }
