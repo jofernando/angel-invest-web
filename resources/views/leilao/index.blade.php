@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container index-proposta" style="margin-top: 50px;">
+    <div class="container index-proposta" style="margin-top: 50px; padding-bottom: 22px;">
         <div class="row titulo-pag">
             <div class="col-md-8">
                 <h4>Leilões</h4>
@@ -37,68 +37,56 @@
                 </div>
             @endif
         </div>
-        <div class="row">
+        <div class="row mt-4">
             @if ($leiloes->count() > 0)
-                @foreach ($leioes as $leilao)
-                    {{-- <div class="col-md-4">
-                        <div class="card card-home border-none" style="width: 100%;">
-                            <div class="row area-startup">
-                                <div class="col-md-8"></div>
-                                <div class="col-md-4">
-                                    <span class="span-area-startup" style="color: white;">{{$proposta->startup->area->nome}}</span>
-                                </div>
-                            </div>
-                            <video class="card-img-top" alt="video da startup" controls poster="{{asset('storage/'.$proposta->thumbnail_caminho)}}">
-                                <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mp4">
-                                <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mkv">
-                            </video>
-                            <div id="div-card-hearder" class="card-header">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}" style="color: white; text-decoration: none;"><h4 class="card-title">{{$proposta->titulo}}</h4></a>
-                                        <h5 class="card-subtitle mb-2" style="color: white;">{{$proposta->startup->nome}}</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="table-dark default-table-head-color">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Proposta</th>
+                                    <th scope="col">Periodo</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($leiloes as $leilao)
+                                    <tr>
+                                        <th scope="col">{{$leilao->id}}</th>
+                                        <td><a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">{{$leilao->proposta->titulo}}</a></td>
+                                        <td>De {{date('d/m/Y', strtotime($leilao->data_inicio))}} até {{date('d/m/Y', strtotime($leilao->data_fim))}}</td>
+                                        <td><a class="btn btn-success btn-default btn-padding border" href="{{route('leilao.edit', $leilao)}}"><img src="{{asset('img/edit.svg')}}" alt="Icone de editar leilão">Editar</a><button id="btnmodaldelete{{$leilao->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-leilao-{{$leilao->id}}"> <img src="{{asset('img/trash-white.svg')}}" alt="Icone de deletar leilão" style="height: 20px;"> Deletar</button></td>
+                                    </tr>
+
+                                    <div class="modal fade" id="moda-delete-leilao-{{$leilao->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="background-color: #dc3545;">
+                                                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Confirmação</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="form-deletar-proposta-{{$leilao->id}}" method="POST" action="{{route('leilao.destroy', $leilao)}}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    Tem certeza que deseja deletar o leilão #{{$leilao->id}} da proposta {{$leilao->proposta->titulo}}?
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary btn-padding border" data-bs-dismiss="modal">Cancelar</button>
+                                                <button id="btnmodaldeleteform{{$leilao->id}}" type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$leilao->id}}">Deletar</button>
+                                            </div>
+                                        </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <p class="card-text">{!! mb_strimwidth($proposta->descricao, 0, 90, "...") !!} @if(strlen($proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}">Exibir proposta</a> @endif</p>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-12" style="text-align: right;">
-                                        <a href="{{route('propostas.edit', ['startup' => $startup, 'proposta' => $proposta])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
-                                        <button id="btnmodaldelete{{$proposta->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$proposta->id}}"> <img src="{{asset('img/trash-white.svg')}}" alt="Icone de editar proposta" style="height: 20px;"> Deletar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
                     <!-- Modal -->
-                    {{-- <div class="modal fade" id="moda-delete-proposta-{{$proposta->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header" style="background-color: #dc3545;">
-                                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Confirmação</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="form-deletar-proposta-{{$proposta->id}}" method="POST" action="{{route('propostas.destroy',  ['startup' => $startup, 'proposta' => $proposta])}}">
-                                    @csrf
-                                    @method('DELETE')
-                                    Tem certeza que deseja deletar a proposta {{$proposta->titulo}}?
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-padding border" data-bs-dismiss="modal">Cancelar</button>
-                                <button id="btnmodaldeleteform{{$proposta->id}}" type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$proposta->id}}">Deletar</button>
-                            </div>
-                        </div>
-                        </div>
-                    </div> --}}
-                @endforeach
+                    {{--  --}}
+                
             @else 
                 <div class="col-md-12">
                     <div class="p-5 mb-4 bg-light rounded-3">
