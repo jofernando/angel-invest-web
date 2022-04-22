@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container index-proposta" style="margin-top: 50px; padding-bottom: 22px;">
+    <div class="container index-proposta" style="margin-top: 50px; padding-bottom: 70px;">
         <div class="row titulo-pag">
             <div class="col-md-8">
                 <h4>Leilões</h4>

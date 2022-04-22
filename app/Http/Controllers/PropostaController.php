@@ -178,9 +178,9 @@ class PropostaController extends Controller
             $this->deletar_arquivo($diretorio);
 
             $path_completo = 'propostas/' . $proposta->id . $path;
-            $nome_thumb = $file->getClientOriginalName();
-            Storage::putFileAs('public/'.$path_completo, $file, $nome_thumb);
-            $novo_diretorio = $path_completo . $nome_thumb;
+            $nome = $file->getClientOriginalName();
+            Storage::putFileAs('public/'.$path_completo, $file, $nome);
+            $novo_diretorio = $path_completo . $nome;
 
             return $novo_diretorio;
         } else {
