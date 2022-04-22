@@ -25,7 +25,7 @@ class LeilaoRequest extends FormRequest
     public function rules()
     {
         return [
-            'proposta_do_leilão' => 'required|integer',
+            'produto_do_leilão' => 'required|integer',
             'valor_mínimo' => 'required',
             'número_de_garanhadores' => 'required|integer',
             'data_de_início' => 'required|date',

@@ -7,6 +7,7 @@ use App\Models\Leilao;
 use App\Models\Proposta;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\LeilaoRequest;
+use Carbon\Carbon;
 
 class LeilaoController extends Controller
 {
@@ -29,10 +30,10 @@ class LeilaoController extends Controller
     public function create(Request $request)
     {
         $this->authorize('create', Leilao::class);
-        $propostas = $this->propostas_do_usuario();
-        $proposta_parametro = Proposta::find($request->proposta);
+        $produtos = $this->produto_do_usuario();
+        $produto_parametro = Proposta::find($request->produto);
 
-        return view('leilao.create', compact('propostas', 'proposta_parametro'));
+        return view('leilao.create', compact('produtos', 'produto_parametro'));
     }
 
     /**
@@ -43,8 +44,15 @@ class LeilaoController extends Controller
      */
     public function store(LeilaoRequest $request)
     {
-        $proposta = Proposta::find($request->input('proposta_do_leilão'));
-        $this->authorize('userOwnsThePorposta', $proposta);
+        $produto = Proposta::find($request->input('produto_do_leilão'));
+        $this->authorize('userOwnsThePorposta', $produto);
+
+        $ultimo_leilao = $produto->leiloes()->orderBy('data_fim', 'desc')->first();
+        $inicio = new Carbon($request->input('data_de_início'));
+
+        if ($ultimo_leilao != null && $ultimo_leilao->data_fim >= $inicio) {
+            return redirect(route('leilao.create'))->withErrors(['leilao_existente' => 'Já existe um leilão para esse produto que engloba o período escolhido.'])->withInput($request->all());
+        }
 
         $leilao = new Leilao();
         $this->set_atributos_no_leilao($leilao, $request->all());
@@ -105,7 +113,7 @@ class LeilaoController extends Controller
      *
      * @return Collect $propostas : Propostas que o empreendedor criou
      */
-    private function propostas_do_usuario() 
+    private function produto_do_usuario() 
     {
         $startups = auth()->user()->startups;
         return Proposta::whereIn('startup_id', $startups->pluck('id'))->orderBy('titulo')->get();
@@ -118,8 +126,8 @@ class LeilaoController extends Controller
      */
     private function leiloes_do_usuario()
     {
-        $propostas = $this->propostas_do_usuario();
-        return Leilao::whereIn('proposta_id', $propostas->pluck('id'))->orderBy('created_at')->get();
+        $produtos = $this->produto_do_usuario();
+        return Leilao::whereIn('proposta_id', $produtos->pluck('id'))->orderBy('created_at')->get();
     }
 
     /**
@@ -135,7 +143,7 @@ class LeilaoController extends Controller
         $leilao->data_inicio = $array_inputs['data_de_início'];
         $leilao->data_fim = $array_inputs['data_de_fim'];
         $leilao->numero_ganhadores = $array_inputs['número_de_garanhadores'];
-        $leilao->proposta_id = $array_inputs['proposta_do_leilão'];
+        $leilao->proposta_id = $array_inputs['produto_do_leilão'];
     }
 
     /**

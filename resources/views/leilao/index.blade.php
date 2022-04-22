@@ -44,12 +44,13 @@
                             <thead class="table-dark default-table-head-color">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Proposta</th>
+                                    <th scope="col">Produto</th>
                                     <th scope="col">Periodo</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 @foreach ($leiloes as $leilao)
                                     <tr>
                                         <th scope="col">{{$leilao->id}}</th>
@@ -69,7 +70,7 @@
                                                 <form id="form-deletar-proposta-{{$leilao->id}}" method="POST" action="{{route('leilao.destroy', $leilao)}}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    Tem certeza que deseja deletar o leilão #{{$leilao->id}} da proposta {{$leilao->proposta->titulo}}?
+                                                    Tem certeza que deseja deletar o leilão #{{$leilao->id}} do produto {{$leilao->proposta->titulo}}?
                                                 </form>
                                             </div>
                                             <div class="modal-footer">

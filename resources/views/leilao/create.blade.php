@@ -12,6 +12,15 @@
                         <div class="row">
                             <h4 class="card-title" style="font-size: 22px;">Adicionando novo leilão</h5>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @error('leilao_existente')
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-8 div-form">
                         <form class="form-envia-documentos" method="POST" action="{{route('leilao.store')}}" enctype="multipart/form-data">
@@ -30,19 +39,19 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-12">
-                                        <label for="proposta" class="form-label ">Proposta do leilão <span style="color: red;">*</span></label>
-                                        <select name="proposta_do_leilão" id="proposta_do_leilão" class="form-control @error('proposta_do_leilão') is-invalid @enderror" >
-                                            <option value="" selected disabled>-- Selecione uma proposta --</option>
-                                            @foreach ($propostas as $proposta)
-                                                @if($proposta_parametro)
-                                                    <option @if(old('proposta_do_leilão') == $proposta->id || $proposta->id == $proposta_parametro->id) selected @endif value="{{$proposta->id}}">{{$proposta->titulo}}</option>
+                                        <label for="produto_do_leilão" class="form-label ">Produto do leilão <span style="color: red;">*</span></label>
+                                        <select name="produto_do_leilão" id="produto_do_leilão" class="form-control @error('produto_do_leilão') is-invalid @enderror" >
+                                            <option value="" selected disabled>-- Selecione um produto --</option>
+                                            @foreach ($produtos as $produto)
+                                                @if($produto_parametro)
+                                                    <option @if(old('produto_do_leilão') == $produto->id || $produto->id == $produto_parametro->id) selected @endif value="{{$produto->id}}">{{$produto->titulo}}</option>
                                                 @else
-                                                    <option @if(old('proposta_do_leilão') == $proposta->id) selected @endif value="{{$proposta->id}}">{{$proposta->titulo}}</option>
+                                                    <option @if(old('produto_do_leilão') == $produto->id) selected @endif value="{{$produto->id}}">{{$produto->titulo}}</option>
                                                 @endif
                                             @endforeach
                                         </select>
 
-                                        @error('proposta_do_leilão')
+                                        @error('produto_do_leilão')
                                             <div id="validationServer03Feedback" class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -105,9 +114,9 @@
                                         <input id="termo" name="termo_de_porcentagem_do_produto" onchange="trocarNome(this)" type="file" class="input-enviar-arquivo @error('termo_de_porcetagem') is-invalid @enderror" accept=".pdf">
                                     
                                         @error('termo_de_porcentagem_do_produto')
-                                        <div class="alert alert-danger" role="alert">
+                                            <div class="alert alert-danger" role="alert">
                                                 {{ $message }}
-                                        </div>
+                                            </div>
                                         @enderror
                                     </div>
                                 </div>
