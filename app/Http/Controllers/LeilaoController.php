@@ -51,7 +51,7 @@ class LeilaoController extends Controller
         $produto = Proposta::find($request->input('produto_do_leilão'));
         $this->authorize('userOwnsThePorposta', $produto);
 
-        if ($this->viola_intervalo_tempo($request->input('data_de_início'), $request->input('data_de_fim'))) {
+        if ($this->viola_intervalo_tempo($produto, $request->input('data_de_início'), $request->input('data_de_fim'))) {
             return redirect(route('leilao.create'))->withErrors(['leilao_existente' => 'Já existe um leilão para esse produto que engloba o período escolhido.'])->withInput($request->all());
         }
 
@@ -106,7 +106,7 @@ class LeilaoController extends Controller
         $leilao = Leilao::find($id);
         $this->authorize('userOwnsThePorposta', $produto);
 
-        if ($this->viola_intervalo_tempo($request->input('data_de_início'), $request->input('data_de_fim'), $leilao)) {
+        if ($this->viola_intervalo_tempo($produto, $request->input('data_de_início'), $request->input('data_de_fim'), $leilao)) {
             return redirect(route('leilao.edit', $leilao))->withErrors(['leilao_existente' => 'Já existe um leilão para esse produto que engloba o período escolhido.'])->withInput($request->all());
         }
 
@@ -191,31 +191,32 @@ class LeilaoController extends Controller
     }
 
     /**
-     * Checa se existe algum leilão que englobe aquele determinado período de tempo
+     * Checa se existe algum leilão que englobe aquele determinado período de tempo de um produto
      *
+     * @param Proposta $produto : Produto que terá o leilão vinculado
      * @param date $data_inicio : Data de início do objeto que será criado
      * @param date $data_fim :  Data de fim do objeto que será criado
      * @param Leilao|null $leilao : Para ignorar o objeto leilão passado
      * @return boolean
      */
-    private function viola_intervalo_tempo($data_inicio, $data_fim, Leilao $leilao = null)
+    private function viola_intervalo_tempo(Proposta $produto, $data_inicio, $data_fim, Leilao $leilao = null)
     {
         $inicio = new Carbon($data_inicio);
         $fim = new Carbon($data_fim);
         $query = Leilao::query();
 
         if ($leilao) {
-            $query->where([['id', '!=', $leilao->id], ['data_inicio', '>', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
-            $query->orWhere([['id', '!=', $leilao->id], ['data_inicio', '<', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
-            $query->orWhere([['id', '!=', $leilao->id], ['data_inicio', '<', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
-            $query->orWhere([['id', '!=', $leilao->id], ['data_inicio', '>', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
+            $query->where([['id', '!=', $leilao->id], ['proposta_id', $produto->id], ['data_inicio', '>', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
+            $query->orWhere([['id', '!=', $leilao->id], ['proposta_id', $produto->id], ['data_inicio', '<', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
+            $query->orWhere([['id', '!=', $leilao->id], ['proposta_id', $produto->id], ['data_inicio', '<', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
+            $query->orWhere([['id', '!=', $leilao->id], ['proposta_id', $produto->id], ['data_inicio', '>', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
             return $query->first() ? true : false;
         }
         
-        $query->where([['data_inicio', '>', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
-        $query->orWhere([['data_inicio', '<', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
-        $query->orWhere([['data_inicio', '<', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
-        $query->orWhere([['data_inicio', '>', $inicio], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
+        $query->where([['data_inicio', '>', $inicio], ['proposta_id', $produto->id], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
+        $query->orWhere([['data_inicio', '<', $inicio], ['proposta_id', $produto->id], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
+        $query->orWhere([['data_inicio', '<', $inicio], ['proposta_id', $produto->id], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '<', $fim]]);
+        $query->orWhere([['data_inicio', '>', $inicio], ['proposta_id', $produto->id], ['data_fim', '>', $inicio], ['data_inicio', '<', $fim], ['data_fim', '>', $fim]]);
         return $query->first() ? true : false;
     }
 
