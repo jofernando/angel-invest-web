@@ -76,8 +76,10 @@ class PropostaController extends Controller
     {
         $startup = Startup::find($startup);
         $proposta = Proposta::find($proposta);
-        $this->authorize('view', $proposta);
-        $this->authorize('view', $startup);
+
+        if ($startup == null || $proposta == null) {
+            abort(404);
+        }
 
         return view('proposta.show', compact('startup', 'proposta'));
     }

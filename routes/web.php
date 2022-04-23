@@ -5,6 +5,7 @@ use App\Http\Controllers\StartupController;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\LeilaoController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
+Route::get('startup/{startup}/proposta/{proposta}', [PropostaController::class, 'show'])->name('propostas.show');
 
 Route::middleware([
     'auth:sanctum',
@@ -34,7 +34,7 @@ Route::middleware([
 
     Route::get('/get-component', [StartupController::class, 'startupGetComponent'])->name('startup.component.ajax');
 
-    Route::resource('startup/{startup}/propostas', PropostaController::class);
+    Route::resource('startup/{startup}/propostas', PropostaController::class)->except('show');
     Route::resource('startups/{startup}/enderecos', EnderecoController::class);
     Route::resource('startups/{startup}/documentos', DocumentoController::class)->except('edit', 'update');
     Route::resource('leilao', LeilaoController::class)->except('show');
