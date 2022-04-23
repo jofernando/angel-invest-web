@@ -54,7 +54,7 @@ class LeilaoPolicy
      */
     public function update(User $user, Leilao $leilao)
     {
-        //
+        return $this->userOwnsTheLeilao($user, $leilao);
     }
 
     /**
@@ -66,7 +66,7 @@ class LeilaoPolicy
      */
     public function delete(User $user, Leilao $leilao)
     {
-        //
+        return $this->userOwnsTheLeilao($user, $leilao);
     }
 
     /**
@@ -91,5 +91,18 @@ class LeilaoPolicy
     public function forceDelete(User $user, Leilao $leilao)
     {
         //
+    }
+
+    /**
+     * Checa se o usuário é o mesmo que criou o leilão
+     *
+     * @param User $user
+     * @param Leilao $leilao
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    private function userOwnsTheLeilao(User $user, Leilao $leilao)
+    {
+        $leilao_policy = new PropostaPolicy();
+        return $leilao_policy->userOwnsTheProposta($user, $leilao->proposta);
     }
 }

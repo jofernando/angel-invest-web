@@ -31,8 +31,8 @@ class LeilaoFactory extends Factory
         $leilao = new Leilao();
         $hoje = now();
         $leilao->valor_minimo = $this->faker->numberBetween(2000, 1000000);
-        $leilao->data_inicio = $hoje->subDays(15);
-        $leilao->data_fim = $hoje->addDays(15);
+        $leilao->data_inicio = date('Y-m-d', strtotime($hoje->subDays(15)));
+        $leilao->data_fim = date('Y-m-d', strtotime($hoje->addDays(15)));
         $leilao->numero_ganhadores = $this->faker->numberBetween(0, 10);
         $leilao->proposta_id = $produto->id;
         $leilao->porcetagem_caminho = 'leiloes/'.$this->faker->file(storage_path('app/test'), storage_path('app/test/'), false);

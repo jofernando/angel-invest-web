@@ -21,6 +21,15 @@
                                 @enderror
                             </div>
                         </div>
+                        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                     </div>
                     <div class="col-md-8 div-form">
                         <form class="form-envia-documentos" method="POST" action="{{route('leilao.store')}}" enctype="multipart/form-data">
@@ -73,7 +82,7 @@
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <label for="número_de_garanhadores" class="form-label ">Número de ganhadores <span style="color: red;">*</span></label>
-                                        <input id="número_de_garanhadores" name="número_de_garanhadores" type="number" class="form-control @error('valor_mínimo') is-invalid @enderror" placeholder="1" required value="{{old('número_de_garanhadores')}}">
+                                        <input id="número_de_garanhadores" name="número_de_garanhadores" type="number" class="form-control @error('número_de_garanhadores') is-invalid @enderror" placeholder="1" required value="{{old('número_de_garanhadores')}}">
                                     
                                         @error('número_de_garanhadores')
                                             <div id="validationServer03Feedback" class="invalid-feedback">
