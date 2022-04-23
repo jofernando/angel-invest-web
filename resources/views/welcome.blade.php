@@ -89,7 +89,7 @@
                                 <div id="div-card-hearder" class="card-header">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}" style="color: white; text-decoration: none;"><h4 class="card-title">{{$leilao->proposta->titulo}}</h4></a>
+                                            <a id="idshowa{{$leilao->id}}" href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}" style="color: white; text-decoration: none;"><h4 class="card-title">{{$leilao->proposta->titulo}}</h4></a>
                                             <h5 class="card-subtitle mb-2" style="color: white;">{{$leilao->proposta->startup->nome}}</h5>
                                         </div>
                                     </div>
@@ -97,7 +97,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <p class="card-text">{!! mb_strimwidth($leilao->proposta->descricao, 0, 90, "...") !!} @if(strlen($leilao->proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $leilao->startup, 'proposta' => $leilao->proposta])}}">Exibir proposta</a> @endif</p>
+                                            <p class="card-text">{!! mb_strimwidth($leilao->proposta->descricao, 0, 90, "...") !!} @if(strlen($leilao->proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">Exibir proposta</a> @endif</p>
                                         </div>
                                     </div>
                                     <div class="row mt-3">

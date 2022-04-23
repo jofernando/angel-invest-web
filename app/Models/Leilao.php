@@ -15,6 +15,7 @@ class Leilao extends Model
         'data_fim',
         'numero_ganhadores',
         'porcetagem_caminho',
+        'proposta_id',
     ];
     
     /**
