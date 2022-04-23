@@ -144,6 +144,7 @@ class PropostaController extends Controller
 
         $this->deletar_arquivo($proposta->video_caminho);
         $this->deletar_arquivo($proposta->thumbnail_caminho);
+        $this->deletar_leiloes($proposta);
         $proposta->delete();
 
         return redirect(route('propostas.index', $startup))->with(['message' => 'Proposta deletada com sucesso!']);
@@ -203,6 +204,19 @@ class PropostaController extends Controller
             if (Storage::disk()->exists('public/' . $diretorio)) {
                 Storage::delete('public/' . $diretorio);
             }
+        }
+    }
+
+    /**
+     * Checa e deleta os leilões da proposta
+     *
+     * @param Proposta $proposta
+     * @return void
+     */
+    private function deletar_leiloes(Proposta $proposta) 
+    {
+        foreach ($proposta->leiloes as $leilao) {
+            $leilao->delete();
         }
     }
 }
