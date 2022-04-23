@@ -74,6 +74,7 @@ class UpdateDocumentoTest extends TestCase
         $area = Area::factory()->create();
         return Startup::factory()->createStartup($user, $area);
     }
+    
     protected function criar_documento($startup)
     {
         return Documento::factory()->createDocumento($startup);

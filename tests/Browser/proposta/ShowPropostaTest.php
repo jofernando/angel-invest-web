@@ -27,7 +27,7 @@ class ShowPropostaTest extends PropostaTest
         $this->browse(function (Browser $browser) { 
             $proposta = $this->criar_proposta();
             $browser->visitRoute('propostas.show', ['startup' => $proposta->startup, 'proposta' => $proposta->id + 1])
-                    ->assertSee(403);
+                    ->assertSee(404);
             $this->resetar_session();
         });
     }
