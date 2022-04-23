@@ -41,4 +41,15 @@ class Proposta extends Model
     {
         return $this->hasMany(Leilao::class);
     }
+
+    /**
+     * Retorna o leilão que está acontecendo atualmente
+     *
+     * @return Leilao $leilao
+     */
+    public function leilao_atual()
+    {
+        $hoje = now();
+        return $this->leiloes()->where([['data_inicio', '<=', $hoje], ['data_fim', '>=', $hoje]])->first();
+    }
 }
