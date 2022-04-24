@@ -32,7 +32,7 @@ class PropostaPolicy
      */
     public function update(User $user, Proposta $proposta)
     {
-        return $this->userOwnsThePorposta($user, $proposta);
+        return $this->userOwnsTheProposta($user, $proposta);
     }
 
     /**
@@ -44,7 +44,7 @@ class PropostaPolicy
      */
     public function delete(User $user, Proposta $proposta)
     {
-        return $this->userOwnsThePorposta($user, $proposta);
+        return $this->userOwnsTheProposta($user, $proposta);
     }
 
     /**
@@ -54,7 +54,7 @@ class PropostaPolicy
      * @param  \App\Models\Proposta  $proposta
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function userOwnsThePorposta(User $user, Proposta $proposta) 
+    public function userOwnsTheProposta(User $user, Proposta $proposta) 
     {
         $startup_policy = new StartupPolicy();
         return $startup_policy->userOwnsTheStartup($user, $proposta->startup);
