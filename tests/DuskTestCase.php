@@ -102,7 +102,7 @@ abstract class DuskTestCase extends BaseTestCase
      *
      * @param Browser $browser
      * @param User|null $user : Usuário que vai ser feito o login, caso não passado um novo usuário é criado
-     * @return Startup $startup
+     * @return User $user : Usuário que foi feito o login
      */
     protected function login(Browser $browser, $user)
     {

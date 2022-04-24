@@ -39,55 +39,51 @@
         </div>
         <div class="row mt-4">
             @if ($leiloes->count() > 0)
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead class="table-dark default-table-head-color">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-dark default-table-head-color">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Produto</th>
+                                <th scope="col">Periodo</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            @foreach ($leiloes as $leilao)
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Produto</th>
-                                    <th scope="col">Periodo</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">{{$leilao->id}}</th>
+                                    <td><a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">{{$leilao->proposta->titulo}}</a></td>
+                                    <td>De {{date('d/m/Y', strtotime($leilao->data_inicio))}} até {{date('d/m/Y', strtotime($leilao->data_fim))}}</td>
+                                    <td><a class="btn btn-success btn-default btn-padding border" href="{{route('leilao.edit', $leilao)}}"><img src="{{asset('img/edit.svg')}}" alt="Icone de editar leilão">Editar</a><button id="btnmodaldelete{{$leilao->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-leilao-{{$leilao->id}}"> <img src="{{asset('img/trash-white.svg')}}" alt="Icone de deletar leilão" style="height: 20px;"> Deletar</button></td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ($leiloes as $leilao)
-                                    <tr>
-                                        <th scope="col">{{$leilao->id}}</th>
-                                        <td><a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">{{$leilao->proposta->titulo}}</a></td>
-                                        <td>De {{date('d/m/Y', strtotime($leilao->data_inicio))}} até {{date('d/m/Y', strtotime($leilao->data_fim))}}</td>
-                                        <td><a class="btn btn-success btn-default btn-padding border" href="{{route('leilao.edit', $leilao)}}"><img src="{{asset('img/edit.svg')}}" alt="Icone de editar leilão">Editar</a><button id="btnmodaldelete{{$leilao->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-leilao-{{$leilao->id}}"> <img src="{{asset('img/trash-white.svg')}}" alt="Icone de deletar leilão" style="height: 20px;"> Deletar</button></td>
-                                    </tr>
 
-                                    <div class="modal fade" id="moda-delete-leilao-{{$leilao->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header" style="background-color: #dc3545;">
-                                                <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Confirmação</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="form-deletar-proposta-{{$leilao->id}}" method="POST" action="{{route('leilao.destroy', $leilao)}}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    Tem certeza que deseja deletar o leilão #{{$leilao->id}} do produto {{$leilao->proposta->titulo}}?
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary btn-padding border" data-bs-dismiss="modal">Cancelar</button>
-                                                <button id="btnmodaldeleteform{{$leilao->id}}" type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$leilao->id}}">Deletar</button>
-                                            </div>
+                                <div class="modal fade" id="moda-delete-leilao-{{$leilao->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color: #dc3545;">
+                                            <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Confirmação</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
+                                        <div class="modal-body">
+                                            <form id="form-deletar-proposta-{{$leilao->id}}" method="POST" action="{{route('leilao.destroy', $leilao)}}">
+                                                @csrf
+                                                @method('DELETE')
+                                                Tem certeza que deseja deletar o leilão #{{$leilao->id}} do produto {{$leilao->proposta->titulo}}?
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary btn-padding border" data-bs-dismiss="modal">Cancelar</button>
+                                            <button id="btnmodaldeleteform{{$leilao->id}}" type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$leilao->id}}">Deletar</button>
                                         </div>
                                     </div>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Modal -->
-                    {{--  --}}
-                
+                                    </div>
+                                </div>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>                
             @else 
                 <div class="col-md-12">
                     <div class="p-5 mb-4 bg-light rounded-3">

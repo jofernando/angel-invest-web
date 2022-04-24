@@ -169,7 +169,7 @@ class LeilaoController extends Controller
         $leilao->valor_minimo = $array_inputs['valor_mínimo'];
         $leilao->data_inicio = $array_inputs['data_de_início'];
         $leilao->data_fim = $array_inputs['data_de_fim'];
-        $leilao->numero_ganhadores = $array_inputs['número_de_garanhadores'];
+        $leilao->numero_ganhadores = $array_inputs['número_de_ganhadores'];
         $leilao->proposta_id = $array_inputs['produto_do_leilão'];
     }
 

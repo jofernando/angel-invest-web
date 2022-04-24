@@ -40,7 +40,7 @@ class CreateLeilaoTest extends LeilaoTest
         $response->assertStatus(302);
         $response->assertInvalid([
             'valor_mínimo' => 'O campo valor mínimo é obrigatório.',
-            'número_de_garanhadores' => 'O campo número de garanhadores é obrigatório.',
+            'número_de_ganhadores' => 'O campo número de ganhadores é obrigatório.',
         ]);
     }
 
@@ -99,7 +99,7 @@ class CreateLeilaoTest extends LeilaoTest
         $response->assertStatus(302);
         $response->assertInvalid([
             'valor_mínimo' => 'O campo valor minímo deve ser pelo menos 0.01.',
-            'número_de_garanhadores' => 'O campo número de garanhadores deve ser pelo menos 1.',
+            'número_de_ganhadores' => 'O campo número de ganhadores deve ser pelo menos 1.',
         ]);
     }
 }

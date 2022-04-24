@@ -26,8 +26,8 @@ class LeilaoRequest extends FormRequest
     {
         return [
             'produto_do_leilão' => 'required|integer',
-            'valor_mínimo' => 'required|digits_between:0.01,10000000000.00',
-            'número_de_garanhadores' => 'required|integer|min:1',
+            'valor_mínimo' => 'required|numeric|min:0.01|max:10000000000',
+            'número_de_ganhadores' => 'required|integer|min:1',
             'data_de_início' => 'required|date',
             'data_de_fim' => 'required|date|after:data_de_início',
             'termo_de_porcentagem_do_produto' => 'nullable|file|max:5120|mimes:pdf',
@@ -37,7 +37,17 @@ class LeilaoRequest extends FormRequest
     public function messages()
     {
         return [
-            'valor_mínimo.digits_between' => 'O campo valor minímo deve ser pelo menos :min.',
+            'valor_mínimo.min' => 'O campo valor minímo deve ser pelo menos :min.',
+            'valor_mínimo.max' => 'O campo valor minímo deve ser menor que 10.000.000.000,00.',
         ];
+    }
+
+    public function prepareForValidation() 
+    {
+        $this->whenFilled('valor_mínimo', function ($input) {
+            $this->merge([
+                'valor_mínimo' => str_replace(['.', ','], ['', '.'], $input),
+            ]);
+        });
     }
 }
