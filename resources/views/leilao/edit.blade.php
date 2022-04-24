@@ -58,7 +58,7 @@
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <label for="valor_mínimo" class="form-label">Valor mínimo do lance <span style="color: red;">*</span></label>
-                                        <input id="valor_mínimo" name="valor_mínimo" type="number" class="form-control @error('valor_mínimo') is-invalid @enderror" placeholder="2000,00" required value="{{old('valor_mínimo', $leilao->valor_minimo)}}" step="0.010">
+                                        <input id="valor_mínimo" name="valor_mínimo" type="text" class="form-control dinheiro @error('valor_mínimo') is-invalid @enderror" placeholder="0,00" required value="{{old('valor_mínimo', number_format($leilao->valor_minimo, 2, ',', '.'))}}">
                                     
                                         @error('valor_mínimo')
                                             <div id="validationServer03Feedback" class="invalid-feedback">
@@ -69,10 +69,10 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-12">
-                                        <label for="número_de_garanhadores" class="form-label ">Número de ganhadores <span style="color: red;">*</span></label>
-                                        <input id="número_de_garanhadores" name="número_de_garanhadores" type="number" class="form-control @error('valor_mínimo') is-invalid @enderror" placeholder="1" required value="{{old('número_de_garanhadores', $leilao->numero_ganhadores)}}">
+                                        <label for="número_de_ganhadores" class="form-label ">Número de ganhadores <span style="color: red;">*</span></label>
+                                        <input id="número_de_ganhadores" name="número_de_ganhadores" type="number" class="form-control @error('número_de_ganhadores') is-invalid @enderror" placeholder="1" required value="{{old('número_de_ganhadores', $leilao->numero_ganhadores)}}">
                                     
-                                        @error('número_de_garanhadores')
+                                        @error('número_de_ganhadores')
                                             <div id="validationServer03Feedback" class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -137,6 +137,10 @@
         </div>
     </div>
     <script>
+        $(document).ready(function(){
+            $('.dinheiro').mask('#.##0,00', {reverse: true});
+        });
+        
         function trocarNome(botao) {
             var label = botao.parentElement.children[1];
             if(botao.files[0]){

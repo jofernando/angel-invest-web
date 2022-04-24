@@ -4,14 +4,15 @@ namespace Tests\Browser\proposta;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
-use Tests\Browser\proposta\PropostaTest;
+use Tests\DuskTestCase;
 
-class UpdatePropostaTest extends PropostaTest
+class UpdatePropostaTest extends DuskTestCase
 {
     public function test_view_editar_proposta_esta_renderizando()
     {
         $this->browse(function (Browser $browser) { 
             $proposta = $this->criar_proposta();
+            $this->login($browser, $proposta->startup->user);
             $browser->visitRoute('propostas.edit', ['startup' => $proposta->startup, 'proposta' => $proposta])
                     ->assertSee('Informações da proposta')
                     ->assertSee($proposta->titulo);
@@ -23,6 +24,7 @@ class UpdatePropostaTest extends PropostaTest
     {
         $this->browse(function (Browser $browser) { 
             $proposta = $this->criar_proposta();
+            $this->login($browser, $proposta->startup->user);
             $browser->visitRoute('propostas.edit', ['startup' => $proposta->startup, 'proposta' => $proposta])
                     ->type('título', 'Teste edit')
                     ->script("CKEDITOR.instances['descricao'].insertHtml('')");
@@ -42,6 +44,7 @@ class UpdatePropostaTest extends PropostaTest
     {
         $this->browse(function (Browser $browser) { 
             $proposta = $this->criar_proposta();
+            $this->login($browser, $proposta->startup->user);
             $browser->visitRoute('propostas.edit', ['startup' => $proposta->startup, 'proposta' => $proposta->id + 1])
                     ->assertSee('403');
             
@@ -53,6 +56,7 @@ class UpdatePropostaTest extends PropostaTest
     {
         $this->browse(function (Browser $browser) { 
             $proposta = $this->criar_proposta();
+            $this->login($browser, $proposta->startup->user);
             $browser->visitRoute('propostas.edit', ['startup' => $proposta->startup, 'proposta' => $proposta])
                     ->waitForText('Informações da proposta')
                     ->type('título', 'Teste edit')

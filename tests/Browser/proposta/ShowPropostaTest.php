@@ -4,14 +4,15 @@ namespace Tests\Browser\proposta;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
-use Tests\Browser\proposta\PropostaTest;
+use Tests\DuskTestCase;
 
-class ShowPropostaTest extends PropostaTest
+class ShowPropostaTest extends DuskTestCase
 {
     public function test_view_show_proposta_existente()
     {
         $this->browse(function (Browser $browser) { 
             $proposta = $this->criar_proposta();
+            $this->login($browser, $proposta->startup->user);
             $browser->visitRoute('propostas.show', ['startup' => $proposta->startup, 'proposta' => $proposta])
                     ->assertSee($proposta->titulo)
                     ->assertSee($proposta->descricao)
@@ -26,6 +27,7 @@ class ShowPropostaTest extends PropostaTest
     {
         $this->browse(function (Browser $browser) { 
             $proposta = $this->criar_proposta();
+            $this->login($browser, $proposta->startup->user);
             $browser->visitRoute('propostas.show', ['startup' => $proposta->startup, 'proposta' => $proposta->id + 1])
                     ->assertSee(404);
             $this->resetar_session();

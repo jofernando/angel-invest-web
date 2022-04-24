@@ -4,14 +4,15 @@ namespace Tests\Browser\proposta;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
-use Tests\Browser\proposta\PropostaTest;
+use Tests\DuskTestCase;
 
-class CreatePropostaTest extends PropostaTest
+class CreatePropostaTest extends DuskTestCase
 {
     public function test_redenrizar_create_proposta()
     {
         $this->browse(function (Browser $browser) {
             $startup = $this->criar_startup();
+            $this->login($browser, $startup->user);
             $browser->visitRoute('propostas.create', ['startup' => $startup])
                     ->assertSee('Informações da proposta');
             $this->resetar_session();
@@ -22,6 +23,7 @@ class CreatePropostaTest extends PropostaTest
     {
         $this->browse(function (Browser $browser) {
             $startup = $this->criar_startup();
+            $this->login($browser, $startup->user);
             $browser->visitRoute('propostas.create', ['startup' => $startup])
                     ->type('título', 'Teste')
                     ->script("CKEDITOR.instances['descricao'].insertHtml('<p>Descrição teste</p>')");
@@ -39,6 +41,7 @@ class CreatePropostaTest extends PropostaTest
     {
         $this->browse(function (Browser $browser) {
             $startup = $this->criar_startup();
+            $this->login($browser, $startup->user);
             $browser->visitRoute('propostas.create', ['startup' => $startup->id + 1])
                     ->assertSee('403');
             $this->resetar_session();
@@ -49,6 +52,7 @@ class CreatePropostaTest extends PropostaTest
     {
         $this->browse(function (Browser $browser) {
             $startup = $this->criar_startup();
+            $this->login($browser, $startup->user);
             $browser->visitRoute('propostas.create', ['startup' => $startup])
                     ->waitForText('Salvar')
                     ->press('#salvar')
@@ -62,6 +66,7 @@ class CreatePropostaTest extends PropostaTest
     {
         $this->browse(function (Browser $browser) {
             $startup = $this->criar_startup();
+            $this->login($browser, $startup->user);
             $browser->visitRoute('propostas.create', ['startup' => $startup])
                     ->type('título', 'Teste')
                     ->script("CKEDITOR.instances['descricao'].insertHtml('<p>Descrição teste</p>')");
@@ -76,6 +81,7 @@ class CreatePropostaTest extends PropostaTest
     {
         $this->browse(function (Browser $browser) {
             $startup = $this->criar_startup();
+            $this->login($browser, $startup->user);
 
             $browser->visitRoute('propostas.create', ['startup' => $startup])
                     ->type('título', 'Teste 1')

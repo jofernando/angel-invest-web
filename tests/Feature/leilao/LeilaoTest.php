@@ -69,7 +69,7 @@ abstract class LeilaoTest extends TestCase
         return [
             'produto_do_leilão' => $produto->id,
             'valor_mínimo' => $valor,
-            'número_de_garanhadores' => $numero,
+            'número_de_ganhadores' => $numero,
             'data_de_início' => $data_inicio,
             'data_de_fim' => $data_fim,
             'termo_de_porcentagem_do_produto' => $termo,

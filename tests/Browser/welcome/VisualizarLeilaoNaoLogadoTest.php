@@ -5,11 +5,6 @@ namespace Tests\Browser\welcome;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
-use App\Models\Area;
-use App\Models\Proposta;
-use App\Models\Startup;
-use App\Models\Leilao;
-use App\Models\User;
 
 class VisualizarLeilaoNaoLogadoTest extends DuskTestCase
 {
@@ -39,19 +34,5 @@ class VisualizarLeilaoNaoLogadoTest extends DuskTestCase
             $browser->visitRoute('home')
                     ->assertDontSeeLink($proposta->titulo);
         });
-    }
-
-    private function criar_proposta()
-    {
-        $user = User::factory()->create();
-        $area = Area::factory()->create();
-        $startup = Startup::factory()->createStartup($user, $area);
-        return Proposta::factory()->createProposta($startup);
-    }
-
-    private function criar_leilao()
-    {
-        $produto = $this->criar_proposta();
-        return Leilao::factory()->createLeilao($produto);
     }
 }
