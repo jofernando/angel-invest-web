@@ -1,6 +1,24 @@
 <div class="card-feature">
     <div class="col-md-12 div-form" style="margin-top: 0px;">
-        <p class="text-right"><span style="color: red">*</span> Campos obrigatórios</p>
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+            <div class="col-md-6">
+                <span class="span-btn-add" id="btn-adicionar-escolhar" onclick="addDoc()">
+                  <a class="btn btn-success btn-default btn-padding border"> 
+                    <img src="{{asset('img/add-document.svg')}}" alt=""> 
+                    Novo documento
+                  </a>
+                </span>
+            </div>
+            <div class="col-md-6">
+                <p class="text-right"><span style="color: red">*</span> Campos obrigatórios</p>
+            </div>
+        </div>
+        <div class="row">
+            <p>
+                Anexe alguns documentos que comprovem a existência e legalidade da startup.
+                Estes documentos ficarão públicos durante um leilão para investidores e outros empreendedores.
+            </p>
+        </div>
         <form method="POST" action="{{ route('documentos.store', $startup) }}" enctype="multipart/form-data" class="form-envia-documentos">
             @csrf
             <div class="col-sm-12 form-group">
@@ -67,14 +85,6 @@
                     @else
                         <input type="hidden" id="docs_indice" value="0">
                     @endif
-                </div>
-            </div>
-            <div class="row" style="text-align: right;">
-                <div class="col-md-6"></div>
-                <div class="col-md-6">
-                    <button type="button" id="btn-adicionar-escolhar" onclick="addDoc()"
-                            class="btn btn-secondary btn-padding border w-80 bg-verde" style="margin-top:10px;">Adicionar documento
-                    </button>
                 </div>
             </div>
             <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
