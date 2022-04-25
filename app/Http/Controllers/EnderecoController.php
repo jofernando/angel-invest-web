@@ -111,7 +111,11 @@ class EnderecoController extends Controller
 
         $endereco->update();
 
-        return redirect(route('startups.index', $startup))->with(['message' => 'Endereço atualizado com sucesso!']);
+        if(is_null($startup->documentos->first())){
+            return redirect()->back();
+        }
+
+        return redirect(route('startups.show', $startup))->with(['message' => 'Endereço atualizado com sucesso!']);
     }
 
     /**

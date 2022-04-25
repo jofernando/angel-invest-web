@@ -170,7 +170,12 @@ class StartupController extends Controller
         }
         $startup->fill($validated);
         $startup->save();
-        return redirect()->route('startups.show', $startup);
+
+        if(is_null($startup->endereco) || is_null($startup->documentos->first())){
+            return redirect()->back();
+        }
+        
+        return redirect(route('startups.show', $startup))->with(['message' => 'Informações básicas atualizadas com sucesso!']);
     }
 
     /**
