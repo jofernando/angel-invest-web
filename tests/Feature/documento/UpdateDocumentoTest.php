@@ -37,7 +37,7 @@ class UpdateDocumentoTest extends TestCase
             "documentos"=>[$documento1]]
         );
         $response->assertStatus(302);
-        $response->assertSessionHas('message',$value ='Salvo');
+        $response->assertSessionHas('message', $value ='Documentos atualizados com sucesso!');
     }
 
     public function test_editar_documento_existente_parcialmente()
