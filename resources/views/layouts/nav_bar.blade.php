@@ -13,6 +13,9 @@
                     <a class="nav-link" href="{{route('startups.index')}}">Minhas startups</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('leilao.index')}}">Leilões</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('dashboard')}}">Dashboard</a>
                 </li>
                 <div class="ml-3 relative">

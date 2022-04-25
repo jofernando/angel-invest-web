@@ -76,8 +76,10 @@ class PropostaController extends Controller
     {
         $startup = Startup::find($startup);
         $proposta = Proposta::find($proposta);
-        $this->authorize('view', $proposta);
-        $this->authorize('view', $startup);
+
+        if ($startup == null || $proposta == null) {
+            abort(404);
+        }
 
         return view('proposta.show', compact('startup', 'proposta'));
     }
@@ -142,6 +144,7 @@ class PropostaController extends Controller
 
         $this->deletar_arquivo($proposta->video_caminho);
         $this->deletar_arquivo($proposta->thumbnail_caminho);
+        $this->deletar_leiloes($proposta);
         $proposta->delete();
 
         return redirect(route('propostas.index', $startup))->with(['message' => 'Proposta deletada com sucesso!']);
@@ -178,9 +181,9 @@ class PropostaController extends Controller
             $this->deletar_arquivo($diretorio);
 
             $path_completo = 'propostas/' . $proposta->id . $path;
-            $nome_thumb = $file->getClientOriginalName();
-            Storage::putFileAs('public/'.$path_completo, $file, $nome_thumb);
-            $novo_diretorio = $path_completo . $nome_thumb;
+            $nome = $file->getClientOriginalName();
+            Storage::putFileAs('public/'.$path_completo, $file, $nome);
+            $novo_diretorio = $path_completo . $nome;
 
             return $novo_diretorio;
         } else {
@@ -201,6 +204,19 @@ class PropostaController extends Controller
             if (Storage::disk()->exists('public/' . $diretorio)) {
                 Storage::delete('public/' . $diretorio);
             }
+        }
+    }
+
+    /**
+     * Checa e deleta os leilões da proposta
+     *
+     * @param Proposta $proposta
+     * @return void
+     */
+    private function deletar_leiloes(Proposta $proposta) 
+    {
+        foreach ($proposta->leiloes as $leilao) {
+            $leilao->delete();
         }
     }
 }

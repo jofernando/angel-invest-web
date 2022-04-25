@@ -697,3 +697,16 @@ label {
 }
 
 /* X STARTUP X */
+
+/* INDEX LEILÃO */
+
+.default-table-head-color {
+  background-color: var(--ternary-color);
+  --bs-table-bg: var(--ternary-color);
+  --bs-table-striped-bg: var(--ternary-color);
+  --bs-table-active-bg: var(--ternary-color);
+  --bs-table-hover-bg: var(--ternary-color);
+  border-color: var(--ternary-color);
+}
+
+/* X INDEX LEILÃO X */

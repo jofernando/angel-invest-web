@@ -35,11 +35,13 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <button class="btn btn-success btn-default btn-padding border"><img src="{{asset('img/dolar-bag.svg')}}" alt="Ícone de criar" style="width: 40px;"><span style="font-weight: bolder;">Criar leilão</span></button>
+                        @can('update', $startup)
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <a href="{{route('leilao.create')}}?produto={{$proposta->id}}" class="btn btn-success btn-default btn-padding border"><img src="{{asset('img/dolar-bag.svg')}}" alt="Ícone de criar" style="width: 40px;"><span style="font-weight: bolder;">Criar leilão</span></a>
+                                </div>
                             </div>
-                        </div>
+                        @endcan
                         <div class="row mb-4">
                             <div class="row">
                                 <div class="col-md-12">
