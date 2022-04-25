@@ -57,6 +57,10 @@ class EnderecoController extends Controller
         $endereco->startup_id = $startup->id;
         $endereco->save();
 
+        if(!is_null($startup->documentos->first())){
+            return redirect()->route('startups.index')->with('message', 'Startup criada com sucesso!');
+        }
+        
         return redirect()->back();
     }
 
