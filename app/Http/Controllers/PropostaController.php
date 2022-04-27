@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Startup;
 use App\Models\Proposta;
 use App\Http\Requests\PropostaRequest;
+use App\Models\Area;
+use App\Models\Leilao;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PropostaController extends Controller
 {
@@ -218,5 +222,78 @@ class PropostaController extends Controller
         foreach ($proposta->leiloes as $leilao) {
             $leilao->delete();
         }
+    }
+
+    /**
+     * Função de busca dos produtos em exibição
+     *
+     * @param Request $request : Requisição recebida
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $areas = Area::orderBy('nome')->get();
+        $hoje = now();
+        $leiloes = collect();
+
+        if ($this->existe_filtros($request)) {
+            $leiloes = $this->aplicar_filtros($request);
+        } else {
+            $leiloes = Leilao::where([['data_inicio', '<=', $hoje], ['data_fim', '>=', $hoje]])->take(6)->get(); 
+        }
+
+        return view('busca', compact('request', 'areas', 'leiloes'));
+    }
+
+    /**
+     * Checa se existem filtros e retorna um booleano
+     *
+     * @param Request $request
+     * @return boolean $existe ? true : false
+     */
+    private function existe_filtros(Request $request) 
+    {   
+        if ($request->nome != null || $request->area != null || $request->perido != null || $request->data_de_inicio != null || $request->data_de_termino != null) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Realiza a consulta com os filtros preenchidos
+     *
+     * @param Request $request
+     * @return Leilao $leiloes : Collect de leiloes consultados
+     */
+    private function aplicar_filtros(Request $request) 
+    {
+        $query = DB::table('startups')->join('propostas', 'propostas.startup_id', '=', 'startups.id')
+                                      ->join('leilaos', 'leilaos.proposta_id', '=', 'propostas.id')
+                                      ->select('leilaos.id');
+        
+        if ($request->nome != null) {
+            $query->where('startups.nome', 'ilike', '%' . $request->nome . '%');
+        }
+        if ($request->area != null) {
+            $query->where('startups.area_id', $request->area);
+        }
+        if ($request->perido != null) {
+            $hoje = now();
+            if ($request->perido == "1") {
+                $query->where([['leilaos.data_inicio', '<=', $hoje], ['leilaos.data_fim', '>=', $hoje]]);
+            } else if ($request->perido == "2") {
+                $query->where('leilaos.data_fim', '<=', $hoje);
+            }
+        }
+        if ($request->data_de_inicio != null) {
+            $query->where('leilaos.data_inicio', '>=', $request->data_de_inicio);
+        }
+        if ($request->data_de_termino != null) {
+            $query->where('leilaos.data_fim', '<=', $request->data_de_termino);
+        }
+
+        $leilaos = Leilao::whereIn('id', $query->get()->pluck('id'))->get();
+        
+        return $leilaos;
     }
 }
