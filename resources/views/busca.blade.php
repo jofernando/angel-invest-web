@@ -39,7 +39,7 @@
                     <div class="col-md-7">
                         <div class="input-group mb-3">
                             <input type="text" name="nome" class="form-control" placeholder="Angel Invest" aria-label="Angel Invest" aria-describedby="button-addon2" value="{{$request->nome}}">
-                            <button type="submit" class="btn btn-secondary btn-search" type="button" id="button-addon2"><img src="{{asset('img/search.svg')}}" alt="Ícone de busca"></button>
+                            <button id="btnbuscasubmit" type="submit" class="btn btn-secondary btn-search" type="button" id="button-addon2"><img src="{{asset('img/search.svg')}}" alt="Ícone de busca"></button>
                         </div>
                     </div>
                 </div>
