@@ -21,6 +21,8 @@ class DeleteDocumentoTest extends TestCase
     public function test_deletar_documento_existente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+
         $documento = $this->criar_documento($startup);
         $response = $this->delete(route('documentos.destroy', ['startup'=> $startup, 'documento' => $documento]));
         $response->assertStatus(302);
@@ -29,19 +31,10 @@ class DeleteDocumentoTest extends TestCase
     public function test_deletar_documento_inexistente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+
         $documento = $this->criar_documento($startup);
         $response = $this->delete(route('documentos.destroy', ['startup'=> $startup, 'documento' => $documento->id+1]));
         $response->assertStatus(403);
-    }
-
-    protected function criar_startup()
-    {
-        $this->actingAs($user = User::factory()->create());
-        $area = Area::factory()->create();
-        return Startup::factory()->createStartup($user, $area);
-    }
-    protected function criar_documento($startup)
-    {
-        return Documento::factory()->createDocumento($startup);
     }
 }
