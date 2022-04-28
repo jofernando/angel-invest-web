@@ -82,7 +82,8 @@
                 <input type="file"
                     name="logo"
                     class="form-control-file d-none @error('logo') is-invalid @enderror"
-                    id="logo">
+                    id="logo"
+                    accept="image/*">
                 <div class="w-32 h-32" onclick="$('#logo').click()" style="cursor: pointer">
                     <div class="w-full h-full bg-black rounded-full flex items-center justify-center align-middle relative overflow-hidden">
                         <img id="logo-display" src="{{asset('img/logo-padrao.svg')}}" alt="" class="h-28 py-2">

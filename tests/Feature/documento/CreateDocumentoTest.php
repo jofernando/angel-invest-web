@@ -74,6 +74,6 @@ class CreateDocumentoTest extends TestCase
             "documentos" => [$documento1,$documento2]
         ]);
         $response->assertStatus(302);
-        $response->assertSessionHas('message',$value ='Salvo');
+        $response->assertSessionHas('message',$value ='Documentos salvos com sucesso!');
     }
 }

@@ -24,7 +24,7 @@ class UpdateEnderecoTest extends EnderecoTest
         $response = $this->put('/startups/'.$endereco->startup->id.'/enderecos/'.$endereco->id, $this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
 
         $response->assertStatus(302);
-        $response->assertRedirect(route('startups.index', $endereco->startup));
+        $response->assertSessionHas('message', $value ='Endereço atualizado com sucesso!');
 
         $endereco = Endereco::find($endereco->id);
         $this->assertEquals('estado teste', $endereco->estado);
@@ -66,7 +66,7 @@ class UpdateEnderecoTest extends EnderecoTest
         $response = $this->put('/startups/'.$endereco->startup->id.'/enderecos/'.$endereco->id, $this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', null));
 
         $response->assertStatus(302);
-        $response->assertRedirect(route('startups.index', $endereco->startup));
+        $response->assertSessionHas('message', $value ='Endereço atualizado com sucesso!');
 
         $endereco = Endereco::find($endereco->id);
         $this->assertEquals('76961-602', $endereco->cep);
