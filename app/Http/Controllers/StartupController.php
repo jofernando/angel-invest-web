@@ -118,7 +118,7 @@ class StartupController extends Controller
         $startup->user()->associate(Auth::user());
         $startup->area()->associate($validated['area']);
         $startup->save();
-        return redirect()->back();
+        return redirect()->back()->with(['message' => 'Informações básicas salvas com sucesso!']);
     }
 
     /**
@@ -170,7 +170,12 @@ class StartupController extends Controller
         }
         $startup->fill($validated);
         $startup->save();
-        return redirect()->route('startups.show', $startup);
+
+        if(is_null($startup->endereco) || is_null($startup->documentos->first())){
+            return redirect()->back()->with(['message' => 'Informações básicas atualizadas com sucesso!']);
+        }
+        
+        return redirect(route('startups.show', $startup))->with(['message' => 'Informações básicas atualizadas com sucesso!']);
     }
 
     /**

@@ -54,8 +54,12 @@ class DocumentoController extends Controller
                 }
             }
         }
-        //$this->destroy($startup->id,$documento->id);
-        return redirect()->route('startups.index')->with('message', 'Salvo');
+
+        if(is_null($startup->endereco)){
+            return redirect()->back()->with(['message' => 'Documentos salvos com sucesso!']);
+        }
+
+        return redirect()->route('startups.index')->with('message', 'Startup criada com sucesso!');
     }
 
     /**
@@ -163,7 +167,11 @@ class DocumentoController extends Controller
             }
         }
 
-        return redirect()->back()->with('message', 'Salvo');
+        if(is_null($startup->endereco)){
+            return redirect()->back()->with(['message' => 'Documentos atualizados com sucesso!']);
+        }
+
+        return redirect(route('startups.show', $startup))->with(['message' => 'Documentos atualizados com sucesso!']);
     }
 
     /**

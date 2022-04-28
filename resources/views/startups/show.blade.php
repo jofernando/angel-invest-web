@@ -5,6 +5,19 @@
                 <h4><a class="link-default" href="{{route('startups.index')}}">Minhas startups</a> > {{mb_strimwidth($startup->nome, 0, 30, "...")}}</h4>
             </div>
         </div>
+        @if(session('message'))
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </symbol>
+            </svg>
+            <div class="alert alert-success d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                <div>
+                    {{session('message')}}
+                </div>
+            </div>
+        @endif
         <div id="info">
             <div class="py-6">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -125,12 +138,41 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="estado" class="form-label pb-1">Estado</label>
-                            <input type="text" id="estado" name="estado" class="form-control border-ternary h-11" value="{{old('estado', $startup->endereco->estado)}}" disabled>
-
+                            <select id="estado" name="estado" class="form-control border-ternary h-11"  disabled>
+                                <option value="AC" @if($startup->endereco->estado == 'AC') selected @endif>Acre</option>
+                                <option value="AL" @if($startup->endereco->estado == 'AL') selected @endif>Alagoas</option>
+                                <option value="AP" @if($startup->endereco->estado == 'AP') selected @endif>Amapá</option>
+                                <option value="AM" @if($startup->endereco->estado == 'AM') selected @endif>Amazonas</option>
+                                <option value="BA" @if($startup->endereco->estado == 'BA') selected @endif>Bahia</option>
+                                <option value="CE" @if($startup->endereco->estado == 'CE') selected @endif>Ceará</option>
+                                <option value="DF" @if($startup->endereco->estado == 'DF') selected @endif>Distrito Federal</option>
+                                <option value="ES" @if($startup->endereco->estado == 'ES') selected @endif>Espírito Santo</option>
+                                <option value="GO" @if($startup->endereco->estado == 'GO') selected @endif>Goiás</option>
+                                <option value="MA" @if($startup->endereco->estado == 'MA') selected @endif>Maranhão</option>
+                                <option value="MT" @if($startup->endereco->estado == 'MT') selected @endif>Mato Grosso</option>
+                                <option value="MS" @if($startup->endereco->estado == 'MS') selected @endif>Mato Grosso do Sul</option>
+                                <option value="MG" @if($startup->endereco->estado == 'MG') selected @endif>Minas Gerais</option>
+                                <option value="PA" @if($startup->endereco->estado == 'PA') selected @endif>Pará</option>
+                                <option value="PB" @if($startup->endereco->estado == 'PB') selected @endif>Paraíba</option>
+                                <option value="PR" @if($startup->endereco->estado == 'PR') selected @endif>Paraná</option>
+                                <option value="PE" @if($startup->endereco->estado == 'PE') selected @endif>Pernambuco</option>
+                                <option value="PI" @if($startup->endereco->estado == 'PI') selected @endif>Piauí</option>
+                                <option value="RJ" @if($startup->endereco->estado == 'RJ') selected @endif>Rio de Janeiro</option>
+                                <option value="RN" @if($startup->endereco->estado == 'RN') selected @endif>Rio Grande do Norte</option>
+                                <option value="RS" @if($startup->endereco->estado == 'RS') selected @endif>Rio Grande do Sul</option>
+                                <option value="RO" @if($startup->endereco->estado == 'RO') selected @endif>Rondônia</option>
+                                <option value="RR" @if($startup->endereco->estado == 'RR') selected @endif>Roraima</option>
+                                <option value="SC" @if($startup->endereco->estado == 'SC') selected @endif>Santa Catarina</option>
+                                <option value="SP" @if($startup->endereco->estado == 'SP') selected @endif>São Paulo</option>
+                                <option value="SE" @if($startup->endereco->estado == 'SE') selected @endif>Sergipe</option>
+                                <option value="TO" @if($startup->endereco->estado == 'TO') selected @endif>Tocantins</option>
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label for="cidade" class="form-label pb-1">Cidade</label>
-                            <input type="text" id="cidade" name="cidade" class="form-control border-ternary h-11" value="{{old('cidade', $startup->endereco->cidade)}}" disabled>
+                            <select id="cidade" name="cidade" class="form-control border-ternary h-11" disabled>
+                                <option value="">{{$startup->endereco->cidade}}</option>
+                            </select>
 
                         </div>
                     </div>
