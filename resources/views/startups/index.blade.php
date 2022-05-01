@@ -6,9 +6,9 @@
             </div>
             <div class="col-md-6" style="text-align: right;">
                 <span class="span-btn-add">
-                  <a href="{{route('startups.create')}}" class="btn btn-success btn-default btn-padding border"> 
+                  <a href="{{route('startups.create')}}" class="btn btn-success btn-default btn-padding border">
                     <img src="{{asset('img/bi_plus-circle.png')}}" alt="">
-                    <img src="{{asset('img/Vector.png')}}" alt=""> 
+                    <img src="{{asset('img/Vector.png')}}" alt="">
                     Adicionar nova startup
                   </a>
                 </span>
@@ -60,7 +60,9 @@
                                                 <span class="text-startup" style="color: white;">{{$startup->email}}</span>
                                             </div>
                                             <div class="col-md-12">
-                                                {{-- <span class="text-startup">(87) 99999-9999</span> --}}
+                                                @if($startup->telefones->first())
+                                                    <span class="text-startup">{{$startup->telefones->first()->numero}}</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +118,7 @@
                     </div>
                 @endforeach
             </div>
-        @else 
+        @else
             <div class="col-md-12">
                 <div class="p-5 mb-4 bg-light rounded-3">
                     <div class="container-fluid py-5">
@@ -125,14 +127,14 @@
                     </div>
                 </div>
             </div>
-        @endif   
+        @endif
     </div>
 
     <script>
         $(document).ready(function() {
             $('.arrow-collapse').click(function() {
                 var img = this.children[0];
-        
+
                 if(this.ariaExpanded == "true") {
                 //console.log('img/arrow-up.svg')
                 img.src = "../img/arrow-up.svg";
