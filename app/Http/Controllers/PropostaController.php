@@ -236,27 +236,14 @@ class PropostaController extends Controller
         $hoje = now();
         $leiloes = collect();
 
-        if ($this->existe_filtros($request)) {
+        if ($request->avancada == 1) {
             $leiloes = $this->aplicar_filtros($request);
         } else {
-            $leiloes = Leilao::where([['data_inicio', '<=', $hoje], ['data_fim', '>=', $hoje]])->take(6)->get(); 
+            $leiloes_atuais = Leilao::where([['data_inicio', '<=', $hoje], ['data_fim', '>=', $hoje]])->take(6)->get(); 
+            $leiloes = collect()->push($leiloes_atuais)->push(collect());
         }
 
         return view('busca', compact('request', 'areas', 'leiloes'));
-    }
-
-    /**
-     * Checa se existem filtros e retorna um booleano
-     *
-     * @param Request $request
-     * @return boolean $existe ? true : false
-     */
-    private function existe_filtros(Request $request) 
-    {   
-        if ($request->nome != null || $request->area != null || $request->perido != null || $request->data_de_inicio != null || $request->data_de_termino != null) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -267,23 +254,21 @@ class PropostaController extends Controller
      */
     private function aplicar_filtros(Request $request) 
     {
-        $query = DB::table('startups')->join('propostas', 'propostas.startup_id', '=', 'startups.id')
-                                      ->join('leilaos', 'leilaos.proposta_id', '=', 'propostas.id')
+        $leiloes = collect(); 
+        $leilaos_atuais = collect();
+        $leilaos_encerrados = collect(); 
+
+        $hoje = now();
+        $query = DB::table('leilaos')->join('propostas', 'leilaos.proposta_id', '=', 'propostas.id')
+                                      ->join('startups', 'startups.id', '=', 'propostas.startup_id')
                                       ->select('leilaos.id');
         
         if ($request->nome != null) {
             $query->where('startups.nome', 'ilike', '%' . $request->nome . '%');
+            $query->orWhere('propostas.titulo', 'ilike', '%' . $request->nome . '%');
         }
         if ($request->area != null) {
             $query->where('startups.area_id', $request->area);
-        }
-        if ($request->perido != null) {
-            $hoje = now();
-            if ($request->perido == "1") {
-                $query->where([['leilaos.data_inicio', '<=', $hoje], ['leilaos.data_fim', '>=', $hoje]]);
-            } else if ($request->perido == "2") {
-                $query->where('leilaos.data_fim', '<=', $hoje);
-            }
         }
         if ($request->data_de_inicio != null) {
             $query->where('leilaos.data_inicio', '>=', $request->data_de_inicio);
@@ -292,8 +277,21 @@ class PropostaController extends Controller
             $query->where('leilaos.data_fim', '<=', $request->data_de_termino);
         }
 
-        $leilaos = Leilao::whereIn('id', $query->get()->pluck('id'))->get();
-        
-        return $leilaos;
+        if ($request->perido != null) {
+            if ($request->perido == "1") {
+                $query->where([['leilaos.data_inicio', '<=', $hoje], ['leilaos.data_fim', '>=', $hoje]]);
+                $leilaos_atuais = Leilao::whereIn('id', $query->get()->pluck('id'))->where([['leilaos.data_inicio', '<=', $hoje], ['leilaos.data_fim', '>=', $hoje]])->get();
+            } else if ($request->perido == "2") {
+                $query->where('leilaos.data_fim', '<', $hoje);
+                $leilaos_encerrados = Leilao::whereIn('id', $query->get()->pluck('id'))->where('leilaos.data_fim', '<', $hoje)->get();
+            }
+        } else {
+            $leilaos_atuais = Leilao::whereIn('id', $query->get()->pluck('id'))->where([['leilaos.data_inicio', '<=', $hoje], ['leilaos.data_fim', '>=', $hoje]])->get();
+            $leilaos_encerrados = Leilao::whereIn('id', $query->get()->pluck('id'))->where('leilaos.data_fim', '<', $hoje)->get();
+        }
+
+        $leiloes = collect()->push($leilaos_atuais)->push($leilaos_encerrados);
+
+        return $leiloes;
     }
 }

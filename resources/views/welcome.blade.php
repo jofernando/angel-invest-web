@@ -52,10 +52,7 @@
                                         <span class="span-area-startup" style="color: white;">{{$leilao->proposta->startup->area->nome}}</span>
                                     </div>
                                 </div>
-                                <video class="card-img-top" alt="video da startup" controls poster="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}">
-                                    <source src="{{asset('storage/'.$leilao->proposta->video_caminho)}}" type="video/mp4">
-                                    <source src="{{asset('storage/'.$leilao->proposta->video_caminho)}}" type="video/mkv">
-                                </video>
+                                <img src="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto">
                                 <div id="div-card-hearder" class="card-header">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -76,42 +73,9 @@
                                         </div>
                                         <div class="col-md-8"></div>
                                     </div>
-                                    @can('update', $leilao->proposta)
-                                        <div class="row mt-3">
-                                            <div class="col-md-12" style="text-align: right;">
-                                                <a href="{{route('propostas.edit', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
-                                                <button id="btnmodaldelete{{$leilao->proposta->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$leilao->proposta->id}}"> <img src="{{asset('img/trash-white.svg')}}" alt="Icone de deletar proposta" style="height: 20px;"> Deletar</button>
-                                            </div>
-                                        </div>
-                                    @endcan
                                 </div>
                             </div>
                         </div>
-
-                        @can('update', $leilao->proposta)
-                            <!-- Modal -->
-                            <div class="modal fade" id="moda-delete-proposta-{{$leilao->proposta->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header" style="background-color: #dc3545;">
-                                        <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Confirmação</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="form-deletar-proposta-{{$leilao->proposta->id}}" method="POST" action="{{route('propostas.destroy',  ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">
-                                            @csrf
-                                            @method('DELETE')
-                                            Tem certeza que deseja deletar a proposta {{$leilao->proposta->titulo}}?
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary btn-padding border" data-bs-dismiss="modal">Cancelar</button>
-                                        <button id="btnmodaldeleteform{{$leilao->proposta->id}}" type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$leilao->proposta->id}}">Deletar</button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        @endcan
                     @endforeach
                 @else
                     <div class="col-md-12 mt-4">

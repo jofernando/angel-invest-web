@@ -45,17 +45,20 @@
                 </div>
                 <div class="row justify-content-center search-box">
                     <div class="col-md-12">
-                        <button class="arrow-collapse" type="button" data-bs-toggle="collapse" href="#collapse-search" role="button" aria-expanded="false" aria-controls="collapse-search" style="text-decoration: none;">
+                        <button class="arrow-collapse" type="button" data-bs-toggle="collapse" href="#collapse-search" role="button" aria-expanded="@if($request->avancada == 1) true @else false @endif" aria-controls="collapse-search" style="text-decoration: none;">
                             <span class="search-span">Busca Avançada</span>
                         </button>
                     </div>
                     <div class="col-md-12">
-                        <button class="arrow-collapse" type="button" data-bs-toggle="collapse" href="#collapse-search" role="button" aria-expanded="false" aria-controls="collapse-search">
-                            <img src="{{asset('img/arrow-white-down.svg')}}" alt="Ícone da busca avançada">
+                        <button class="arrow-collapse" type="button" data-bs-toggle="collapse" href="#collapse-search" role="button" aria-expanded="@if($request->avancada == 1) true @else false @endif" aria-controls="collapse-search">
+                            @if($request->avancada == 1) <img src="{{asset('img/arrow-white-up.svg')}}" alt="Ícone da busca avançada"> @else <img src="{{asset('img/arrow-white-down.svg')}}" alt="Ícone da busca avançada"> @endif                    
                         </button>
                     </div>
                     <div class="col-md-10">
-                        <div class="collapse" id="collapse-search">
+                        <div class="collapse @if($request->avancada == 1) show @endif" id="collapse-search">
+                            <div style="display: none;">
+                                <input id="avancada" name="avancada" value="@if($request->avancada == 1) 1 @else 0 @endif">
+                            </div>
                             <div class="card card-body">
                                 <div class="row" style="text-align: left;">
                                     <div class="col-md-4 mt-4">
@@ -118,16 +121,15 @@
                 </div>
             </div>
         </form>
-
-        <div class="container-fluid">
-            <div id="row-startups" class="row">
-                <div class="col-md-12">
-                    <a href="{{route('produto.search')}}" style="text-decoration: none; color:black;"><h6 style="font-weight: bolder;">Produtos</h6></a>
+        @if ($leiloes[0]->count() > 0)
+            <div class="container-fluid mt-4">
+                <div id="row-startups" class="row">
+                    <div class="col-md-12">
+                        <a href="{{route('produto.search')}}" style="text-decoration: none; color:black;"><h6 style="font-weight: bolder;">Produtos em leilão</h6></a>
+                    </div>
                 </div>
-            </div>
-            <div id="row-cards-startups" class="row">
-                @if ($leiloes->count() > 0)
-                    @foreach ($leiloes as $leilao)
+                <div id="row-cards-startups" class="row">
+                    @foreach ($leiloes[0] as $leilao)
                         <div class="col-md-4">
                             <div class="card card-home border-none" style="width: 100%;">
                                 <div class="row area-startup">
@@ -136,10 +138,7 @@
                                         <span class="span-area-startup" style="color: white;">{{$leilao->proposta->startup->area->nome}}</span>
                                     </div>
                                 </div>
-                                <video class="card-img-top" alt="video da startup" controls poster="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}">
-                                    <source src="{{asset('storage/'.$leilao->proposta->video_caminho)}}" type="video/mp4">
-                                    <source src="{{asset('storage/'.$leilao->proposta->video_caminho)}}" type="video/mkv">
-                                </video>
+                                <img src="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto">
                                 <div id="div-card-hearder" class="card-header">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -160,69 +159,95 @@
                                         </div>
                                         <div class="col-md-8"></div>
                                     </div>
-                                    @can('update', $leilao->proposta)
-                                        <div class="row mt-3">
-                                            <div class="col-md-12" style="text-align: right;">
-                                                <a href="{{route('propostas.edit', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
-                                                <button id="btnmodaldelete{{$leilao->proposta->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$leilao->proposta->id}}"> <img src="{{asset('img/trash-white.svg')}}" alt="Icone de deletar proposta" style="height: 20px;"> Deletar</button>
-                                            </div>
-                                        </div>
-                                    @endcan
                                 </div>
                             </div>
                         </div>
-
-                        @can('update', $leilao->proposta)
-                            <!-- Modal -->
-                            <div class="modal fade" id="moda-delete-proposta-{{$leilao->proposta->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header" style="background-color: #dc3545;">
-                                        <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Confirmação</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="form-deletar-proposta-{{$leilao->proposta->id}}" method="POST" action="{{route('propostas.destroy',  ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">
-                                            @csrf
-                                            @method('DELETE')
-                                            Tem certeza que deseja deletar a proposta {{$leilao->proposta->titulo}}?
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary btn-padding border" data-bs-dismiss="modal">Cancelar</button>
-                                        <button id="btnmodaldeleteform{{$leilao->proposta->id}}" type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$leilao->proposta->id}}">Deletar</button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        @endcan
                     @endforeach
-                @else
-                    <div class="col-md-12 mt-4">
-                        <div class="p-5 mb-4 bg-light rounded-3">
-                            <div class="container-fluid py-5">
-                                <h1 class="display-5 fw-bold">Produtos</h1>
-                                <p class="col-md-8 fs-4">Não foram encontrados produtos em leilão para essa busca.
+                </div>
+            </div>
+        @endif
+        @if ($leiloes[1]->count() > 0)
+            <div class="container-fluid mt-4">
+                <div id="row-startups" class="row">
+                    <div class="col-md-12">
+                        <a href="{{route('produto.search')}}" style="text-decoration: none; color:black;"><h6 style="font-weight: bolder;">Produtos com leilão encerrado</h6></a>
+                    </div>
+                </div>
+                <div id="row-cards-startups" class="row">
+                    @foreach ($leiloes[1] as $leilao)
+                        <div class="col-md-4">
+                            <div class="card card-home border-none" style="width: 100%;">
+                                <div class="row area-startup">
+                                    <div class="col-md-8"></div>
+                                    <div class="col-md-4" style="text-align: right; position: relative; right: 10px;">
+                                        <span class="span-area-startup" style="color: white;">{{$leilao->proposta->startup->area->nome}}</span>
+                                    </div>
+                                </div>
+                                <img src="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto">
+                                <div id="div-card-hearder" class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a id="idshowa{{$leilao->id}}" href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}" style="color: white; text-decoration: none;"><h4 class="card-title">{{$leilao->proposta->titulo}}</h4></a>
+                                            <h5 class="card-subtitle mb-2" style="color: white;">{{$leilao->proposta->startup->nome}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p class="card-text">{!! mb_strimwidth($leilao->proposta->descricao, 0, 90, "...") !!} @if(strlen($leilao->proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">Exibir proposta</a> @endif</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-4">
+                                            <span class="qtd-investor" style="color: white;">10 Teste</span>
+                                        </div>
+                                        <div class="col-md-8"></div>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        @if ($leiloes[0]->count() == 0 && $leiloes[1]->count() == 0)
+        <div class="container-fluid">
+            <div id="row-startups" class="row">
+                <div class="col-md-12">
+                    <a href="{{route('produto.search')}}" style="text-decoration: none; color:black;"><h6 style="font-weight: bolder;">Produtos</h6></a>
+                </div>
+            </div>
+            <div id="row-cards-startups" class="row">
+                <div class="col-md-12 mt-4">
+                    <div class="p-5 mb-4 bg-light rounded-3">
+                        <div class="container-fluid py-5">
+                            <h1 class="display-5 fw-bold">Produtos</h1>
+                            <p class="col-md-8 fs-4">Não foram encontrados produtos com leilão para essa busca.
                         </div>
                     </div>
-                @endif
+                </div>
             </div>
         </div>
+        @endif
         @component('layouts.footer')@endcomponent
         <script>
             $(document).ready(function(){
-                categories = document.getElementsByClassName('span-area-startup');
-                qtd_investor = document.getElementsByClassName('qtd-investor');
+                var categories = document.getElementsByClassName('span-area-startup');
+                var qtd_investor = document.getElementsByClassName('qtd-investor');
 
                 gerar_cores(categories);
                 gerar_cores(qtd_investor);
 
                 $('.arrow-collapse').click(function() {
                     var img = this.children[0];
+                    var busca = document.getElementById('avancada');
                     if(this.ariaExpanded == "true") {
+                        busca.value = 1;
                         img.src = "{{asset('img/arrow-white-up.svg')}}";
                     } else if (this.ariaExpanded == "false") {
+                        busca.value = 0;
                         img.src = "{{asset('img/arrow-white-down.svg')}}";
                     }
                 });
