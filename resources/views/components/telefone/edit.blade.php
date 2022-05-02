@@ -13,47 +13,59 @@
                 <p class="text-right"><span style="color: red">*</span> Campos obrigatórios</p>
             </div>
         </div>
-        <form method="POST" action="{{ route('telefones.update', $startup) }}" enctype="multipart/form-data" class="form-envia-documentos">
+        <form method="POST" action="{{route('telefones.update', ['startup' => $startup])}}" enctype="multipart/form-data" class="form-envia-documentos">
             @csrf
-            <div class="col-sm-12 form-group">
-                @if (old('numeros') == null)
-                    <div class="row">
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label for="numeros" class="form-label ">Número<span style="color: red;">*</span></label>
-                                <input name="numeros[]" type="text" class="form-control @error('numeros.*') is-invalid @enderror" placeholder="Digite seu número de telefone aqui..." required value="{{old('numeros')}}">
-                                @error('numeros.*')
-                                    <div id="validationServer03Feedback" class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <input type="hidden" id="docs_indice" value="0">
-                @endif
-                <div id="docs" class="row">
-                    @if (old('numeros') != null)
-                        <input type="hidden" id="docs_indice"
-                            value="{{ count(old('numeros')) - 1 }}">
-                        @foreach (old('numeros') as $i => $doc)
-                            <div class="row" @if($i > 0) style="margin-top: 10px;" @endif>
-                                <div class="row mb-3">
-                                    <div class="col-md-12">
-                                        <label for="numeros" class="form-label ">Número<span style="color: red;">*</span></label>
-                                        <input name="numeros[]" type="text" class="form-control @error('numeros. '.$i) is-invalid @enderror" placeholder="Digite seu número de telefone aqui..." required value="{{ $doc }}">
-                                        @error('numeros.'. $i)
-                                            <div id="validationServer03Feedback" class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
+            @method('PUT')
+            <div class="container" style="margin-top: 15px; margin-bottom: 15px;">
+                <div id="docs" class="col-sm-12 form-group">
+                    @if(old('numeros') != null)
+                        <input type="hidden" id="docs_indice" value="{{count(old('numeros'))-1}}">
+                    @else
+                        <input type="hidden" id="docs_indice" value="{{$telefones->count()-1}}">
+                    @endif
+                    @foreach ($telefones as $i => $tel)
+                        <div class="row" @if($i > 0) style="margin-top: 10px;" @endif>
+                            <input type="hidden" name="docsID[]" value="{{$tel->id}}">
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="numeros" class="form-label ">{{$tel->numero}}</label>
+                                    <input name="numeros[]" type="text" class="form-control @error('numeros. '.$i) is-invalid @enderror" placeholder="Digite seu telefone aqui..." value="{{old('numeros.'.$i, $tel->numero)}}" oninput="mascaraTelefone(this);">
+                                    @error('numeros.'. $i)
+                                        <div id="validationServer03Feedback" class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
+                            <div class="col-sm-12" >
+                                @if($i > 0)
+                                    <a  onclick="this.parentElement.parentElement.remove()" style="margin-top: 10px; cursor: pointer">
+                                        <img width="20px;" src="{{asset('img/trash.svg')}}"  alt="Apagar" title="Apagar">
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                    @if(old('numeros') != null)
+                        @foreach (old('numeros') as $i => $doc)
+                            @if($i > $telefones->count()-1)
+                                <div class="row" @if($i > 0) style="margin-top: 10px;" @endif>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label for="numeros" class="form-label ">{{$doc}}</label>
+                                            <input name="numeros[]" type="text" class="form-control @error('numeros. '.$i) is-invalid @enderror" placeholder="Digite seu telefone aqui..." value="{{old('numeros.'.$i, $doc)}}" oninput="mascaraTelefone(this);">
+                                            @error('numeros.'. $i)
+                                                <div id="validationServer03Feedback" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         @endforeach
-                    @else
-                        <input type="hidden" id="docs_indice" value="0">
                     @endif
+
                 </div>
             </div>
             <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
@@ -61,7 +73,6 @@
                     <button id="submitForm" type="submit" class="btn btn-secondary btn-padding border w-80 bg-verde submit-form-btn">Salvar</button>
                 </div>
             </div>
-
         </form>
     </div>
 </div>
@@ -75,7 +86,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label for="numeros" class="form-label ">Número<span style="color: red;">*</span></label>
-                                <input name="numeros[]" type="text" class="form-control" placeholder="Digite o seu telefone aqui..." required>
+                                <input name="numeros[]" type="text" class="form-control" placeholder="Digite o seu telefone aqui..." required oninput="mascaraTelefone(this);">
                                 <a  onclick="this.parentElement.parentElement.remove()" style="margin-top: 10px; cursor: pointer">
                                     <img width="20px;" src="{{asset('img/trash.svg')}}"  alt="Apagar" title="Apagar">
                                 </a>
@@ -83,6 +94,17 @@
                         </div>
                     </div>`;
         $('#docs').append(doc);
+    }
+    function mascaraTelefone(numero) {
+        var behavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+        options = {
+            onKeyPress: function (val, e, field, options) {
+                field.mask(behavior.apply({}, arguments), options);
+            }
+        };
+        $(numero).mask(behavior, options);
     }
 </script>
 

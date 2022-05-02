@@ -63,13 +63,20 @@
                                                             <div class="row mb-3">
                                                                 <div class="col-md-12">
                                                                     <label for="numeros" class="form-label ">{{$tel->numero}}</label>
-                                                                    <input name="numeros[]" type="text" class="form-control @error('numeros. '.$i) is-invalid @enderror" placeholder="Digite seu telefone aqui..." value="{{old('numeros.'.$i, $tel->numero)}}">
+                                                                    <input name="numeros[]" type="text" class="form-control @error('numeros. '.$i) is-invalid @enderror" placeholder="Digite seu telefone aqui..." value="{{old('numeros.'.$i, $tel->numero)}}" oninput="mascaraTelefone(this);">
                                                                     @error('numeros.'. $i)
                                                                         <div id="validationServer03Feedback" class="invalid-feedback">
                                                                             {{ $message }}
                                                                         </div>
                                                                     @enderror
                                                                 </div>
+                                                            </div>
+                                                            <div class="col-sm-12" >
+                                                                @if($i > 0)
+                                                                    <a  onclick="this.parentElement.parentElement.remove()" style="margin-top: 10px; cursor: pointer">
+                                                                        <img width="20px;" src="{{asset('img/trash.svg')}}"  alt="Apagar" title="Apagar">
+                                                                    </a>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     @endforeach
@@ -80,7 +87,7 @@
                                                                     <div class="row mb-3">
                                                                         <div class="col-md-12">
                                                                             <label for="numeros" class="form-label ">{{$doc}}</label>
-                                                                            <input name="numeros[]" type="text" class="form-control @error('numeros. '.$i) is-invalid @enderror" placeholder="Digite seu telefone aqui..." value="{{old('numeros.'.$i, $doc)}}">
+                                                                            <input name="numeros[]" type="text" class="form-control @error('numeros. '.$i) is-invalid @enderror" placeholder="Digite seu telefone aqui..." value="{{old('numeros.'.$i, $doc)}}" oninput="mascaraTelefone(this);">
                                                                             @error('numeros.'. $i)
                                                                                 <div id="validationServer03Feedback" class="invalid-feedback">
                                                                                     {{ $message }}
@@ -125,7 +132,7 @@
                             <div class="row mb-3">
                                 <div class="col-md-12">
                                     <label for="numeros" class="form-label ">Número<span style="color: red;">*</span></label>
-                                    <input name="numeros[]" type="text" class="form-control" placeholder="Digite o seu telefone aqui..." required>
+                                    <input name="numeros[]" type="text" class="form-control" placeholder="Digite o seu telefone aqui..." required oninput="mascaraTelefone(this);">
                                     <a  onclick="this.parentElement.parentElement.remove()" style="margin-top: 10px; cursor: pointer">
                                     <img width="20px;" src="{{asset('img/trash.svg')}}"  alt="Apagar" title="Apagar">
                                     </a>

@@ -61,7 +61,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 @if($startup->telefones->first())
-                                                    <span class="text-startup">{{$startup->telefones->first()->numero}}</span>
+                                                    <span class="text-startup" style="color: white;">{{$startup->telefones->first()->numero}}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -73,7 +73,7 @@
                                     <div class="col-md-10">
                                         <a  @if(!is_null($startup->endereco) && !is_null($startup->documentos->first())) href="{{route('propostas.index', $startup)}}" @endif style="text-decoration: none; color: black; font-size: 20px;">Produtos</a>
                                     </div>
-                                    @if(is_null($startup->endereco) || is_null($startup->documentos->first()))
+                                    @if(is_null($startup->endereco) || is_null($startup->documentos->first()) || is_null($startup->telefones->first()))
                                         <small class="text-red">Conclua o cadastro da startup em <span style="font-weight: bold">Adicionar nova startup</span></small>
                                     @endif
                                     @if ($startup->propostas->count() > 0)

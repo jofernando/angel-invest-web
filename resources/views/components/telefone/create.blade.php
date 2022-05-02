@@ -21,7 +21,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label for="numeros" class="form-label ">Número<span style="color: red;">*</span></label>
-                                <input name="numeros[]" type="text" class="form-control @error('numeros.*') is-invalid @enderror" placeholder="Digite seu número de telefone aqui..." required value="{{old('numeros')}}">
+                                <input name="numeros[]" type="text" class="form-control @error('numeros.*') is-invalid @enderror" placeholder="Digite seu número de telefone aqui..." required value="{{old('numeros')}}" oninput="mascaraTelefone(this);">
                                 @error('numeros.*')
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         {{ $message }}
@@ -41,7 +41,7 @@
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <label for="numeros" class="form-label ">Número<span style="color: red;">*</span></label>
-                                        <input name="numeros[]" type="text" class="form-control @error('numeros. '.$i) is-invalid @enderror" placeholder="Digite seu número de telefone aqui..." required value="{{ $doc }}">
+                                        <input name="numeros[]" type="text" class="form-control @error('numeros. '.$i) is-invalid @enderror" placeholder="Digite seu número de telefone aqui..." required value="{{ $doc }}" oninput="mascaraTelefone(this);">
                                         @error('numeros.'. $i)
                                             <div id="validationServer03Feedback" class="invalid-feedback">
                                                 {{ $message }}
@@ -75,7 +75,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label for="numeros" class="form-label ">Número<span style="color: red;">*</span></label>
-                                <input name="numeros[]" type="text" class="form-control" placeholder="Digite o seu telefone aqui..." required>
+                                <input name="numeros[]" type="text" class="form-control" placeholder="Digite o seu telefone aqui..." required oninput="mascaraTelefone(this);">
                                 <a  onclick="this.parentElement.parentElement.remove()" style="margin-top: 10px; cursor: pointer">
                                     <img width="20px;" src="{{asset('img/trash.svg')}}"  alt="Apagar" title="Apagar">
                                 </a>
@@ -83,6 +83,17 @@
                         </div>
                     </div>`;
         $('#docs').append(doc);
+    }
+    function mascaraTelefone(numero) {
+        var behavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+        options = {
+            onKeyPress: function (val, e, field, options) {
+                field.mask(behavior.apply({}, arguments), options);
+            }
+        };
+        $(numero).mask(behavior, options);
     }
 </script>
 
