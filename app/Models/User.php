@@ -69,6 +69,11 @@ class User extends Authenticatable
         return $this->hasMany(Startup::class);
     }
 
+    public function investidor()
+    {
+        return $this->hasOne(Investidor::class);
+    }
+
     /*
      * Array profile enum
     */
@@ -82,6 +87,23 @@ class User extends Authenticatable
         'masculine' => 2,
         'prefer_not_to_inform' => 3,
     ];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            if($user->tipo == User::PROFILE_ENUM['investor']) {
+                $investidor = new Investidor();
+                $investidor->user()->associate($user);
+                $investidor->carteira = 5000000;
+                $investidor->save();
+            }
+        });
+    }
 
     /**
      * Save profile photo in the path
