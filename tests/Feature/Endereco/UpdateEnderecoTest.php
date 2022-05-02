@@ -9,6 +9,8 @@ class UpdateEnderecoTest extends EnderecoTest
     public function test_view_editar_endereco_este_renderizando()
     {
         $endereco = $this->criar_endereco();
+        $this->logar($endereco->startup->user);
+
         $response = $this->get('/startups/'.$endereco->startup->id.'/enderecos/'.$endereco->id.'/edit');
 
         $response->assertStatus(200);
@@ -17,6 +19,7 @@ class UpdateEnderecoTest extends EnderecoTest
     public function test_editar_endereco_existente()
     {
         $endereco = $this->criar_endereco();
+        $this->logar($endereco->startup->user);
 
         $response = $this->put('/startups/'.$endereco->startup->id.'/enderecos/'.$endereco->id, $this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
 
@@ -32,6 +35,7 @@ class UpdateEnderecoTest extends EnderecoTest
     public function test_editar_endereco_inexistente()
     {
         $endereco = $this->criar_endereco();
+        $this->logar($endereco->startup->user);
 
         $response = $this->put('/startups/'.$endereco->startup->id.'/enderecos/'.($endereco->id+1),$this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
 
@@ -41,6 +45,8 @@ class UpdateEnderecoTest extends EnderecoTest
     public function test_editar_endereco_deixando_campos_obrigatorios_em_branco()
     {
         $endereco = $this->criar_endereco();
+        $this->logar($endereco->startup->user);
+
         $response = $this->put('/startups/'.$endereco->startup->id.'/enderecos/'.$endereco->id, $this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123',null, null, null));
 
         $response->assertStatus(302);
@@ -55,6 +61,8 @@ class UpdateEnderecoTest extends EnderecoTest
     public function test_editar_endereco_alterando_parcialmente()
     {
         $endereco = $this->criar_endereco();
+        $this->logar($endereco->startup->user);
+
         $response = $this->put('/startups/'.$endereco->startup->id.'/enderecos/'.$endereco->id, $this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', null));
 
         $response->assertStatus(302);
@@ -73,6 +81,8 @@ class UpdateEnderecoTest extends EnderecoTest
     public function test_editar_endereco_deixando_todos_os_campos_em_branco()
     {
         $endereco = $this->criar_endereco();
+        $this->logar($endereco->startup->user);
+        
         $response = $this->put('/startups/'.$endereco->startup->id.'/enderecos/'.$endereco->id, $this->get_array_endereco(null, null, null, null,null, null, null));
 
         $response->assertStatus(302);

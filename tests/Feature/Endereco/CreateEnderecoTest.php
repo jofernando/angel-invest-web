@@ -11,6 +11,8 @@ class CreateEnderecoTest extends EnderecoTest
     public function test_redenrizar_create_endereco()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+
         $response = $this->get(route('enderecos.create', $startup));
         $response->assertStatus(200);
     }
@@ -18,6 +20,7 @@ class CreateEnderecoTest extends EnderecoTest
     public function test_criar_endereco_para_uma_startup_existente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
 
         $response = $this->post(route('enderecos.store', $startup), $this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
 
@@ -28,6 +31,7 @@ class CreateEnderecoTest extends EnderecoTest
     public function test_criar_endereco_para_uma_startup_nao_existente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
 
         $response = $this->post(route('enderecos.store', $startup->id+1), $this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
 
@@ -37,6 +41,7 @@ class CreateEnderecoTest extends EnderecoTest
     public function test_criar_endereco_com_todos_os_campos_preenchidos()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
 
         $response = $this->post(route('enderecos.store', $startup), $this->get_array_endereco('76961-602', 'bairro teste', 'rua teste', '123','estado teste', 'cidade teste', 'complemento teste'));
 
@@ -47,6 +52,7 @@ class CreateEnderecoTest extends EnderecoTest
     public function test_criar_endereco_com_campos_nulos_parcialmente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
 
         $response = $this->post(route('enderecos.store', $startup), $this->get_array_endereco('76961-602', null, 'rua teste', null,'estado teste', 'cidade teste', 'complemento teste'));
 
@@ -61,6 +67,7 @@ class CreateEnderecoTest extends EnderecoTest
     public function test_criar_endereco_com_todos_os_campos_nulos()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
 
         $response = $this->post(route('enderecos.store',$startup), $this->get_array_endereco(null, null, null, null, null, null, null));
 

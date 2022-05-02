@@ -29,20 +29,10 @@ class ShowDocumentoTest extends TestCase
     public function test_visualizar_documento_inexistente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+        
         $documento = $this->criar_documento($startup);
         $response = $this->get(route('documento.arquivo',$documento->id+99999));
         $response->assertStatus(403);
-    }
-    protected function criar_startup()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-        $area = Area::factory()->create();
-        return Startup::factory()->createStartup($user, $area);
-    }
-
-    protected function criar_documento($startup)
-    {
-        return Documento::factory()->createDocumento($startup);
     }
 }

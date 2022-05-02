@@ -8,7 +8,7 @@ class CreateLeilaoTest extends LeilaoTest
 {
     public function test_renderizar_criar_leilao()
     {
-        $this->criar_usuario_logado();
+        $this->logar();
         $response = $this->get(route('leilao.create'));
 
         $response->assertStatus(200);
@@ -17,6 +17,7 @@ class CreateLeilaoTest extends LeilaoTest
     public function test_criar_leilao_com_todas_as_informacoes()
     {
         $produto = $this->criar_produto();
+        $this->logar($produto->startup->user);
         
         $data_inicio = date('Y-m-d', strtotime(now()->subDays(5)));
         $data_fim = date('Y-m-d', strtotime(now()->addDays(5)));
@@ -31,6 +32,8 @@ class CreateLeilaoTest extends LeilaoTest
     public function test_criar_leilao_sem_todas_as_informacoes()
     {
         $produto = $this->criar_produto();
+        $this->logar($produto->startup->user);
+
         $data_inicio = date('Y-m-d', strtotime(now()->subDays(5)));
         $data_fim = date('Y-m-d', strtotime(now()->addDays(5)));
         $termo = UploadedFile::fake()->create('teste.pdf');;
@@ -47,6 +50,8 @@ class CreateLeilaoTest extends LeilaoTest
     public function test_criar_leiloes_para_mesmo_produto_com_mesmo_periodo()
     {
         $produto = $this->criar_produto();
+        $this->logar($produto->startup->user);
+
         $data_inicio = date('Y-m-d', strtotime(now()->subDays(5)));
         $data_fim = date('Y-m-d', strtotime(now()->addDays(5)));
         $termo = UploadedFile::fake()->create('teste.pdf');;
@@ -69,6 +74,8 @@ class CreateLeilaoTest extends LeilaoTest
     public function test_criar_leiloes_para_mesmo_produto_com_periodos_diferentes()
     {
         $produto = $this->criar_produto();
+        $this->logar($produto->startup->user);
+
         $data_inicio = date('Y-m-d', strtotime(now()->subDays(5)));
         $data_fim = date('Y-m-d', strtotime(now()->addDays(5)));
         $termo = UploadedFile::fake()->create('teste.pdf');;
@@ -89,7 +96,8 @@ class CreateLeilaoTest extends LeilaoTest
     public function test_criar_leilao_com_valores_negativos()
     {
         $produto = $this->criar_produto();
-        
+        $this->logar($produto->startup->user);
+
         $data_inicio = date('Y-m-d', strtotime(now()->subDays(5)));
         $data_fim = date('Y-m-d', strtotime(now()->addDays(5)));
         $termo = UploadedFile::fake()->create('teste.pdf');

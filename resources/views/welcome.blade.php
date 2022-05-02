@@ -38,42 +38,12 @@
         <div class="container-fluid">
             <div id="row-startups" class="row">
                 <div class="col-md-12">
-                    <h6>Startups</h6>
+                    <a href="{{route('produto.search')}}" style="text-decoration: none; color:black;"><h6 style="font-weight: bolder;">Produtos</h6></a>
                 </div>
             </div>
             <div id="row-cards-startups" class="row">
                 @if ($leiloes->count() > 0)
                     @foreach ($leiloes as $leilao)
-                        {{-- <div class="col-md-4">
-                            <div class="card card-home" style="width: 100%;">
-                                <div class="row area-startup">
-                                    <div class="col-md-9"></div>
-                                    <div class="col-md-3">
-                                        <span class="span-area-startup" style="color: white;">{{$leilao->proposta->startup->area->nome}}</span>
-                                    </div>
-                                </div>
-                                <img src="img/01.png" class="card-img-top" alt="video da startup">
-                                <div class="titles-pitch" class="row">
-                                    <div class="col-md-12">
-                                        <span class="title-startup">{{mb_strimwidth($leilao->proposta->titulo, 0, 20, "...")}}</span>
-                                        <span class="name-startup">{{mb_strimwidth($leilao->proposta->startup->nome, 0, 10, "...")}}</span>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <p class="card-text">{!! mb_strimwidth($leilao->proposta->descricao, 0, 90, "...") !!} @if(strlen($leilao->proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">Exibir proposta</a> @endif</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col-md-4">
-                                            <span class="qtd-investor" style="color: white;">10 Teste</span>
-                                        </div>
-                                        <div class="col-md-8"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="col-md-4">
                             <div class="card card-home border-none" style="width: 100%;">
                                 <div class="row area-startup">
@@ -82,10 +52,7 @@
                                         <span class="span-area-startup" style="color: white;">{{$leilao->proposta->startup->area->nome}}</span>
                                     </div>
                                 </div>
-                                <video class="card-img-top" alt="video da startup" controls poster="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}">
-                                    <source src="{{asset('storage/'.$leilao->proposta->video_caminho)}}" type="video/mp4">
-                                    <source src="{{asset('storage/'.$leilao->proposta->video_caminho)}}" type="video/mkv">
-                                </video>
+                                <img src="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto">
                                 <div id="div-card-hearder" class="card-header">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -106,49 +73,16 @@
                                         </div>
                                         <div class="col-md-8"></div>
                                     </div>
-                                    @can('update', $leilao->proposta)
-                                        <div class="row mt-3">
-                                            <div class="col-md-12" style="text-align: right;">
-                                                <a href="{{route('propostas.edit', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
-                                                <button id="btnmodaldelete{{$leilao->proposta->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$leilao->proposta->id}}"> <img src="{{asset('img/trash-white.svg')}}" alt="Icone de deletar proposta" style="height: 20px;"> Deletar</button>
-                                            </div>
-                                        </div>
-                                    @endcan
                                 </div>
                             </div>
                         </div>
-
-                        @can('update', $leilao->proposta)
-                            <!-- Modal -->
-                            <div class="modal fade" id="moda-delete-proposta-{{$leilao->proposta->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header" style="background-color: #dc3545;">
-                                        <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Confirmação</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="form-deletar-proposta-{{$leilao->proposta->id}}" method="POST" action="{{route('propostas.destroy',  ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">
-                                            @csrf
-                                            @method('DELETE')
-                                            Tem certeza que deseja deletar a proposta {{$leilao->proposta->titulo}}?
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary btn-padding border" data-bs-dismiss="modal">Cancelar</button>
-                                        <button id="btnmodaldeleteform{{$leilao->proposta->id}}" type="submit" class="btn btn-danger btn-padding border" form="form-deletar-proposta-{{$leilao->proposta->id}}">Deletar</button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        @endcan
                     @endforeach
                 @else
                     <div class="col-md-12 mt-4">
                         <div class="p-5 mb-4 bg-light rounded-3">
                             <div class="container-fluid py-5">
                                 <h1 class="display-5 fw-bold">Leilões</h1>
-                                <p class="col-md-8 fs-4">Não existem leilões ocorrendo atualmente. <a href="#">Clique aqui</a> para buscar leilões que já ocorreram ou futuros.</p>
+                                <p class="col-md-8 fs-4">Não existem leilões ocorrendo atualmente. <a href="{{route('produto.search')}}">Clique aqui</a> para buscar leilões que já ocorreram.</p>
                             </div>
                         </div>
                     </div>

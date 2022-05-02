@@ -9,7 +9,9 @@ class UpdatePropostaTest extends PropostaTest
 {
     public function test_view_editar_proposta_esta_renderizando()
     {
-        $proposta = $this->criar_proposta();
+        $proposta = $this->criar_produto();
+        $this->logar($proposta->startup->user);
+
         $response = $this->get('/startup/'.$proposta->startup->id.'/propostas/'.$proposta->id.'/edit');
 
         $response->assertStatus(200);
@@ -17,7 +19,9 @@ class UpdatePropostaTest extends PropostaTest
 
     public function test_editar_proposta_existente()
     {
-        $proposta = $this->criar_proposta();
+        $proposta = $this->criar_produto();
+        $this->logar($proposta->startup->user);
+
         $video = UploadedFile::fake()->create('teste.mp4');
         $image = UploadedFile::fake()->create('teste.jpg');
 
@@ -33,7 +37,9 @@ class UpdatePropostaTest extends PropostaTest
 
     public function test_editar_proposta_inexistente()
     {
-        $proposta = $this->criar_proposta();
+        $proposta = $this->criar_produto();
+        $this->logar($proposta->startup->user);
+
         $video = UploadedFile::fake()->create('teste.mp4');
         $image = UploadedFile::fake()->create('teste.jpg');
 
@@ -44,7 +50,8 @@ class UpdatePropostaTest extends PropostaTest
 
     public function test_editar_proposta_alterando_parcialmente()
     {
-        $proposta = $this->criar_proposta();
+        $proposta = $this->criar_produto();
+        $this->logar($proposta->startup->user);
 
         $response = $this->put('/startup/'.$proposta->startup->id.'/propostas/'.$proposta->id, $this->get_array_proposta('Teste update', 'Isto é uma proposta teste update', null, null));
 

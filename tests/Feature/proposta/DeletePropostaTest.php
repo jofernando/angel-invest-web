@@ -6,7 +6,9 @@ class DeletePropostaTest extends PropostaTest
 {
     public function test_deletar_uma_proposta_existente()
     {
-        $proposta = $this->criar_proposta();
+        $proposta = $this->criar_produto();
+        $this->logar($proposta->startup->user);
+
         $startup = $proposta->startup;
         $response = $this->delete('/startup/'.$startup->id.'/propostas/'.$proposta->id);
 
@@ -16,7 +18,9 @@ class DeletePropostaTest extends PropostaTest
 
     public function test_deletar_uma_proposta_inexistente()
     {
-        $proposta = $this->criar_proposta();
+        $proposta = $this->criar_produto();
+        $this->logar($proposta->startup->user);
+        
         $response = $this->delete('/startup/'.$proposta->startup->id.'/propostas/'.($proposta->id + 1));
 
         $response->assertStatus(403);

@@ -132,13 +132,10 @@
         $(document).ready(function() {
             $('.arrow-collapse').click(function() {
                 var img = this.children[0];
-        
                 if(this.ariaExpanded == "true") {
-                //console.log('img/arrow-up.svg')
-                img.src = "../img/arrow-up.svg";
+                    img.src = "{{asset('img/arrow-up.svg')}}";
                 } else if (this.ariaExpanded == "false") {
-                //console.log('img/arrow-down.svg')
-                img.src = "../img/arrow-down.svg";
+                    img.src = "{{asset('img/arrow-down.svg')}}";
                 }
             });
         });

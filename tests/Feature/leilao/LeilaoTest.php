@@ -4,55 +4,12 @@ namespace Tests\Feature\leilao;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use App\Models\Area;
-use App\Models\Leilao;
 use App\Models\Proposta;
-use App\Models\Startup;
-use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 abstract class LeilaoTest extends TestCase
 {
-    /**
-     * Criar um usuário e loga
-     *
-     * @return User $user : Usuário logado
-     */
-    protected function criar_usuario_logado()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-        return $user;
-    }
-
-    /**
-     * Cria um produto atráves de um usuário logado
-     *
-     * @return Proposta $produto : Produto criado
-     */
-    protected function criar_produto(User $user = null)
-    {
-        if ($user == null) {
-            $user = $this->criar_usuario_logado();
-        }
-
-        $area = Area::factory()->create();
-        $startup = Startup::factory()->createStartup($user, $area);
-        return Proposta::factory()->createProposta($startup);
-    }
-
-    /**
-     * Cria um leilão atráves de um usuário logado
-     *
-     * @return Leilao $leilao : Leilão criado
-     */
-    protected function criar_leilao(User $user = null)
-    {
-        $produto = $this->criar_produto($user);
-        return Leilao::factory()->createLeilao($produto);
-    }
-
     /**
      * Retorna um array com os valores passados para gerar uma requisição
      *

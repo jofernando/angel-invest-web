@@ -9,6 +9,8 @@ class CreatePropostaTest extends PropostaTest
     public function test_view_criar_proposta_esta_renderizando()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+
         $response = $this->get('/startup/'.$startup->id.'/propostas/create');
 
         $response->assertStatus(200);
@@ -17,6 +19,7 @@ class CreatePropostaTest extends PropostaTest
     public function test_criar_proposta_para_uma_startup_existente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
 
         $video = UploadedFile::fake()->create('teste.mp4');
         $image = UploadedFile::fake()->create('teste.jpg');
@@ -30,6 +33,7 @@ class CreatePropostaTest extends PropostaTest
     public function test_criar_proposta_para_uma_startup_nao_existente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
 
         $video = UploadedFile::fake()->create('teste.mp4');
         $image = UploadedFile::fake()->create('teste.jpg');
@@ -42,6 +46,7 @@ class CreatePropostaTest extends PropostaTest
     public function test_criar_proposta_com_campos_nulos()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
 
         $response = $this->post('/startup/'.$startup->id.'/propostas', $this->get_array_proposta(null, null, null, null));
 
@@ -55,6 +60,7 @@ class CreatePropostaTest extends PropostaTest
     public function test_criar_proposta_com_campos_nulos_parcialmente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
 
         $response = $this->post('/startup/'.$startup->id.'/propostas', $this->get_array_proposta('Teste', 'Isto é uma proposta teste', null, null));
 
@@ -68,6 +74,7 @@ class CreatePropostaTest extends PropostaTest
     public function test_criar_uma_ou_mais_propostas_para_mesma_startup()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
 
         $video = UploadedFile::fake()->create('teste.mp4');
         $image = UploadedFile::fake()->create('teste.jpg');
