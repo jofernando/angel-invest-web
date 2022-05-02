@@ -4,6 +4,7 @@ use App\Http\Controllers\PropostaController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\LanceController;
 use App\Http\Controllers\LeilaoController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,9 @@ Route::middleware([
     Route::resource('startups/{startup}/enderecos', EnderecoController::class);
     Route::resource('startups/{startup}/documentos', DocumentoController::class)->except('edit', 'update');
     Route::resource('leilao', LeilaoController::class)->except('show');
+    Route::resource('leiloes.lances', LanceController::class)->parameters([
+        'leiloes' => 'leilao'
+    ]);
     Route::get('leilao/{leilao}/termo', [LeilaoController::class, 'show_termo'])->name('leilao.termo');
 
     Route::get('startups/{startup}/documentos-edit', [DocumentoController::class, 'edit'])->name('documentos.edit');
