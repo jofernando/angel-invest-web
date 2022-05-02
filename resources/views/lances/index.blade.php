@@ -7,7 +7,7 @@
                         "col-md-6 mb-4",
                         'mt-4' => $index < 2
                     ])>
-                    <div class="card" style="height: 550px">
+                    <div class="card">
                         <div class="card-body py-0">
                             <div class="row"  style="height: 100%">
                                 <div class="col-md-6 py-0 px-0">
@@ -18,7 +18,7 @@
                                         </div>
                                     </div>
                                     <a class="" href="{{route('propostas.show', ['startup' => $lance->leilao->proposta->startup, 'proposta' => $lance->leilao->proposta])}}">
-                                        <img class="thumbnail"  src="{{asset('storage/'.$lance->leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto"  style="height: 220px">
+                                        <img class="thumbnail"  src="{{asset('storage/'.$lance->leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto"  style="height: 220px" width="100%">
                                     </a>
                                     <div id="div-card-hearder" class="card-header">
                                         <div class="row">
@@ -35,7 +35,7 @@
                                             </div>
                                         </div>
                                     @endcan
-                                    <div class="row mb-4 pl-3">
+                                    <div class="row mb-4 pl-3 mt-3">
                                         @if ($leilao = $lance->leilao->proposta->leilao_atual())
                                             <div>
                                                 <span class="text-proposta" style="font-size: 14px"><img class="icon" src="{{asset('img/calendar.svg')}}" alt="Ícone de calendario"> Lances durante: <b>{{date('d/m', strtotime($leilao->data_inicio))}} a {{date('d/m', strtotime($leilao->data_fim))}}</b></span>
