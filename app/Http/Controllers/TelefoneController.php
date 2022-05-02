@@ -118,7 +118,7 @@ class TelefoneController extends Controller
 
             $validator = Validator::make(
                 $input_data, [
-                    'numeros.*' => ['required', 'max:255']
+                    'numeros.*' => ['required','max:255']
                 ],[
                     'numeros.*.required' => 'O número é obrigatório.',
                     'nomes.*.max' => 'O tamanho máximo do número é de 255 caracteres.'

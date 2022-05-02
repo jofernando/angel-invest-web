@@ -21,7 +21,7 @@
                             </div>
                         @endif
                         <div class="form-row">
-                            <form method="POST" action="{{ route('telefone.store', $startup) }}" enctype="multipart/form-data" class="form-envia-documentos">
+                            <form method="POST" action="{{ route('telefones.store', $startup) }}" enctype="multipart/form-data" class="form-envia-documentos">
 
                                 @csrf
                                 <div class="container" style="margin-top: 15px; margin-bottom: 15px;">

@@ -14,7 +14,7 @@ class CreateTelefone extends TestCase
     public function test_redenrizar_create_telefone()
     {
         $startup = $this->criar_startup();
-        $response = $this->get(route('telefone.create', $startup));
+        $response = $this->get(route('telefones.create', $startup));
         $response->assertStatus(200);
     }
 
