@@ -32,6 +32,9 @@
         </div>
         <div class="card card-feature">
             <div class="card-body bg-azul px-0 pt-1 flex flex-wrap">
+                <div class="col-md-12">
+                    <a href="javascript:window.history.back();" class="btn btn-success btn-padding" style="margin-left: 15px;"><img src="{{asset('img/back.svg')}}" alt="Icone de voltar" style="height: 22px;"> Voltar</a>
+                </div>
                 <div class="w-full flex justify-end">
                     <div class="w-1/4 flex justify-center">
                         <button type="button" id="menu">
