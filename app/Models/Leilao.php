@@ -40,7 +40,7 @@ class Leilao extends Model
     public function valor_corte()
     {
         if($this->lances->count() > $this->numero_ganhadores) {
-            return $this->lances->get($this->numero_ganhadores - 1)->valor;
+            return $this->lances->take($this->numero_ganhadores)->last()->valor;
         } else {
             if($this->lances->last()) {
                 return $this->lances->last()->valor;
