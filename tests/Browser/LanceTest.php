@@ -31,7 +31,7 @@ class LanceTest extends DuskTestCase
             Investidor::find($user->investidor->id)->update(['carteira' => $leilao->valor_minimo + 1000]);
             $browser->loginAs($user)
                 ->visit(route('leiloes.lances.create', ['leilao' => $leilao]))
-                ->value('valor', number_format($leilao->valor_minimo, 2,",","."))
+                ->typeSlowly('valor', number_format($leilao->valor_minimo, 2,",","."))
                 ->press('Fazer lance')
                 ->assertSee('Lance realizado com sucesso');
         });
@@ -45,7 +45,7 @@ class LanceTest extends DuskTestCase
             Investidor::find($user->investidor->id)->update(['carteira' => 0]);
             $browser->loginAs($user)
                 ->visit(route('leiloes.lances.create', ['leilao' => $leilao]))
-                ->value('valor', number_format($leilao->valor_minimo, 2,",","."))
+                ->typeSlowly('valor', number_format($leilao->valor_minimo, 2,",","."))
                 ->press('Fazer lance')
                 ->assertSee('Você não possui AnjoCoins suficientes para realizar o lance');
         });
