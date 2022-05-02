@@ -5,6 +5,7 @@ use App\Http\Controllers\StartupController;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\LanceController;
+use App\Http\Controllers\TelefoneController;
 use App\Http\Controllers\LeilaoController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -50,4 +51,8 @@ Route::middleware([
     Route::put('startups/{startup}/documentos-update', [DocumentoController::class, 'update'])->name('documentos.update');
 
     Route::get('/documentos/{documento}/arquivo', [DocumentoController::class, 'arquivo'])->name('documento.arquivo');
+
+    Route::resource('startups/{startup}/telefones', TelefoneController::class);
+    Route::get('startups/{startup}/telefones-edit', [TelefoneController::class, 'edit'])->name('telefones.edit');
+    Route::put('startups/{startup}/telefones-update', [TelefoneController::class, 'update'])->name('telefones.update');
 });

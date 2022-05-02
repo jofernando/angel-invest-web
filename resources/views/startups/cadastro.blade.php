@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="row">
-                                    <div id ="left-div-create" class="col-md-12"> 
+                                    <div id ="left-div-create" class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-12 side-titulo"  style="text-align: center">
                                                 Etapas
@@ -67,31 +67,31 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{--<div class="col-md-12">
+                                        <div class="col-md-12">
                                             <div class="d-flex align-items-center justify-content-between pt-3">
                                                 <div class="col-md-1">
-                                                    @if(is_null($startup) || is_null($startup->telefones))
+                                                    @if(is_null($startup) || is_null($startup->telefones->first()))
                                                         <div class="circulo">
                                                             <div class="numero">
                                                                 3
                                                             </div>
                                                         </div>
                                                     @else
-                                                        <img width="30" src="{{asset('img/etapa-completa.svg')}}" alt="Ícone de etapa concluída">
+                                                        <img id="completo-telefone" width="30" src="{{asset('img/etapa-completa.svg')}}" alt="Ícone de etapa concluída">
                                                     @endif
                                                 </div>
                                                 <div class="col-md-11">
                                                     <button id="botao-telefone" class="etapa-nome" @if(is_null($startup)) disabled @endif onclick=" alterarEtapa(this, 'Telefone')">Telefone</button>
                                                 </div>
                                             </div>
-                                        </div>--}}
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="d-flex align-items-center justify-content-between pt-3">
                                                 <div class="col-md-1">
                                                     @if(is_null($startup) || is_null($startup->documentos->first()))
                                                         <div class="circulo">
                                                             <div class="numero">
-                                                                3
+                                                                4
                                                             </div>
                                                         </div>
                                                     @else
@@ -130,12 +130,13 @@
                                                                 });
                                                             </script>
                                                             <x-endereco.create :startup="$startup"/>
-                                                        {{--@elseif(is_null($startup->telefones))
+                                                        @elseif(is_null($startup->telefones->first()))
                                                             <script>
                                                                 $(document).ready(function(){
                                                                      alterarEtapa($('#botao-telefone')[0], 'Telefone', true);
                                                                 });
-                                                            </script>--}}
+                                                            </script>
+                                                            <x-telefone.create :startup="$startup"/>
                                                         @elseif(is_null($startup->documentos->first()))
                                                             <script>
                                                                 $(document).ready(function(){
@@ -169,6 +170,20 @@
                                                                     $endereco = $startup->endereco;
                                                                 @endphp
                                                                 <x-endereco.edit :startup="$startup" :endereco="$endereco"/>
+                                                            @endif
+                                                        @elseif(!is_null(old('numeros')))
+                                                            <script>
+                                                                $(document).ready(function(){
+                                                                    alterarEtapa($('#botao-telefone')[0], 'Telefone', true);
+                                                                });
+                                                            </script>
+                                                            @if(is_null($startup->telefones->first()))
+                                                                <x-telefone.create :startup="$startup"/>
+                                                            @else
+                                                                @php
+                                                                    $telefones = $startup->telefones;
+                                                                @endphp
+                                                                <x-telefone.edit :startup="$startup" :telefones="telefones"/>
                                                             @endif
                                                         @elseif(!is_null(old('nomes')))
                                                             <script>
@@ -217,14 +232,15 @@
                 $(botao).addClass('etapa-nome-selected');
                 if((nome_etapa == 'Informações básicas' && document.getElementById('completo-info') == null) ||
                     (nome_etapa == 'Endereço' && document.getElementById('completo-endereco') == null) ||
-                    (nome_etapa == 'Documentos' && document.getElementById('completo-docs') == null)){
+                    (nome_etapa == 'Documentos' && document.getElementById('completo-docs') == null) ||
+                    (nome_etapa == 'Telefone' && document.getElementById('completo-telefone') == null)){
 
                     $(botao.parentElement.parentElement.children[0].children[0]).removeClass('circulo');
                     $(botao.parentElement.parentElement.children[0].children[0]).addClass('circulo-selected');
                     $(botao.parentElement.parentElement.children[0].children[0].children[0]).removeClass('numero');
                     $(botao.parentElement.parentElement.children[0].children[0].children[0]).addClass('numero-selected');
                 }
-                
+
                 if(!erro){
                     $.ajax({
                         url:"{{route('startup.component.ajax')}}",
@@ -235,7 +251,7 @@
                         }
                     });
                 }
-                
+
             }
             titulo.innerText = nome_etapa;
         }
