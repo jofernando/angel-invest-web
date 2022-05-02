@@ -111,7 +111,7 @@
                                             <img src="{{asset('img/logo.png')}}" class="w-32" alt="logo">
                                             <img class="rounded-full w-8 h-8 -ml-[80px] mt-[34px]" src="{{ $lance->investidor->user->profile_photo_url }}" alt="foto de {{ $lance->investidor->user->name }}">
                                         </div>
-                                        <div class="w-full -mt-5">
+                                        <div class="w-full -mt-5" style="margin-top: -10px">
                                             <div class="flex justify-end text-white">
                                                 <div class="w-1/2">
                                                     <p class="my-0 font-bold">
