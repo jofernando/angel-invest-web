@@ -18,7 +18,7 @@ class DeletePropostaTest extends DuskTestCase
                     ->press('#btnmodaldelete'.$proposta->id)
                     ->waitForText('Tem certeza que deseja deletar o produto ' . $proposta->titulo)
                     ->press('#btnmodaldeleteform'.$proposta->id)
-                    ->assertSee('Proposta deletada com sucesso!');
+                    ->assertSee('Produto deletado com sucesso!');
             $this->resetar_session();
         });
     }
