@@ -31,6 +31,17 @@ class UpdateLanceRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        $lance = $this->route('lance');
+        $min = number_format($lance->valor, 2,",",".");
+        $max = number_format(auth()->user()->investidor->carteira, 2,",",".");
+        return [
+            'valor.min' => "O valor do lance não pode estar abaixo do lance anterior que é {$min}",
+            'valor.max' => "O valor do lance não pode ser superior a {$max}",
+        ];
+    }
+
     /**
      * Prepare the data for validation.
      *

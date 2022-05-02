@@ -81,7 +81,10 @@
                                             id="valor"
                                             value="{{ old('valor', $lance->valor) }}"
                                             class="bg-fundo border-x-0 border-t-0 border-b-2 mb-2">
-                                    </div>
+                                            @error('valor')
+                                                <p class="text-xs text-red text-center">{{$message}}</p>
+                                            @enderror
+                                        </div>
                                     @if ($lance->valor > auth()->user()->investidor->carteira)
                                         <div class="mx-2 text-left text-red w-72">
                                             Você não possui o valor mínimo na carteira para fazer um lance.
