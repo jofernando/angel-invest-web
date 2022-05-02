@@ -94,41 +94,44 @@
                                 </div>
                             </div>
                             @if ($proposta->leilao_atual())
-                                <div class="w-full md:w-1/4 bg-white place-content-center flex flex-wrap pt-3">
-                                    @forelse ($proposta->leilao_atual()->lances as $index => $lance)
-                                        <div @class([
-                                                'w-1/2' => $index == 1 || $index == 2,
-                                                'w-full' => $index != 1 && $index != 2,
-                                            ])>
-                                            <div class="grid justify-content-center">
-                                                <div @class([
-                                                        'rounded-full grid place-content-center',
-                                                        'h-12 w-12' => $index >= 3,
-                                                        'h-16 w-16' => $index < 3,
-                                                        'bg-[#EEBC3B]' => $index == 0,
-                                                        'bg-[#989898]' => $index == 1,
-                                                        'bg-[#BE770C]' => $index == 2,
-                                                        'bg-[#C4C4C4]' => $index > 2,
-                                                    ])>
-                                                    <img src="{{ $lance->investidor->user->profile_photo_url }}" alt="{{ $lance->investidor->user->name }}"
-                                                        @class([
-                                                            'rounded-full object-cover',
-                                                            'h-8 w-8' => $index >= 3,
-                                                            'h-12 w-12' => $index < 3,
+                                <div class="w-full md:w-1/4 bg-white pt-3 grid content-between">
+                                    <div class="flex flex-wrap">
+                                        @forelse ($proposta->leilao_atual()->lances as $index => $lance)
+                                            <div @class([
+                                                    'w-1/2' => $index == 1 || $index == 2,
+                                                    'w-full' => $index != 1 && $index != 2,
+                                                ])>
+                                                <div class="grid justify-content-center">
+                                                    <div @class([
+                                                            'rounded-full grid place-content-center',
+                                                            'h-12 w-12' => $index >= 3,
+                                                            'h-16 w-16' => $index < 3,
+                                                            'bg-[#EEBC3B]' => $index == 0,
+                                                            'bg-[#989898]' => $index == 1,
+                                                            'bg-[#BE770C]' => $index == 2,
+                                                            'bg-[#C4C4C4]' => $index > 2,
                                                         ])>
+                                                        <img src="{{ $lance->investidor->user->profile_photo_url }}" alt="{{ $lance->investidor->user->name }}"
+                                                            @class([
+                                                                'rounded-full object-cover',
+                                                                'h-8 w-8' => $index >= 3,
+                                                                'h-12 w-12' => $index < 3,
+                                                            ])>
+                                                    </div>
                                                 </div>
+                                                <p class="text-sm font-bold mb-0 text-center">{{ $lance->investidor->user->name }}</p>
+                                                <p class="text-xs text-center">R$ {{ number_format($lance->valor, 2,",",".") }}</p>
                                             </div>
-                                            <p class="text-sm font-bold mb-0 text-center">{{ $lance->investidor->user->name }}</p>
-                                            <p class="text-xs text-center">R$ {{ number_format($lance->valor, 2,",",".") }}</p>
+                                        @empty
+                                            <h3 class="w-full text-center">Nenhum lance realizado</h3>
+                                        @endforelse
+                                    </div>
+                                    <div>
+                                        <div class="w-full grid justify-center">
+                                            <a href="{{route('leiloes.lances.create', $leilao)}}" class="btn btn-success btn-color-dafault mb-4">
+                                                {{ __('Fazer lance') }}
+                                            </a>
                                         </div>
-                                    @empty
-                                        <h3 class="w-full text-center">Nenhum lance realizado</h3>
-                                    @endforelse
-
-                                    <div class="w-full grid justify-center">
-                                        <a href="{{route('leiloes.lances.create', $leilao)}}" class="btn btn-success btn-color-dafault">
-                                            {{ __('Fazer lance') }}
-                                        </a>
                                     </div>
                                 </div>
                             @endif

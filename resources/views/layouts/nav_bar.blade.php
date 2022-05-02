@@ -9,12 +9,19 @@
         <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
             @auth
+                @if(auth()->user()->tipo == 1)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('startups.index')}}">Minhas startups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('leilao.index')}}">Leilões</a>
+                    </li>
+                @endif
+                @if(auth()->user()->tipo == 2)
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('startups.index')}}">Minhas startups</a>
+                    <a class="nav-link" href="{{route('lances')}}">Meus investimentos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('leilao.index')}}">Leilões</a>
-                </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('dashboard')}}">Dashboard</a>
                 </li>

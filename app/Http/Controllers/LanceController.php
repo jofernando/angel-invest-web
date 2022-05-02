@@ -29,7 +29,9 @@ class LanceController extends Controller
      */
     public function index()
     {
-        //
+        $lances = auth()->user()->investidor->lances;
+        $lance = $lances->first();
+        return view('lances.index', compact('lances', 'lance'));
     }
 
     /**

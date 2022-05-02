@@ -41,7 +41,8 @@ Route::middleware([
     Route::resource('leilao', LeilaoController::class)->except('show');
     Route::resource('leiloes.lances', LanceController::class)->parameters([
         'leiloes' => 'leilao'
-    ]);
+    ])->except('index');
+    Route::get('lances', [LanceController::class, 'index'])->name('lances');
     Route::get('leilao/{leilao}/termo', [LeilaoController::class, 'show_termo'])->name('leilao.termo');
 
     Route::get('startups/{startup}/documentos-edit', [DocumentoController::class, 'edit'])->name('documentos.edit');
