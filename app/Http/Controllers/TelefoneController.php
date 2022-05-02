@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Telefone;
 use App\Models\Startup;
 use App\Http\Requests\StoreTelefoneRequest;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+
 
 class TelefoneController extends Controller
 {
@@ -63,7 +63,7 @@ class TelefoneController extends Controller
             return redirect()->route('startups.index')->with('message', 'Startup criada com sucesso!');
         }
 
-        return redirect()->back()->with(['message' => 'Telefone salvo com sucesso!']);
+        return redirect()->back()->with(['message' => 'Telefones salvos com sucesso!']);
     }
 
     /**
@@ -118,7 +118,7 @@ class TelefoneController extends Controller
 
             $validator = Validator::make(
                 $input_data, [
-                    'numeros.*' => ['max:255']
+                    'numeros.*' => ['required'|'max:255']
                 ],[
                     'numeros.*.required' => 'O número é obrigatório.',
                     'nomes.*.max' => 'O tamanho máximo do número é de 255 caracteres.'
