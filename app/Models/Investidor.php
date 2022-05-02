@@ -9,6 +9,8 @@ class Investidor extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['carteira'];
+
     /**
      * Get the user that owns the Investidor
      *

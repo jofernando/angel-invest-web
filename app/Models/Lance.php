@@ -9,6 +9,8 @@ class Lance extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['valor', 'investidor_id', 'leilao_id'];
+
     /**
      * Get the leilao that owns the Lance
      *
