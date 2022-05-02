@@ -46,7 +46,7 @@ Route::middleware([
 
     Route::get('/documentos/{documento}/arquivo', [DocumentoController::class, 'arquivo'])->name('documento.arquivo');
 
-    Route::resource('startups/{startup}/telefones', TelefoneController::class);
+    Route::resource('startups/{startup}/telefones', TelefoneController::class)->except('edit', 'update');
     Route::get('startups/{startup}/telefones-edit', [TelefoneController::class, 'edit'])->name('telefones.edit');
     Route::put('startups/{startup}/telefones-update', [TelefoneController::class, 'update'])->name('telefones.update');
 });
