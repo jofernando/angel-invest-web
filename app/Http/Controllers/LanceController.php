@@ -57,7 +57,7 @@ class LanceController extends Controller
     public function store(Leilao $leilao, StoreLanceRequest $request)
     {
         if (!$leilao->esta_no_periodo_de_lances()) {
-            return redirect()->back()->with('error', 'Lances não podem ser realizados fora do intervalo do leilão');
+            return redirect()->route('leiloes.lances.store', $leilao)->with('error', 'Lances não podem ser realizados fora do intervalo do leilão');
         }
         if(auth()->user()->investidor->leiloes()->contains($leilao)) {
             $lance = Lance::where('investidor_id', auth()->user()->investidor->id)->where('leilao_id', $leilao->id)->first();
@@ -104,11 +104,11 @@ class LanceController extends Controller
     public function update(UpdateLanceRequest $request, Leilao $leilao, Lance $lance)
     {
         if (!$leilao->esta_no_periodo_de_lances()) {
-            return redirect()->back()->with('error', 'Lances não podem ser realizados fora do intervalo do leilão');
+            return redirect()->route('leiloes.lances.edit', ['leilao' => $leilao, 'lance' => $lance])->with('error', 'Lances não podem ser realizados fora do intervalo do leilão');
         }
         $lance->valor = $request->validated()['valor'];
         $lance->save();
-        return redirect()->back()->with('message', 'Lance realizado com sucesso');
+        return redirect()->route('leiloes.lances.edit', ['leilao' => $leilao, 'lance' => $lance])->with('message', 'Lance realizado com sucesso');
     }
 
     /**
