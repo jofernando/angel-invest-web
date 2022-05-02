@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -47,5 +48,13 @@ class Leilao extends Model
                 return $this->valor_minimo;
             }
         }
+    }
+
+    public function esta_no_periodo_de_lances()
+    {
+        $now = new DateTime();
+        $startdate = new DateTime($this->data_inicio);
+        $enddate = new DateTime($this->data_fim);
+        return $now >= $startdate && $now <= $enddate;
     }
 }

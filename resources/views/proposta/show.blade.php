@@ -127,11 +127,15 @@
                                         @endforelse
                                     </div>
                                     <div>
-                                        <div class="w-full grid justify-center">
-                                            <a href="{{route('leiloes.lances.create', $leilao)}}" class="btn btn-success btn-color-dafault mb-4">
-                                                {{ __('Fazer lance') }}
-                                            </a>
-                                        </div>
+                                        @auth
+                                            @if($leilao->esta_no_periodo_de_lances())
+                                                <div class="w-full grid justify-center">
+                                                    <a href="{{route('leiloes.lances.create', $leilao)}}" class="btn btn-success btn-color-dafault mb-4">
+                                                        {{ __('Fazer lance') }}
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        @endauth
                                     </div>
                                 </div>
                             @endif
