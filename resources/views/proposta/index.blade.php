@@ -42,16 +42,15 @@
                 @foreach ($propostas as $proposta)
                     <div class="col-md-4">
                         <div class="card card-home border-none" style="width: 100%;">
-                            <div class="row area-startup">
-                                <div class="col-md-8"></div>
-                                <div class="col-md-4">
-                                    <span class="span-area-startup" style="color: white;">{{$proposta->startup->area->nome}}</span>
+                            <div class="row area-startup" style="margin-top: -24px;">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-8" style="text-align: right; position: relative; right: 10px;">
+                                    <span class="span-area-startup" style="color: white;">{{$startup->area->nome}}</span>
                                 </div>
                             </div>
-                            <video class="card-img-top" alt="video da startup" controls poster="{{asset('storage/'.$proposta->thumbnail_caminho)}}">
-                                <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mp4">
-                                <source src="{{asset('storage/'.$proposta->video_caminho)}}" type="video/mkv">
-                            </video>
+                            <a class="video-link" href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}">
+                                <img class="thumbnail"  src="{{asset('storage/'.$proposta->thumbnail_caminho)}}" alt="Thumbnail do produto" style="height: 150px;">
+                            </a>
                             <div id="div-card-hearder" class="card-header">
                                 <div class="row">
                                     <div class="col-md-12">

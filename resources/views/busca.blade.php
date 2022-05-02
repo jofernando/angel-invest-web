@@ -132,13 +132,15 @@
                     @foreach ($leiloes[0] as $leilao)
                         <div class="col-md-4">
                             <div class="card card-home border-none" style="width: 100%;">
-                                <div class="row area-startup">
-                                    <div class="col-md-8"></div>
-                                    <div class="col-md-4" style="text-align: right; position: relative; right: 10px;">
+                                <div class="row area-startup" style="margin-top: -24px;">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8" style="text-align: right; position: relative; right: 10px;">
                                         <span class="span-area-startup" style="color: white;">{{$leilao->proposta->startup->area->nome}}</span>
                                     </div>
                                 </div>
-                                <img src="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto">
+                                <a class="video-link" href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">
+                                    <img class="thumbnail"  src="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto" style="height: 220px;">
+                                </a>
                                 <div id="div-card-hearder" class="card-header">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -177,13 +179,15 @@
                     @foreach ($leiloes[1] as $leilao)
                         <div class="col-md-4">
                             <div class="card card-home border-none" style="width: 100%;">
-                                <div class="row area-startup">
-                                    <div class="col-md-8"></div>
-                                    <div class="col-md-4" style="text-align: right; position: relative; right: 10px;">
+                                <div class="row area-startup" style="margin-top: -24px;">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8" style="text-align: right; position: relative; right: 10px;">
                                         <span class="span-area-startup" style="color: white;">{{$leilao->proposta->startup->area->nome}}</span>
                                     </div>
                                 </div>
-                                <img src="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto">
+                                <a class="video-link" href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">
+                                    <img class="thumbnail"  src="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto" style="height: 220px;">
+                                </a>
                                 <div id="div-card-hearder" class="card-header">
                                     <div class="row">
                                         <div class="col-md-12">
