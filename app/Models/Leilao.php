@@ -41,7 +41,11 @@ class Leilao extends Model
         if($this->lances->count() > $this->numero_ganhadores) {
             return $this->lances->get($this->numero_ganhadores - 1)->valor;
         } else {
-            return $this->lances->last()->valor;
+            if($this->lances->last()) {
+                return $this->lances->last()->valor;
+            } else {
+                return $this->valor_minimo;
+            }
         }
     }
 }
