@@ -69,7 +69,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <a  @if(!is_null($startup->endereco) && !is_null($startup->documentos->first())) href="{{route('propostas.index', $startup)}}" @endif style="text-decoration: none; color: black; font-size: 20px;">Propostas</a>
+                                        <a  @if(!is_null($startup->endereco) && !is_null($startup->documentos->first())) href="{{route('propostas.index', $startup)}}" @endif style="text-decoration: none; color: black; font-size: 20px;">Produtos</a>
                                     </div>
                                     @if(is_null($startup->endereco) || is_null($startup->documentos->first()))
                                         <small class="text-red">Conclua o cadastro da startup em <span style="font-weight: bold">Adicionar nova startup</span></small>
@@ -77,7 +77,7 @@
                                     @if ($startup->propostas->count() > 0)
                                         <div class="col-md-2" style="text-align: right;">
                                             <a class="arrow-collapse" data-bs-toggle="collapse" href="#collapse_propostas_{{$startup->id}}" role="button" aria-expanded="false" aria-controls="collapse_propostas_{{$startup->id}}">
-                                                <img class="arrow-down" src="{{asset('img/arrow-down.svg')}}" alt="Icone exibir proposta">
+                                                <img class="arrow-down" src="{{asset('img/arrow-down.svg')}}" alt="Icone exibir produto">
                                             </a>
                                         </div>
                                     @endif

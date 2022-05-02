@@ -66,7 +66,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <p class="card-text">{!! mb_strimwidth($leilao->proposta->descricao, 0, 90, "...") !!} @if(strlen($leilao->proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">Exibir proposta</a> @endif</p>
+                                            <p class="card-text">{!! mb_strimwidth($leilao->proposta->descricao, 0, 90, "...") !!} @if(strlen($leilao->proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">Exibir produto</a> @endif</p>
                                         </div>
                                     </div>
                                     <div class="row mt-3">

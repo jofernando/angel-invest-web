@@ -2,10 +2,10 @@
     <div class="container index-proposta" style="margin-top: 50px;">
         <div class="row titulo-pag">
             <div class="col-md-8">
-                <h4><a class="link-default" href="{{route('startups.index')}}">Minhas startups</a> > <a class="link-default" href="{{route('startups.show', $startup)}}">{{mb_strimwidth($startup->nome, 0, 30, "...")}}</a> > Propostas </h4>
+                <h4><a class="link-default" href="{{route('startups.index')}}">Minhas startups</a> > <a class="link-default" href="{{route('startups.show', $startup)}}">{{mb_strimwidth($startup->nome, 0, 30, "...")}}</a> > Produtos </h4>
             </div>
             <div class="col-md-4" style="text-align: right;">
-                <span class="span-btn-add"><a href="{{route('propostas.create', $startup)}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/idea.svg')}}" alt="ìcone de adicionar nova proposta"> Adicionar nova proposta</a></span>
+                <span class="span-btn-add"><a href="{{route('propostas.create', $startup)}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/idea.svg')}}" alt="ìcone de adicionar novo produto"> Adicionar novo produto</a></span>
             </div>
         </div>
         <div class="row">
@@ -62,13 +62,13 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <p class="card-text">{!! mb_strimwidth($proposta->descricao, 0, 90, "...") !!} @if(strlen($proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}">Exibir proposta</a> @endif</p>
+                                        <p class="card-text">{!! mb_strimwidth($proposta->descricao, 0, 90, "...") !!} @if(strlen($proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $startup, 'proposta' => $proposta])}}">Exibir produto</a> @endif</p>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-md-12" style="text-align: right;">
-                                        <a href="{{route('propostas.edit', ['startup' => $startup, 'proposta' => $proposta])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
-                                        <button id="btnmodaldelete{{$proposta->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$proposta->id}}"> <img src="{{asset('img/trash-white.svg')}}" alt="Icone de deletar proposta" style="height: 20px;"> Deletar</button>
+                                        <a href="{{route('propostas.edit', ['startup' => $startup, 'proposta' => $proposta])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar produto"> Editar</a>
+                                        <button id="btnmodaldelete{{$proposta->id}}" class="btn btn-danger btn-padding border" data-bs-toggle="modal" data-bs-target="#moda-delete-proposta-{{$proposta->id}}"> <img src="{{asset('img/trash-white.svg')}}" alt="Icone de deletar produto" style="height: 20px;"> Deletar</button>
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                 <form id="form-deletar-proposta-{{$proposta->id}}" method="POST" action="{{route('propostas.destroy',  ['startup' => $startup, 'proposta' => $proposta])}}">
                                     @csrf
                                     @method('DELETE')
-                                    Tem certeza que deseja deletar a proposta {{$proposta->titulo}}?
+                                    Tem certeza que deseja deletar o produto {{$proposta->titulo}}?
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -102,8 +102,8 @@
                 <div class="col-md-12">
                     <div class="p-5 mb-4 bg-light rounded-3">
                         <div class="container-fluid py-5">
-                            <h1 class="display-5 fw-bold">Propostas</h1>
-                            <p class="col-md-8 fs-4">Nenhuma proposta criada para a startup {{$startup->nome}}. <a href="{{route('propostas.create', $startup)}}">Clique aqui</a> para criar uma proposta.</p>
+                            <h1 class="display-5 fw-bold">Produtos</h1>
+                            <p class="col-md-8 fs-4">Nenhum produto criado para a startup {{$startup->nome}}. <a href="{{route('propostas.create', $startup)}}">Clique aqui</a> para criar um produto.</p>
                         </div>
                     </div>
                 </div>

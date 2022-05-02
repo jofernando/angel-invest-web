@@ -27,7 +27,7 @@
                                 <h2>Informações básicas</h2>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('startups.edit', ['startup' => $startup])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
+                                <a href="{{route('startups.edit', ['startup' => $startup])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar produto"> Editar</a>
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                                 <h2>Endereço</h2>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('enderecos.edit', ['startup' => $startup, 'endereco' => $startup->endereco])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
+                                <a href="{{route('enderecos.edit', ['startup' => $startup, 'endereco' => $startup->endereco])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar produto"> Editar</a>
                             </div>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
                                 <h2>Documentos</h2>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('documentos.edit', ['startup' => $startup])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
+                                <a href="{{route('documentos.edit', ['startup' => $startup])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar produto"> Editar</a>
                             </div>
                         </div>
                     </div>
