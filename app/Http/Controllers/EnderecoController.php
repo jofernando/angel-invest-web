@@ -57,7 +57,7 @@ class EnderecoController extends Controller
         $endereco->startup_id = $startup->id;
         $endereco->save();
 
-        if(!is_null($startup->documentos->first())){
+        if(!is_null($startup->documentos->first()) && !is_null($startup->telefones->first())){
             return redirect()->route('startups.index')->with('message', 'Startup criada com sucesso!');
         }
 
@@ -115,7 +115,7 @@ class EnderecoController extends Controller
 
         $endereco->update();
 
-        if(is_null($startup->documentos->first())){
+        if(is_null($startup->documentos->first()) || is_null($startup->telefones->first())){
             return redirect()->back()->with(['message' => 'Endereço atualizado com sucesso!']);
         }
 

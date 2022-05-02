@@ -34,7 +34,7 @@ class StartupController extends Controller
     {
         $startup = Auth::user()->startups->last();
         if(!is_null($startup)){
-            if(!is_null($startup->endereco) && !is_null($startup->documentos->first())){
+            if(!is_null($startup->endereco) && !is_null($startup->documentos->first()) && !is_null($startup->telefones->first())){
                 $startup = null;
             }
         }
@@ -44,6 +44,9 @@ class StartupController extends Controller
         }
         elseif(is_null($startup->endereco)){
             $etapa = "Endereço";
+        }
+        elseif(is_null($startup->telefones->first())){
+            $etapa = "Telefone";
         }
         elseif(is_null($startup->documentos->first())){
             $etapa = "Documentos";
@@ -63,7 +66,7 @@ class StartupController extends Controller
     {
         $startup = Auth::user()->startups->last();
         if(!is_null($startup)){
-            if(!is_null($startup->endereco) && !is_null($startup->documentos->first())){
+            if(!is_null($startup->endereco) && !is_null($startup->documentos->first()) && !is_null($startup->telefones->first())){
                 $startup = null;
             }
         }
@@ -85,6 +88,15 @@ class StartupController extends Controller
                 }elseif(!is_null($startup) && $startup->endereco != null){
                     $endereco = $startup->endereco;
                     return View::make("components.endereco.edit", compact('startup', 'endereco'))
+                    ->render();
+                }
+            case "Telefone":
+                if(!is_null($startup) && is_null($startup->telefones->first())){
+                    return View::make('components.telefone.create', compact('startup'))
+                    ->render();
+                }elseif(!is_null($startup) && !is_null($startup->telefones->first())){
+                    $telefones = $startup->telefones;
+                    return View::make("components.telefone.edit", compact('startup', 'telefones'))
                     ->render();
                 }
             case "Documentos":

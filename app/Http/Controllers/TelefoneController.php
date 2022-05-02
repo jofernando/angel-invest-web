@@ -59,7 +59,7 @@ class TelefoneController extends Controller
             }
         }
 
-        if(!is_null($startup->documentos->first())){
+        if(!is_null($startup->documentos->first()) && !is_null($startup->endereco)){
             return redirect()->route('startups.index')->with('message', 'Startup criada com sucesso!');
         }
 
@@ -118,7 +118,7 @@ class TelefoneController extends Controller
 
             $validator = Validator::make(
                 $input_data, [
-                    'numeros.*' => ['required'|'max:255']
+                    'numeros.*' => ['required', 'max:255']
                 ],[
                     'numeros.*.required' => 'O número é obrigatório.',
                     'nomes.*.max' => 'O tamanho máximo do número é de 255 caracteres.'
@@ -172,7 +172,7 @@ class TelefoneController extends Controller
             }
         }
 
-        if(is_null($startup->endereco)){
+        if(is_null($startup->endereco) || is_null($startup->documentos->first())){
             return redirect()->back()->with(['message' => 'Telefones atualizados com sucesso!']);
         }
 
