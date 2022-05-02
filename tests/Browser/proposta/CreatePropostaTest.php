@@ -14,7 +14,7 @@ class CreatePropostaTest extends DuskTestCase
             $startup = $this->criar_startup();
             $this->login($browser, $startup->user);
             $browser->visitRoute('propostas.create', ['startup' => $startup])
-                    ->assertSee('Informações da proposta');
+                    ->assertSee('Informações do produto');
             $this->resetar_session();
         });
     }

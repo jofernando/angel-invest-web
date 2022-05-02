@@ -16,7 +16,7 @@ class DeletePropostaTest extends DuskTestCase
             $this->login($browser, $proposta->startup->user);
             $browser->visitRoute('propostas.index', ['startup' => $proposta->startup])
                     ->press('#btnmodaldelete'.$proposta->id)
-                    ->waitForText('Tem certeza que deseja deletar a proposta ' . $proposta->titulo)
+                    ->waitForText('Tem certeza que deseja deletar o produto ' . $proposta->titulo)
                     ->press('#btnmodaldeleteform'.$proposta->id)
                     ->assertSee('Proposta deletada com sucesso!');
             $this->resetar_session();

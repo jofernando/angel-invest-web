@@ -52,7 +52,7 @@
                                         <span class="span-area-startup" style="color: white;">{{$leilao->proposta->startup->area->nome}}</span>
                                     </div>
                                 </div>
-                                <a class="video-link" href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">
+                                <a id="idshowvideo{{$leilao->id}}" class="video-link" href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">
                                     <img class="thumbnail"  src="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto" style="height: 220px;">
                                 </a>
                                 <div id="div-card-hearder" class="card-header">

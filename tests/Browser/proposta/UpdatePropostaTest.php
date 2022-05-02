@@ -14,7 +14,7 @@ class UpdatePropostaTest extends DuskTestCase
             $proposta = $this->criar_proposta();
             $this->login($browser, $proposta->startup->user);
             $browser->visitRoute('propostas.edit', ['startup' => $proposta->startup, 'proposta' => $proposta])
-                    ->assertSee('Informações da proposta')
+                    ->assertSee('Informações do produto')
                     ->assertSee($proposta->titulo);
             $this->resetar_session();
         });
@@ -58,7 +58,7 @@ class UpdatePropostaTest extends DuskTestCase
             $proposta = $this->criar_proposta();
             $this->login($browser, $proposta->startup->user);
             $browser->visitRoute('propostas.edit', ['startup' => $proposta->startup, 'proposta' => $proposta])
-                    ->waitForText('Informações da proposta')
+                    ->waitForText('Informações do produto')
                     ->type('título', 'Teste edit')
                     ->script("CKEDITOR.instances['descricao'].insertHtml('')");
             $browser->script("CKEDITOR.instances['descricao'].insertHtml('<p>Descrição teste editada</p>')");
