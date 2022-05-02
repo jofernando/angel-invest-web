@@ -15,7 +15,7 @@ class CreateInvestidorsTable extends Migration
     {
         Schema::create('investidors', function (Blueprint $table) {
             $table->id();
-            $table->decimal('carteira', 15, 2)->default(1000000);
+            $table->decimal('carteira', 15, 2)->default(0);
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
