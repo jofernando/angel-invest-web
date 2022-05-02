@@ -27,12 +27,12 @@
                 <div class="row logo" style="margin-bottom: 0px;">
                     <div class="col-md-3"></div>
                     <div class="col-md-2">
-                        <a target="_blank" href="https://www.facebook.com/ufape.comunica">
+                        <a target="_blank" href="https://instagram.com/ufape.oficial?utm_medium=copy_link">
                             <img id="logo-instagram" src="{{asset('img/Icon awesome-instagram.svg')}}" alt="Logo instagram">
                         </a>
                     </div>
                     <div class="col-md-2">
-                        <a target="_blank" href="https://instagram.com/ufape.oficial?utm_medium=copy_link">
+                        <a target="_blank" href="https://www.facebook.com/ufape.comunica">
                             <img id="logo-facebook" src="{{asset('img/Icon awesome-facebook.svg')}}" alt="Logo facebook">
                         </a>
                     </div>

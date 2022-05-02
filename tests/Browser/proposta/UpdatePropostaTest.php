@@ -14,7 +14,7 @@ class UpdatePropostaTest extends DuskTestCase
             $proposta = $this->criar_proposta();
             $this->login($browser, $proposta->startup->user);
             $browser->visitRoute('propostas.edit', ['startup' => $proposta->startup, 'proposta' => $proposta])
-                    ->assertSee('Informações da proposta')
+                    ->assertSee('Informações do produto')
                     ->assertSee($proposta->titulo);
             $this->resetar_session();
         });
@@ -32,7 +32,7 @@ class UpdatePropostaTest extends DuskTestCase
             $browser->attach('vídeo_do_pitch', __DIR__ . '/video/teste.mp4')
                     ->attach('thumbnail', __DIR__ . '/img/teste.jpg')
                     ->press('#salvar')
-                    ->assertSee('Proposta atualizada com sucesso!')
+                    ->assertSee('Produto atualizado com sucesso!')
                     ->assertSee('Teste edit')
                     ->assertSee('Descrição teste editada');
             
@@ -58,12 +58,12 @@ class UpdatePropostaTest extends DuskTestCase
             $proposta = $this->criar_proposta();
             $this->login($browser, $proposta->startup->user);
             $browser->visitRoute('propostas.edit', ['startup' => $proposta->startup, 'proposta' => $proposta])
-                    ->waitForText('Informações da proposta')
+                    ->waitForText('Informações do produto')
                     ->type('título', 'Teste edit')
                     ->script("CKEDITOR.instances['descricao'].insertHtml('')");
             $browser->script("CKEDITOR.instances['descricao'].insertHtml('<p>Descrição teste editada</p>')");
             $browser->press('#salvar')
-                    ->assertSee('Proposta atualizada com sucesso!')
+                    ->assertSee('Produto atualizado com sucesso!')
                     ->assertSee('Teste edit')
                     ->assertSee('Descrição teste editada');
             

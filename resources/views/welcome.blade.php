@@ -46,13 +46,15 @@
                     @foreach ($leiloes as $leilao)
                         <div class="col-md-4">
                             <div class="card card-home border-none" style="width: 100%;">
-                                <div class="row area-startup">
-                                    <div class="col-md-8"></div>
-                                    <div class="col-md-4" style="text-align: right; position: relative; right: 10px;">
+                                <div class="row area-startup" style="margin-top: -24px;">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8" style="text-align: right; position: relative; right: 10px;">
                                         <span class="span-area-startup" style="color: white;">{{$leilao->proposta->startup->area->nome}}</span>
                                     </div>
                                 </div>
-                                <img src="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto">
+                                <a id="idshowvideo{{$leilao->id}}" class="video-link" href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">
+                                    <img class="thumbnail"  src="{{asset('storage/'.$leilao->proposta->thumbnail_caminho)}}" alt="Thumbnail do produto" style="height: 220px;">
+                                </a>
                                 <div id="div-card-hearder" class="card-header">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -64,14 +66,22 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <p class="card-text">{!! mb_strimwidth($leilao->proposta->descricao, 0, 90, "...") !!} @if(strlen($leilao->proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">Exibir proposta</a> @endif</p>
+                                            <p class="card-text">{!! mb_strimwidth($leilao->proposta->descricao, 0, 90, "...") !!} @if(strlen($leilao->proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">Exibir produto</a> @endif</p>
                                         </div>
                                     </div>
-                                    <div class="row mt-3">
-                                        <div class="col-md-4">
-                                            <span class="qtd-investor" style="color: white;">10 Teste</span>
+                                    <div class="row">
+                                        <div class="col-md-8">
                                         </div>
-                                        <div class="col-md-8"></div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <img class="icon-investidor" src="{{asset('img/investidor-preto.png')}}" alt="Ícone do investidor" style="height: 60px; width: 90px;">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="text-proposta">{{$leilao->lances->count()}} @if($leilao->lances->count() == 1) investidor @else investidores @endif</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

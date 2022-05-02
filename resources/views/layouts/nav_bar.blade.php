@@ -8,9 +8,9 @@
         </button>
         <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
+            {{--<li class="nav-item">
                 <a class="nav-link" href="#">Investidores-anjo</a>
-            </li>
+            </li>--}}
             <li class="nav-item">
                 <a class="nav-link" href="{{route('produto.search')}}">Produtos</a>
             </li>
@@ -20,7 +20,7 @@
                         <a class="nav-link" href="{{route('startups.index')}}">Minhas startups</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('leilao.index')}}">Leilões</a>
+                        <a class="nav-link" href="{{route('leilao.index')}}">Meus leilões</a>
                     </li>
                 @endif
                 @if(auth()->user()->tipo == 2)

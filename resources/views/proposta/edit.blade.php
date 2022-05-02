@@ -10,7 +10,7 @@
                             </div>  
                         </div>
                         <div class="row">
-                            <h4 class="card-title" style="font-size: 22px;">Editando a proposta {{$proposta->titulo}}</h5>
+                            <h4 class="card-title" style="font-size: 22px;">Editando o produto {{$proposta->titulo}}</h5>
                         </div>
                     </div>
                     <div class="col-md-8 div-form">
@@ -20,7 +20,7 @@
                             <div class="container" style="margin-top: 15px; margin-bottom: 15px;">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h2>Informações da proposta</h2>
+                                        <h2>Informações do produto</h2>
                                     </div>
                                 </div>
                                 <div class="row" style="text-align: right;">
@@ -32,7 +32,7 @@
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <label for="titulo" class="form-label ">Título <span style="color: red;">*</span></label>
-                                        <input id="titulo" name="título" type="text" class="form-control @error('título') is-invalid @enderror" placeholder="Digite o título da proposta aqui..." required value="{{old('título', $proposta->titulo)}}">
+                                        <input id="titulo" name="título" type="text" class="form-control @error('título') is-invalid @enderror" placeholder="Digite o título do produto aqui..." required value="{{old('título', $proposta->titulo)}}">
                                     
                                         @error('título')
                                             <div id="validationServer03Feedback" class="invalid-feedback">
@@ -44,7 +44,7 @@
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <label for="descricao" class="form-label">Descrição <span style="color: red;">*</span></label>
-                                        <textarea id="descricao" name="descrição" class="form-control @error('descrição') is-invalid @enderror" placeholder="Forneça uma breve descrição da sua proposta..." required>{{old('descrição', $proposta->descricao)}}</textarea>
+                                        <textarea id="descricao" name="descrição" class="form-control @error('descrição') is-invalid @enderror" placeholder="Forneça uma breve descrição do seu produto..." required>{{old('descrição', $proposta->descricao)}}</textarea>
                                     
                                         @error('descrição')
                                             <div id="validationServer03Feedback" class="invalid-feedback">

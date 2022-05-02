@@ -14,7 +14,7 @@ class CreatePropostaTest extends DuskTestCase
             $startup = $this->criar_startup();
             $this->login($browser, $startup->user);
             $browser->visitRoute('propostas.create', ['startup' => $startup])
-                    ->assertSee('Informações da proposta');
+                    ->assertSee('Informações do produto');
             $this->resetar_session();
         });
     }
@@ -30,7 +30,7 @@ class CreatePropostaTest extends DuskTestCase
             $browser->attach('vídeo_do_pitch', __DIR__ . '/video/teste.mp4')
                     ->attach('thumbnail', __DIR__ . '/img/teste.jpg')
                     ->press('#salvar')
-                    ->assertSee('Proposta salva com sucesso!')
+                    ->assertSee('Produto salvo com sucesso!')
                     ->assertSee('Teste')
                     ->assertSee('Descrição teste');
             $this->resetar_session();
@@ -89,7 +89,7 @@ class CreatePropostaTest extends DuskTestCase
             $browser->attach('vídeo_do_pitch', __DIR__ . '/video/teste.mp4')
                     ->attach('thumbnail', __DIR__ . '/img/teste.jpg')
                     ->press('#salvar')
-                    ->assertSee('Proposta salva com sucesso!')
+                    ->assertSee('Produto salvo com sucesso!')
                     ->assertSee('Teste 1')
                     ->assertSee('Descrição teste 1');
 
@@ -99,7 +99,7 @@ class CreatePropostaTest extends DuskTestCase
             $browser->attach('vídeo_do_pitch', __DIR__ . '/video/teste.mp4')
                     ->attach('thumbnail', __DIR__ . '/img/teste.jpg')
                     ->press('#salvar')
-                    ->assertSee('Proposta salva com sucesso!')
+                    ->assertSee('Produto salvo com sucesso!')
                     ->assertSee('Teste 2')
                     ->assertSee('Descrição teste 2');
 

@@ -32,6 +32,9 @@
         </div>
         <div class="card card-feature">
             <div class="card-body bg-azul px-0 pt-1 flex flex-wrap">
+                <div class="col-md-12">
+                    <a href="javascript:window.history.back();" class="btn btn-success btn-padding" style="margin-left: 15px;"><img src="{{asset('img/back.svg')}}" alt="Icone de voltar" style="height: 22px;"> Voltar</a>
+                </div>
                 <div class="w-full flex justify-end">
                     <div class="w-1/4 flex justify-center">
                         <button type="button" id="menu">
@@ -111,7 +114,7 @@
                                             <img src="{{asset('img/logo.png')}}" class="w-32" alt="logo">
                                             <img class="rounded-full w-8 h-8 -ml-[80px] mt-[34px]" src="{{ $lance->investidor->user->profile_photo_url }}" alt="foto de {{ $lance->investidor->user->name }}">
                                         </div>
-                                        <div class="w-full -mt-5">
+                                        <div class="w-full -mt-5" style="margin-top: -10px">
                                             <div class="flex justify-end text-white">
                                                 <div class="w-1/2">
                                                     <p class="my-0 font-bold">

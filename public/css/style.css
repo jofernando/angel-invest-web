@@ -767,3 +767,39 @@ label {
 }
 
 /* X BUSCA X */
+
+/* X VIDEO BUTTON PLAYER X */
+.video-link {
+  display:block; 
+  overflow:visible;
+  cursor: pointer;
+}
+
+.video-link .thumbnail {
+  width:100%;
+  object-position: center;
+}
+
+.video-link::after {
+  content:"";
+  display:block;
+  position:absolute;
+  top:0;
+  left:0;
+  height:50%;
+  width:100%;
+  background-image:url("//cyara.com/wp-content/uploads/resources/play-button.png");
+  background-position: center center;
+  background-repeat:no-repeat;
+  background-size:20%;
+  filter: drop-shadow(0 0 10px rgba(0,0,0,.4));
+}
+
+.video-link:hover::after {
+  background-size:22%;
+  -webkit-transition: background-size .2s ease-in-out;
+  -moz-transition: background-size .2s ease-in-out;
+  -o-transition: background-size .2s ease-in-out;
+  transition: background-size .2s ease-in-out;
+}
+/* X VIDEO BUTTON PLAYER X */

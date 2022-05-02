@@ -66,7 +66,7 @@ class PropostaController extends Controller
         $proposta->thumbnail_caminho = $this->salvar_arquivo($proposta, $request->file('thumbnail'), $proposta->thumbnail_caminho, '/thumb/');
         $proposta->update();
 
-        return redirect(route('propostas.index', $startup))->with(['message' => 'Proposta salva com sucesso!']);
+        return redirect(route('propostas.index', $startup))->with(['message' => 'Produto salvo com sucesso!']);
     }
 
     /**
@@ -128,7 +128,7 @@ class PropostaController extends Controller
         
         $proposta->update();
 
-        return redirect(route('propostas.index', $startup))->with(['message' => 'Proposta atualizada com sucesso!']);
+        return redirect(route('propostas.index', $startup))->with(['message' => 'Produto atualizado com sucesso!']);
     }
 
     /**
@@ -151,7 +151,7 @@ class PropostaController extends Controller
         $this->deletar_leiloes($proposta);
         $proposta->delete();
 
-        return redirect(route('propostas.index', $startup))->with(['message' => 'Proposta deletada com sucesso!']);
+        return redirect(route('propostas.index', $startup))->with(['message' => 'Produto deletado com sucesso!']);
     }
 
 

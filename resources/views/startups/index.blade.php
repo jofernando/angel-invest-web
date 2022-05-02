@@ -6,9 +6,9 @@
             </div>
             <div class="col-md-6" style="text-align: right;">
                 <span class="span-btn-add">
-                  <a href="{{route('startups.create')}}" class="btn btn-success btn-default btn-padding border"> 
+                  <a href="{{route('startups.create')}}" class="btn btn-success btn-default btn-padding border">
                     <img src="{{asset('img/bi_plus-circle.png')}}" alt="">
-                    <img src="{{asset('img/Vector.png')}}" alt=""> 
+                    <img src="{{asset('img/Vector.png')}}" alt="">
                     Adicionar nova startup
                   </a>
                 </span>
@@ -60,7 +60,9 @@
                                                 <span class="text-startup" style="color: white;">{{$startup->email}}</span>
                                             </div>
                                             <div class="col-md-12">
-                                                {{-- <span class="text-startup">(87) 99999-9999</span> --}}
+                                                @if($startup->telefones->first())
+                                                    <span class="text-startup" style="color: white;">{{$startup->telefones->first()->numero}}</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -69,15 +71,15 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <a  @if(!is_null($startup->endereco) && !is_null($startup->documentos->first())) href="{{route('propostas.index', $startup)}}" @endif style="text-decoration: none; color: black; font-size: 20px;">Propostas</a>
+                                        <a  @if(!is_null($startup->endereco) && !is_null($startup->documentos->first())) href="{{route('propostas.index', $startup)}}" @endif style="text-decoration: none; color: black; font-size: 20px;">Produtos</a>
                                     </div>
-                                    @if(is_null($startup->endereco) || is_null($startup->documentos->first()))
+                                    @if(is_null($startup->endereco) || is_null($startup->documentos->first()) || is_null($startup->telefones->first()))
                                         <small class="text-red">Conclua o cadastro da startup em <span style="font-weight: bold">Adicionar nova startup</span></small>
                                     @endif
                                     @if ($startup->propostas->count() > 0)
                                         <div class="col-md-2" style="text-align: right;">
                                             <a class="arrow-collapse" data-bs-toggle="collapse" href="#collapse_propostas_{{$startup->id}}" role="button" aria-expanded="false" aria-controls="collapse_propostas_{{$startup->id}}">
-                                                <img class="arrow-down" src="{{asset('img/arrow-down.svg')}}" alt="Icone exibir proposta">
+                                                <img class="arrow-down" src="{{asset('img/arrow-down.svg')}}" alt="Icone exibir produto">
                                             </a>
                                         </div>
                                     @endif
@@ -101,7 +103,7 @@
                                                                     <img class="icon-investidor" src="{{asset('img/investidor-preto.png')}}" alt="Ícone do investidor">
                                                                 </div>
                                                                 <div class="row">
-                                                                    <span class="text-proposta">10 investidores</span>
+                                                                    <span class="text-proposta">{{$leilao->lances->count()}} @if($leilao->lances->count() == 1) investidor @else investidores @endif</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -116,7 +118,7 @@
                     </div>
                 @endforeach
             </div>
-        @else 
+        @else
             <div class="col-md-12">
                 <div class="p-5 mb-4 bg-light rounded-3">
                     <div class="container-fluid py-5">
@@ -125,7 +127,7 @@
                     </div>
                 </div>
             </div>
-        @endif   
+        @endif
     </div>
 
     <script>

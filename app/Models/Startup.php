@@ -43,10 +43,15 @@ class Startup extends Model
     {
         return $this->hasOne(Endereco::class);
     }
-    
+
     public function documentos()
     {
         return $this->hasMany(Documento::class)->orderBy('nome');;
+    }
+
+    public function telefones()
+    {
+        return $this->hasMany(Telefone::class);
     }
 
 }

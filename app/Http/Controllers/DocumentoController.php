@@ -55,7 +55,7 @@ class DocumentoController extends Controller
             }
         }
 
-        if(is_null($startup->endereco)){
+        if(is_null($startup->endereco) || is_null($startup->telefones->first())){
             return redirect()->back()->with(['message' => 'Documentos salvos com sucesso!']);
         }
 
@@ -167,7 +167,7 @@ class DocumentoController extends Controller
             }
         }
 
-        if(is_null($startup->endereco)){
+        if(is_null($startup->endereco) || is_null($startup->telefones->first())){
             return redirect()->back()->with(['message' => 'Documentos atualizados com sucesso!']);
         }
 

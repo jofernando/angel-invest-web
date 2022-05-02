@@ -22,7 +22,7 @@ class VisualizarLeilaoNaoLogadoTest extends DuskTestCase
             $leilao = $this->criar_leilao();
             $browser->visitRoute('home')
                     ->assertSeeLink($leilao->proposta->titulo)
-                    ->click("#idshowa".$leilao->id)
+                    ->click("#idshowvideo".$leilao->id)
                     ->assertSee('Voltar');
         });
     }

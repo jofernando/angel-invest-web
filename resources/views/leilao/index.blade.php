@@ -5,7 +5,7 @@
                 <h4>Leilões</h4>
             </div>
             <div class="col-md-4" style="text-align: right;">
-                <span class="span-btn-add"><a href="{{route('leilao.create')}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/dolar-bag.svg')}}" alt="ìcone de adicionar nova proposta"> Criar um leilão</a></span>
+                <span class="span-btn-add"><a href="{{route('leilao.create')}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/dolar-bag.svg')}}" alt="ìcone de adicionar nova produto"> Criar um leilão</a></span>
             </div>
         </div>
         <div class="row">

@@ -27,7 +27,7 @@
                                 <h2>Informações básicas</h2>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('startups.edit', ['startup' => $startup])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
+                                <a href="{{route('startups.edit', ['startup' => $startup])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar produto"> Editar</a>
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                                 <h2>Endereço</h2>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('enderecos.edit', ['startup' => $startup, 'endereco' => $startup->endereco])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
+                                <a href="{{route('enderecos.edit', ['startup' => $startup, 'endereco' => $startup->endereco])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar produto"> Editar</a>
                             </div>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
                                 <h2>Documentos</h2>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('documentos.edit', ['startup' => $startup])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
+                                <a href="{{route('documentos.edit', ['startup' => $startup])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar produto"> Editar</a>
                             </div>
                         </div>
                     </div>
@@ -205,6 +205,33 @@
                             <div class="col-md-6">
                                 <label for="nome_{{$i}}" class="form-label pb-1">{{$i+1}} - {{$documento->nome}}</label>
                                 <a href="{{route('documento.arquivo', ['documento' => $documento->id])}}" target="_blank"><img src="{{asset('img/file-pdf-solid.svg')}}" alt="documento {{$documento->nome}}" style="width: 16px;"></a>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <div id="telefones">
+            <div class="row titulo-pag" style="margin-top: 30px;">
+            </div>
+            <div class="py-2">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="col-md-12">
+                        <div class="d-flex align-items-center justify-content-between pt-3">
+                            <div class="col-md-6">
+                                <h2>Telefones</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{{route('telefones.edit', ['startup' => $startup])}}" class="btn btn-success btn-default btn-padding border"> <img src="{{asset('img/edit.svg')}}" alt="Icone de editar proposta"> Editar</a>
+                            </div>
+                        </div>
+                    </div>
+                    @foreach ($startup->telefones as $i => $telefone)
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="nome_{{$i}}" class="form-label pb-1">{{$i+1}} - {{$telefone->numero}}</label>
                             </div>
                             <div class="col-md-6">
                             </div>
