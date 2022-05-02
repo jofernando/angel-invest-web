@@ -43,7 +43,9 @@
                                 @can('update', $startup)
                                     <div class="row mb-4">
                                         <div class="col-md-12">
-                                            <a href="{{route('leilao.create')}}?produto={{$proposta->id}}" class="btn btn-success btn-default btn-padding border"><img src="{{asset('img/dolar-bag.svg')}}" alt="Ícone de criar" style="width: 40px;"><span style="font-weight: bolder;">Criar leilão</span></a>
+                                            @if(is_null($proposta->leilao_atual()))
+                                                <a href="{{route('leilao.create')}}?produto={{$proposta->id}}" class="btn btn-success btn-default btn-padding border"><img src="{{asset('img/dolar-bag.svg')}}" alt="Ícone de criar" style="width: 40px;"><span style="font-weight: bolder;">Criar leilão</span></a>
+                                            @endif
                                         </div>
                                     </div>
                                 @endcan
@@ -128,7 +130,7 @@
                                     </div>
                                     <div>
                                         @auth
-                                            @if($leilao->esta_no_periodo_de_lances())
+                                            @if($leilao->esta_no_periodo_de_lances() && auth()->user()->tipo != App\Models\User::PROFILE_ENUM['entrepreneur'])
                                                 <div class="w-full grid justify-center">
                                                     <a href="{{route('leiloes.lances.create', $leilao)}}" class="btn btn-success btn-color-dafault mb-4">
                                                         {{ __('Fazer lance') }}
