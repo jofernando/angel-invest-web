@@ -57,7 +57,7 @@
                             <div class="flex mt-3">
                                 <div class="w-1/2 bg-[#DADADA] mr-2 text-center py-3">
                                     Valor na carteira: <span class="text-[#03A000]">R$
-                                        {{ number_format(auth()->user->investidor->carteira, 2, ',', '.') }}</span>
+                                        {{ number_format(auth()->user()->investidor->carteira, 2, ',', '.') }}</span>
                                 </div>
                                 <div class="w-1/2 bg-[#DADADA] ml-2 text-center py-3">
                                     Lance mínimo: <span class="text-red">R$ {{ number_format($leilao->valor_minimo, 2, ',', '.') }}</span>
@@ -78,6 +78,9 @@
                                             id="valor"
                                             value="{{ old('valor', number_format($leilao->valor_minimo, 2, ',', '.')) }}"
                                             class="bg-fundo border-x-0 border-t-0 border-b-2 mb-2">
+                                        @error('valor')
+                                            <p class="text-xs text-red text-center">{{$message}}</p>
+                                        @enderror
                                     </div>
                                     @if ($leilao->valor_minimo > auth()->user()->investidor->carteira)
                                         <div class="mx-2 text-left text-red w-72">
@@ -97,9 +100,9 @@
                 <div id="collapseExample" class="pt-0 px-0 md:w-1/4 w-full">
                     <div class="grid justify-center">
                         <div>
-                            <h6 class="text-white text-center font-bold mt-3">Investidores contemplados no momento</h6>
+                            <h6 class="text-white text-center font-bold mt-3">{{trans_choice('messages.contemplados', $leilao->numero_ganhadores)}}</h6>
                             <div>
-                                @foreach ($leilao->lances as $lance)
+                                @foreach ($leilao->lances()->take($leilao->numero_ganhadores)->get() as $lance)
                                     <div class="flex flex-wrap text-xs">
                                         <div class="w-full flex justify-center mr-12">
                                             <img src="{{asset('img/logo.png')}}" class="w-32" alt="logo">

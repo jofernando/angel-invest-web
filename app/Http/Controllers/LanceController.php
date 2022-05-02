@@ -63,7 +63,7 @@ class LanceController extends Controller
         $lance->investidor()->associate(auth()->user()->investidor);
         $lance->valor = $request->validated()['valor'];
         $lance->save();
-        return redirect()->back()->with('message', 'Lance realizado com sucesso');
+        return redirect()->route('leiloes.lances.edit', ['leilao' => $leilao, 'lance' => $lance])->with('message', 'Lance realizado com sucesso');
     }
 
     /**
