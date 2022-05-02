@@ -91,7 +91,7 @@ class User extends Authenticatable
      * @return void
      */
     public function save_profile_foto($input) {
-        if (array_key_exists('foto_do_perfil', $input)) {
+        if (array_key_exists('photo', $input)) {
             if ($this->profile_photo_path != null) {
                 if (Storage::disk()->exists('public/' . $this->profile_photo_path)) {
                     Storage::delete('public/' . $this->profile_photo_path);
@@ -99,8 +99,8 @@ class User extends Authenticatable
             }
 
             $path = 'users/'.$this->id.'/';
-            $photo_name = $input['foto_do_perfil']->getClientOriginalName();
-            Storage::putFileAs('public/'.$path, $input['foto_do_perfil'], $photo_name);
+            $photo_name = $input['photo']->getClientOriginalName();
+            Storage::putFileAs('public/'.$path, $input['photo'], $photo_name);
             $this->profile_photo_path = $path . $photo_name;
             $this->update();
         }
