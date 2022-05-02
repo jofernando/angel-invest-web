@@ -69,11 +69,19 @@
                                             <p class="card-text">{!! mb_strimwidth($leilao->proposta->descricao, 0, 90, "...") !!} @if(strlen($leilao->proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">Exibir produto</a> @endif</p>
                                         </div>
                                     </div>
-                                    <div class="row mt-3">
-                                        <div class="col-md-4">
-                                            <span class="qtd-investor" style="color: white;">10 Teste</span>
+                                    <div class="row">
+                                        <div class="col-md-8">
                                         </div>
-                                        <div class="col-md-8"></div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <img class="icon-investidor" src="{{asset('img/investidor-preto.png')}}" alt="Ícone do investidor" style="height: 100%; width: 80%;">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="text-proposta">{{$leilao->lances->count()}} @if($leilao->lances->count() == 1) investidor @else investidores @endif</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

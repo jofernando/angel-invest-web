@@ -101,7 +101,7 @@
                                                                     <img class="icon-investidor" src="{{asset('img/investidor-preto.png')}}" alt="Ícone do investidor">
                                                                 </div>
                                                                 <div class="row">
-                                                                    <span class="text-proposta">10 investidores</span>
+                                                                    <span class="text-proposta">{{$leilao->lances->count()}} @if($leilao->lances->count() == 1) investidor @else investidores @endif</span>
                                                                 </div>
                                                             </div>
                                                         </div>
