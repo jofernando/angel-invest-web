@@ -31,7 +31,7 @@ class StoreTelefoneRequest extends FormRequest
     public function messages()
     {
         return [
-            'numeros.*.required' => 'O telefone é obrigatório.',
+            'numeros.*.required' => 'O número é obrigatório.',
             'numeros.*.max' => 'O tamanho máximo do telefone é de 255 caracteres.'
         ];
     }
