@@ -21,6 +21,8 @@ class UpdateDocumentoTest extends TestCase
     public function test_redenrizar_update_documento()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+        
         $this->criar_documento($startup);
         $response = $this->get(route('documentos.edit', $startup));
         $response->assertStatus(200);
@@ -29,6 +31,8 @@ class UpdateDocumentoTest extends TestCase
     public function test_editar_documento_existente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+
         $documento = $this->criar_documento($startup);
         $documento1 = UploadedFile::fake()->create('teste.pdf');
         $response =  $this->put(route('documentos.update', $startup),[
@@ -43,6 +47,8 @@ class UpdateDocumentoTest extends TestCase
     public function test_editar_documento_existente_parcialmente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+
         $documento = $this->criar_documento($startup);
         UploadedFile::fake()->create('teste.pdf');
         $response =  $this->put(route('documentos.update', $startup),[
@@ -56,6 +62,8 @@ class UpdateDocumentoTest extends TestCase
     public function test_editar_documento_inexistente()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+
         $documento = $this->criar_documento($startup);
         $documento1 = UploadedFile::fake()->create('teste.pdf');
         $response =  $this->put(route('documentos.update', $startup->id+1),[
@@ -64,19 +72,5 @@ class UpdateDocumentoTest extends TestCase
             "documentos"=>[$documento1]]
         );
         $response->assertStatus(403);
-    }
-
-
-    protected function criar_startup()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-        $area = Area::factory()->create();
-        return Startup::factory()->createStartup($user, $area);
-    }
-    
-    protected function criar_documento($startup)
-    {
-        return Documento::factory()->createDocumento($startup);
     }
 }

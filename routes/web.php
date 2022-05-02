@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 Route::get('startup/{startup}/proposta/{proposta}', [PropostaController::class, 'show'])->name('propostas.show');
+Route::get('/produtos', [PropostaController::class, 'search'])->name('produto.search');
 
 Route::middleware([
     'auth:sanctum',

@@ -1,6 +1,6 @@
 :root {
   --primary-color: rgb(41, 123, 129);
-  --secondary-color: rgb(77, 99, 95);
+  --secondary-color: rgb(41, 87, 79);
   --ternary-color: rgb(3, 64, 90);
   --color-nav-link: white;
   --color-nav-link-hover: rgb(187, 187, 187);
@@ -75,7 +75,7 @@ body img {
 #row-cards-startups {
   justify-content: center;
   align-items: center;
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
 }
 
 .card-img-top {
@@ -710,3 +710,60 @@ label {
 }
 
 /* X INDEX LEILÃO X */
+
+/* BUSCA */
+
+#container-search {
+  background-color: var(--ternary-color);
+  padding-top: 40px;
+  margin-bottom: 20px;
+  padding-bottom: 80px;
+  color: white;
+}
+
+#logo-angel-invest {
+  display: inline;
+  width: 500px;
+}
+
+.search-box {
+  text-align: center;
+}
+
+#search-text {
+  margin-top: 30px;
+  padding-left: 75px;
+  padding-right: 75px;
+}
+
+#search-text-title {
+  margin-top: 30px;
+  padding-left: 75px;
+  padding-right: 75px;
+}
+
+.numero-destaque-color {
+  color: #f4d733;
+}
+
+.btn-search {
+  background-color: #2387B1;
+  border-color: #2387B1;
+}
+
+.btn-search:hover {
+  background-color: #1b6a8b;
+  border-color: #1b6a8b;
+}
+
+.search-span {
+  color: #B5E0FF;
+  font-weight: bolder;
+}
+
+#collapse-search .card {
+  background-color: #297B81; 
+  /* text-align: left; */
+}
+
+/* X BUSCA X */

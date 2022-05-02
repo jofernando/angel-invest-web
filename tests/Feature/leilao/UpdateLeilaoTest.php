@@ -11,6 +11,8 @@ class UpdateLeilaoTest extends LeilaoTest
     public function test_redenrizar_editar_leilao()
     {
         $leilao = $this->criar_leilao();
+        $this->logar($leilao->proposta->startup->user);
+
         $response = $this->get(route('leilao.edit', $leilao));
 
         $response->assertStatus(200);
@@ -19,6 +21,8 @@ class UpdateLeilaoTest extends LeilaoTest
     public function test_editar_leilao_alterando_todos_os_campos()
     {
         $leilao = $this->criar_leilao();
+        $this->logar($leilao->proposta->startup->user);
+
         $produto = $this->criar_produto($leilao->proposta->startup->user);
         $data_inicio = date('Y-m-d', strtotime(now()->subDays(5)));
         $data_fim = date('Y-m-d', strtotime(now()->addDays(5)));
@@ -40,6 +44,7 @@ class UpdateLeilaoTest extends LeilaoTest
     public function test_editar_leilao_alterando_alguns_campos()
     {
         $leilao = $this->criar_leilao();
+        $this->logar($leilao->proposta->startup->user);
 
         $data_inicio = date('Y-m-d', strtotime($leilao->data_inicio));
         $data_fim = date('Y-m-d', strtotime($leilao->data_fim));
@@ -58,6 +63,8 @@ class UpdateLeilaoTest extends LeilaoTest
     public function test_editar_leilao_para_um_produto_com_mesmo_periodo() 
     {
         $leilao1 = $this->criar_leilao();
+        $this->logar($leilao1->proposta->startup->user);
+
         $leilao2 = $this->criar_leilao($leilao1->proposta->startup->user);
 
         $data_inicio = $leilao1->data_inicio;
@@ -74,6 +81,7 @@ class UpdateLeilaoTest extends LeilaoTest
     public function test_editar_leilao_para_um_produto_com_periodo_diferente() 
     {
         $leilao1 = $this->criar_leilao();
+        $this->logar($leilao1->proposta->startup->user);
         $leilao2 = $this->criar_leilao($leilao1->proposta->startup->user);
 
         $data_inicio = date('Y-m-d', strtotime(now()->addDays(20)));

@@ -20,6 +20,8 @@ class CreateDocumentoTest extends TestCase
     public function test_redenrizar_create_documento()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+
         $response = $this->get(route('documentos.create', $startup));
         $response->assertStatus(200);
     }
@@ -27,6 +29,8 @@ class CreateDocumentoTest extends TestCase
     public function test_novo_documento_campos_parcialmente_preenchidos()
     {
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+
         $response = $this->post(route('documentos.store', $startup),[
             "nomes" => ["declaracao","impostos"],
             "documentos" => [null,null]
@@ -41,6 +45,8 @@ class CreateDocumentoTest extends TestCase
     public function test_documento_extensao_invalida() {
 
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+
         $documento1 = UploadedFile::fake()->create('teste.png');
         $documento2 = UploadedFile::fake()->create('teste.csv');
 
@@ -58,6 +64,8 @@ class CreateDocumentoTest extends TestCase
     public function test_novo_documento_campos_preenchidos(){
 
         $startup = $this->criar_startup();
+        $this->logar($startup->user);
+        
         $documento1 = UploadedFile::fake()->create('teste.pdf');
         $documento2 = UploadedFile::fake()->create('teste1.pdf');
 
@@ -67,12 +75,5 @@ class CreateDocumentoTest extends TestCase
         ]);
         $response->assertStatus(302);
         $response->assertSessionHas('message',$value ='Documentos salvos com sucesso!');
-    }
-    protected function criar_startup()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-        $area = Area::factory()->create();
-        return Startup::factory()->createStartup($user, $area);
     }
 }
