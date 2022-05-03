@@ -102,9 +102,11 @@
                                                                 <div class="row">
                                                                     <img class="icon-investidor" src="{{asset('img/investidor-preto.png')}}" alt="Ícone do investidor">
                                                                 </div>
-                                                                <div class="row">
-                                                                    <span class="text-proposta">{{$leilao->lances->count()}} @if($leilao->lances->count() == 1) investidor @else investidores @endif</span>
-                                                                </div>
+                                                                @if(!is_null($proposta->leiloes->first()))
+                                                                    <div class="row">
+                                                                        <span class="text-proposta">{{$proposta->leiloes->last()->lances->count()}} @if($proposta->leiloes->last()->lances->count() == 1) investidor @else investidores @endif</span>
+                                                                    </div>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>

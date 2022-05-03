@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container-fluid" style="margin-bottom: -70px;">
         <div class="row">
-            @foreach ($lances as $index => $lance)
+            @forelse ($lances as $index => $lance)
                 <div
                     @class([
                         "col-md-6 mb-4",
@@ -121,7 +121,16 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="col-md-12">
+                    <div class="p-5 mb-5 mt-4 bg-light rounded-3">
+                        <div class="container-fluid py-5">
+                            <h1 class="display-5 fw-bold">Investimentos</h1>
+                            <p class="col-md-8 fs-4">Nenhum lance efutado</p>
+                        </div>
+                    </div>
+                </div>
+            @endforelse
         </div>
     </div>
     <script>
