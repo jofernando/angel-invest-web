@@ -1,11 +1,11 @@
 <x-guest-layout>
-    <div id="container-home" class="container" style="margin-top: 40px;">
-        <div class="col-md-12">
+    <div id="container-home" class="container" style="margin-top: 40px; display: flex; justify-content: center;">
+        <div class="col-md-10">
             <div class="card card-register mb-3" style="max-width: 100%;">
                 <div id="card-container" class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div id="colum-img" class="col-md-5">
+                            <div id="colum-img" class="col-md-12">
                                 <div class="row">
                                     <div id="top-img-div" class="col-md-12"></div>
                                 </div>
@@ -19,7 +19,7 @@
                                         <div id="btn-div" class="row">
                                             <div class="col-md-12">
                                                 <div class="row">
-                                                    <div id="text-bnt-users" class="col-md-12 text-users">
+                                                    <div id="text-bnt-users" class="text-users" style="font-weight: bold; font-size: 20px;">
                                                         Você é... ?
                                                     </div>
                                                 </div>
@@ -33,18 +33,18 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row justify-content-center" style="margin-top: 17px;">
-                                            <div id="text-entrepreneur" class="col-md-12 text-users" style="height: 50px;">
-                                                Cadastrando-se como empreendedor, você poderá adicionar uma startup e publicar a sua proposta de negócio. Então assim poderá deixar sua proposta visível para que investidores possam fazer ofertas.
-                                            </div>
-                                            <div id="text-investor" class="col-md-12 text-users" style="display: none; height: 50px;">
-                                                Cadastrando-se como investidor-anjo, você poderá fazer uma oferta às startups do seu interesse que tenham publicado uma proposta. 
+                                        <div class="row">
+                                            <div class="col-md-12" style="margin-top: 17px;">
+                                                <div id="text-entrepreneur" class="text-users">
+                                                    Cadastrando-se como empreendedor, você poderá adicionar uma startup e publicar a sua proposta de negócio. Então assim poderá deixar sua proposta visível para que investidores possam fazer ofertas.
+                                                </div>
+                                                <div id="text-investor" class="text-users" style="display: none;">
+                                                    Cadastrando-se como investidor-anjo, você poderá fazer uma oferta às startups do seu interesse que tenham publicado uma proposta. 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-7">
                                 <div class="card-body">
                                     <div id="form-registration" class="container">
                                         <div class="row">
@@ -53,7 +53,7 @@
                                                 <h3 id="entrepreneur-registration" class="card-title">Cadastro de <span style="color: rgb(41, 103, 129);">empreendedor</span></h3>
                                             </div>
                                         </div>
-                                        <form id="form-registration-user" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                                        <form id="form-registration-user" method="POST" action="{{ route('register') }}" enctype="multipart/form-data"  style="text-align: left;">
                                             @csrf
                                             <input id="profile" type="hidden" name="profile" value="{{\App\Models\User::PROFILE_ENUM['entrepreneur']}}">
                                             <div class="row mb-3" style="text-align: right;">
