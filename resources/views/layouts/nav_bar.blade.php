@@ -28,9 +28,9 @@
                     <a class="nav-link" href="{{route('lances')}}">Meus investimentos</a>
                 </li>
                 @endif
-                <li class="nav-item">
+                {{--<li class="nav-item">
                     <a class="nav-link" href="{{route('dashboard')}}">Dashboard</a>
-                </li>
+                </li>--}}
                 <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="48">
                         <x-slot name="trigger">
