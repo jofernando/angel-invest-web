@@ -36,10 +36,10 @@
                                         <div class="row">
                                             <div class="col-md-12" style="margin-top: 17px;">
                                                 <div id="text-entrepreneur" class="text-users">
-                                                    Cadastrando-se como empreendedor, você poderá adicionar uma startup e publicar a sua proposta de negócio. Então assim poderá deixar sua proposta visível para que investidores possam fazer ofertas.
+                                                    Cadastrando-se como empreendedor, você poderá adicionar uma startup e cadastrar um produto do seu negócio. Então assim poderá deixar seu produto visível para que investidores possam fazer ofertas.
                                                 </div>
                                                 <div id="text-investor" class="text-users" style="display: none;">
-                                                    Cadastrando-se como investidor-anjo, você poderá fazer uma oferta às startups do seu interesse que tenham publicado uma proposta. 
+                                                    Cadastrando-se como investidor-anjo, você poderá fazer uma oferta às startups do seu interesse que tenham publicado um produto. 
                                                 </div>
                                             </div>
                                         </div>
