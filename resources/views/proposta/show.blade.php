@@ -125,16 +125,27 @@
                                                 <p class="text-xs text-center">R$ {{ number_format($lance->valor, 2,",",".") }}</p>
                                             </div>
                                         @empty
-                                            <h3 class="w-full text-center">Nenhum lance realizado</h3>
+                                            <div class="p-5 mb-4 rounded-3">
+                                                <h4 class="display-5 fw-bold">Nenhum lance realizado</h4>
+                                                @if($leilao->esta_no_periodo_de_lances() && auth()->user()->tipo != App\Models\User::PROFILE_ENUM['entrepreneur'])
+                                                    <p class="col-md-12 fs-4">Faça um lance clicando no botão abaixo.</p>
+                                                @endif
+                                            </div>
                                         @endforelse
                                     </div>
                                     <div>
                                         @auth
                                             @if($leilao->esta_no_periodo_de_lances() && auth()->user()->tipo != App\Models\User::PROFILE_ENUM['entrepreneur'])
+                                                <div class="w-full grid justify-center" style="margin-top: -50px">
+                                                    <img src="{{asset('img/triple-coins.png')}}" width="300px" alt="">
+                                                </div>
                                                 <div class="w-full grid justify-center">
-                                                    <a href="{{route('leiloes.lances.create', $leilao)}}" class="btn btn-success btn-color-dafault mb-4">
-                                                        {{ __('Fazer lance') }}
-                                                    </a>
+                                                    <span class="span-btn-add">
+                                                        <a href="{{route('leiloes.lances.create', $leilao)}}" class="btn btn-success btn-yellow btn-padding border">
+                                                            <img src="{{asset('img/dolar-white.svg')}}" width="35px" alt="">
+                                                            <span style="text-shadow: 2px 1px 4px rgb(49, 49, 21); font-size: 18px;">Fazer lance</span>
+                                                        </a>
+                                                    </span>
                                                 </div>
                                             @endif
                                         @endauth

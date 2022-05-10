@@ -362,6 +362,10 @@ button:disabled {
   background-color: #296781;
 }
 
+.btn-yellow {
+  background-color: #ebca2a;
+}
+
 .btn-padding {
   padding-left: 30px;
   padding-right: 30px;
@@ -377,6 +381,14 @@ button:disabled {
 
 .btn-default:focus {
   background-color: var(--ternary-color);
+}
+
+.btn-yellow:hover {
+  background-color: #b18f20;
+}
+
+.btn-yellow:focus {
+  background-color: #b18f20;
 }
 
 .span-btn-add {
