@@ -128,7 +128,7 @@
                         <a href="{{route('produto.search')}}" style="text-decoration: none; color:black;"><h6 style="font-weight: bolder;">Produtos em leilão</h6></a>
                     </div>
                 </div>
-                <div id="row-cards-startups" class="row">
+                <div id="row-cards-startups" class="row" style="background-color: white">
                     @foreach ($leiloes[0] as $leilao)
                         <div class="col-md-4">
                             <div class="card card-home border-none" style="width: 100%;">
@@ -149,7 +149,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body bg-gray-250">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <p class="card-text">{!! mb_strimwidth($leilao->proposta->descricao, 0, 90, "...") !!} @if(strlen($leilao->proposta->descricao) > 90) <a href="{{route('propostas.show', ['startup' => $leilao->proposta->startup, 'proposta' => $leilao->proposta])}}">Exibir produto</a> @endif</p>
