@@ -99,6 +99,9 @@
                                 <div class="w-full md:w-1/4 bg-white pt-3 grid content-between">
                                     <div class="flex flex-wrap">
                                         @forelse ($proposta->leilao_atual()->lances as $index => $lance)
+                                            @if(auth()->user()->investidor && $lance->investidor->id == auth()->user()->investidor->id)
+                                                @include('leiloes.lances.edit', ['leilao' => $leilao, 'lance' => $lance])
+                                            @endif
                                             <div @class([
                                                     'w-1/2' => $index == 1 || $index == 2,
                                                     'w-full' => $index != 1 && $index != 2,
@@ -132,9 +135,19 @@
                                         @auth
                                             @if($leilao->esta_no_periodo_de_lances() && auth()->user()->tipo != App\Models\User::PROFILE_ENUM['entrepreneur'])
                                                 <div class="w-full grid justify-center">
-                                                    <a href="{{route('leiloes.lances.create', $leilao)}}" class="btn btn-success btn-color-dafault mb-4">
+                                                    {{-- <a href="{{route('leiloes.lances.create', $leilao)}}" class="btn btn-success btn-color-dafault mb-4">
                                                         {{ __('Fazer lance') }}
-                                                    </a>
+                                                    </a> --}}
+                                                    @if ($leilao->investidor_fez_lance(auth()->user()->investidor))
+                                                        <button class="btn btn-success btn-color-dafault mb-4" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            {{ __('Atualizar lance') }}
+                                                        </button>
+                                                    @else
+                                                        @include('leiloes.lances.create', ['leilao' => $leilao])
+                                                        <button class="btn btn-success btn-color-dafault mb-4" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            {{ __('Fazer lance') }}
+                                                        </button>
+                                                    @endif
                                                 </div>
                                             @endif
                                         @endauth
@@ -155,6 +168,14 @@
             categoria = document.getElementById('span-area-proposta-startup');
 
             categoria.style.backgroundColor = cores[parseInt(Math.random() * cores.length)];
+
+            $('#valor').mask('#.##0,00', {
+                reverse: true
+            });
+            $('#menu').click(function() {
+                $('#collapseExample').toggleClass('hidden');
+                $('#divFormFazerLance').toggleClass('col-lg-9');
+            });
         });
     </script>
 </x-app-layout>

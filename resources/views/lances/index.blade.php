@@ -2,6 +2,9 @@
     <div class="container-fluid" style="margin-bottom: -70px;">
         <div class="row">
             @forelse ($lances as $index => $lance)
+                @if(auth()->user()->investidor && $lance->investidor->id == auth()->user()->investidor->id)
+                    @include('leiloes.lances.edit', ['leilao' => $lance->leilao, 'lance' => $lance])
+                @endif
                 <div
                     @class([
                         "col-md-6 mb-4",
@@ -110,9 +113,9 @@
                                                 </div>
                                             @endif
                                             <div class="w-full grid justify-center">
-                                                <a href="{{route('leiloes.lances.create', $leilao)}}" class="btn btn-success btn-color-dafault mb-4">
+                                                <button class="btn btn-success btn-color-dafault mb-4" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                     {{ __('Atualizar lance') }}
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -140,6 +143,13 @@
         $(document).ready(function(){
             $('.span-area-startup').each(function(index, element) {
                 element.style.backgroundColor = cores[parseInt(Math.random() * cores.length)]
+            });
+            $('#valor').mask('#.##0,00', {
+                reverse: true
+            });
+            $('#menu').click(function() {
+                $('#collapseExample').toggleClass('hidden');
+                $('#divFormFazerLance').toggleClass('col-lg-9');
             });
         });
     </script>
