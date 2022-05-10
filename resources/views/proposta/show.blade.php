@@ -143,9 +143,11 @@
                                         @empty
                                             <div class="p-5 mb-4 rounded-3">
                                                 <h4 class="display-5 fw-bold">Nenhum lance realizado</h4>
-                                                @if($leilao->esta_no_periodo_de_lances() && auth()->user()->tipo != App\Models\User::PROFILE_ENUM['entrepreneur'])
-                                                    <p class="col-md-12 fs-4">Faça um lance clicando no botão abaixo.</p>
-                                                @endif
+                                                @auth
+                                                    @if($leilao->esta_no_periodo_de_lances() && auth()->user()->tipo != App\Models\User::PROFILE_ENUM['entrepreneur'])
+                                                        <p class="col-md-12 fs-4">Faça um lance clicando no botão abaixo.</p>
+                                                    @endif
+                                                @endauth
                                             </div>
                                         @endforelse
                                     </div>
