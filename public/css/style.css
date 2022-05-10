@@ -815,3 +815,62 @@ label {
   transition: background-size .2s ease-in-out;
 }
 /* X VIDEO BUTTON PLAYER X */
+
+/* X VALIDACAO DE SENHA X */
+.Short {
+  width: 100%;
+  background-color: #dc3545;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  height: 3px;
+  color: #dc3545;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.Weak {
+  width: 100%;
+  background-color: #ffc107;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  height: 3px;
+  color: #ffc107;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.Good {
+  width: 100%;
+  background-color: #28a745;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  height: 3px;
+  color: #28a745;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.Strong {
+  width: 100%;
+  background-color: #007fd3;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  height: 3px;
+  color: #007fd3;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.Invalida {
+  color: #dc3545;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.Valida {
+  color: #28a745;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* X VALIDACAO DE SENHA X */

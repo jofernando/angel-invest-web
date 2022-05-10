@@ -147,11 +147,23 @@
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
-                                                    <small id="password-minimo"> Deve ter no mínimo 8 caracteres </small>
+                                                    <div class="row col-md-12" id="strengthMessage"></div> 
+                                                    <div class="row col-md-12">
+                                                        <span style="font-size: 14px;">Uma senha forte contém:</span>
+                                                        <ul style="list-style-type: disc !important; padding-left:1em !important; margin-left:1em;">
+                                                            <li style="font-size: 12px;">Pelo menos oito caracteres;</li>
+                                                            <li style="font-size: 12px;">Uma combinação de letras, números e símbolos;</li>
+                                                            <li style="font-size: 12px;">Dígitos de 0 a 9;</li>
+                                                            <li style="font-size: 12px;">Símbolos (exemplo: !"£$%^*&*);</li>
+                                                            <li style="font-size: 12px;">Letras maiúsculas e minúsculas.</li>
+                                                        </ul>
+                                                        <small id="password-minimo">Exigimos que a senha tenha no mínimo 8 caracteres </small>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="password-confirmation" class="form-label">Confirmar senha <span style="color: red;">*</span></label>
                                                     <input id="password_confirmation" name="password_confirmation" type="password" class="form-control" required>
+                                                    <div class="row col-md-12" id="passwordMessage"></div> 
                                                 </div>
                                             </div>
                                             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
@@ -187,6 +199,7 @@
         </div>
     </div>
 
+    <script src="{{ asset('js/check-password.js') }}"></script>
     <script>
         $(document).ready(function($) {
             $('#cpf').mask('000.000.000-00');
