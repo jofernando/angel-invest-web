@@ -81,11 +81,21 @@ class PropostaController extends Controller
         $startup = Startup::find($startup);
         $proposta = Proposta::find($proposta);
 
+        if($proposta->leilao_atual()){
+            $leilao = $proposta->leilao_atual();
+        }else{
+            if($proposta->leiloes->first()){
+                $leilao = $proposta->leiloes()->last();
+            }else{
+                $leilao = null;
+            }
+        }
+            
         if ($startup == null || $proposta == null) {
             abort(404);
         }
 
-        return view('proposta.show', compact('startup', 'proposta'));
+        return view('proposta.show', compact('startup', 'proposta', 'leilao'));
     }
 
     /**
@@ -291,17 +301,14 @@ class PropostaController extends Controller
         if ($request->perido != null) {
             if ($request->perido == "1") {
                 $query->where([['leilaos.data_inicio', '<=', $hoje], ['leilaos.data_fim', '>=', $hoje]]);
-                $leilaos_atuais = Leilao::whereIn('id', $query->get()->pluck('id'))->where([['leilaos.data_inicio', '<=', $hoje], ['leilaos.data_fim', '>=', $hoje]])->paginate(12);
+                return Leilao::whereIn('id', $query->get()->pluck('id'))->where([['leilaos.data_inicio', '<=', $hoje], ['leilaos.data_fim', '>=', $hoje]])->paginate(12);
             } else if ($request->perido == "2") {
                 $query->where('leilaos.data_fim', '<', $hoje);
-                $leilaos_encerrados = Leilao::whereIn('id', $query->get()->pluck('id'))->where('leilaos.data_fim', '<', $hoje)->paginate(12);
+                return Leilao::whereIn('id', $query->get()->pluck('id'))->where('leilaos.data_fim', '<', $hoje)->paginate(12);
             }
         } else {
-            $leilaos_atuais = Leilao::whereIn('id', $query->get()->pluck('id'))->paginate(12);
+            return Leilao::whereIn('id', $query->get()->pluck('id'))->paginate(12);
         }
 
-        $leiloes_buscados = $leilaos_atuais->concat($leilaos_encerrados);
-
-        return $leiloes_buscados;
     }
 }

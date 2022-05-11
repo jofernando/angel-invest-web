@@ -14,7 +14,7 @@
             </div>
         @endif
         <div class="row justify-content-between">
-            <div class="col-md-9">
+            <div class=" @if ($leilao) col-md-9 @else col-md-12 @endif ">
                 <div class="row">
                     <div class="col-md-12">
                         <a href="javascript:window.history.back();" class="btn btn-success btn-padding border" style="margin-left: 15px;"><img src="{{asset('img/back.svg')}}" alt="Icone de voltar" style="height: 22px;"> Voltar</a>
@@ -43,7 +43,7 @@
                         <div class="flex flex-wrap">
                             <div @class([
                                     'py-3 pl-3 w-full',
-                                    'md:w-3/4' => $proposta->leilao_atual(),
+                                    'md:w-3/4' => $leilao,
                                 ])>
                                 <div class="row mb-4">
                                     <div class="col-md-12">
@@ -94,7 +94,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <span style="font-weight: bolder;">Contato: </span> {{$startup->telefones->first()->numero}}
+                                            <span style="font-weight: bolder;">Telefone: </span> @if($startup->telefones->first() != null) {{$startup->telefones->first()->numero}} @else (##) #####-#### @endif
                                         </div>
                                     </div>
                                 </div>
@@ -103,16 +103,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3" style="margin-top: 20px;">
-                @if ($proposta->leilao_atual())
+            @if($leilao != null)
+                <div class="col-md-3" style="margin-top: 20px;">
                     <div class="card">
                         <div class="card-body bg-light">
                             <div class="row">
-                                @if($proposta->leilao_atual()->lances->count() > 0)
-                                    <p class="col-md-12 display-4 fw-bold" style="text-align: center; font-size: 20px;">Investidores contemplados</p>
+                                @if($leilao->lances->count() > 0)
+                                    <p class="col-md-12 display-4 fw-bold" style="text-align: center; font-size: 20px;">@if($proposta->leilao_atual())Investidores contemplados no momento @else Investidores contemplados @endif</p>
                                 @endif
-                                @forelse ($proposta->leilao_atual()->lances as $index => $lance)
-                                    @if($index < $proposta->leilao_atual()->numero_ganhadores)
+                                @forelse ($leilao->lances as $index => $lance)
+                                    @if($index < $leilao->numero_ganhadores)
                                         @if(auth()->user() && auth()->user()->investidor && $lance->investidor->id == auth()->user()->investidor->id)
                                             @include('leiloes.lances.edit', ['leilao' => $proposta->leilao_atual(), 'lance' => $lance])
                                         @endif
@@ -155,22 +155,24 @@
                                     </div>
                                 @endforelse
                                 @auth
-                                    @if($proposta->leilao_atual()->esta_no_periodo_de_lances() && auth()->user()->tipo != App\Models\User::PROFILE_ENUM['entrepreneur'])
-                                        <div class="justify-center mb-2">
-                                            @if ($proposta->leilao_atual()->investidor_fez_lance(auth()->user()->investidor))
-                                                <button class="btn btn-success btn-yellow btn-padding border" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 100%">
-                                                    <img src="{{asset('img/dolar-white.svg')}}" width="35px" alt="">
-                                                    <span style="text-shadow: 2px 1px 4px rgb(49, 49, 21); font-size: 18px;">Atualizar lance</span>
-                                                </button>
-                                                
-                                            @else
-                                                @include('leiloes.lances.create', ['leilao' => $proposta->leilao_atual()])
-                                                <button class="btn btn-success btn-yellow btn-padding border" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <img src="{{asset('img/dolar-white.svg')}}" width="35px" alt="">
-                                                    <span style="text-shadow: 2px 1px 4px rgb(49, 49, 21); font-size: 18px;">Fazer lance</span>
-                                                </button>
-                                            @endif
-                                        </div>
+                                    @if($proposta->leilao_atual())
+                                        @if($proposta->leilao_atual()->esta_no_periodo_de_lances() && auth()->user()->tipo != App\Models\User::PROFILE_ENUM['entrepreneur'])
+                                            <div class="justify-center mb-2">
+                                                @if ($proposta->leilao_atual()->investidor_fez_lance(auth()->user()->investidor))
+                                                    <button class="btn btn-success btn-yellow btn-padding border" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 100%">
+                                                        <img src="{{asset('img/dolar-white.svg')}}" width="35px" alt="">
+                                                        <span style="text-shadow: 2px 1px 4px rgb(49, 49, 21); font-size: 18px;">Atualizar lance</span>
+                                                    </button>
+                                                    
+                                                @else
+                                                    @include('leiloes.lances.create', ['leilao' => $proposta->leilao_atual()])
+                                                    <button class="btn btn-success btn-yellow btn-padding border" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        <img src="{{asset('img/dolar-white.svg')}}" width="35px" alt="">
+                                                        <span style="text-shadow: 2px 1px 4px rgb(49, 49, 21); font-size: 18px;">Fazer lance</span>
+                                                    </button>
+                                                @endif
+                                            </div>
+                                        @endif
                                     @endif
                                     @can('update', $proposta)
                                         <button class="btn btn-success btn-default btn-padding border" type="button">
@@ -181,20 +183,18 @@
                             </div>
                             <div class="row mt-2" style="border-top:solid 2px #e0e0e0;">
                                 <div class="mb-4 mt-1">
-                                    @if ($leilao = $proposta->leilao_atual())
-                                        <div>
-                                            <span class="text-proposta" style="font-size: 14px;"><img class="icon" src="{{asset('img/calendar.svg')}}" alt="Ícone de calendario"> Período do leilão: <b>{{date('d/m', strtotime($leilao->data_inicio))}}</b> a <b>{{date('d/m', strtotime($leilao->data_fim))}}</b></span>
-                                        </div>
-                                        <div>
-                                            <span class="text-proposta" style="font-size: 14px;"><img class="icon" src="{{asset('img/preco.svg')}}" alt="Ícone de lance mínimo"> Lance mínimo: <b>R$ {{number_format($leilao->valor_minimo, 2,",",".")}}</b></span>
-                                        </div>
-                                    @endif
+                                    <div>
+                                        <span class="text-proposta" style="font-size: 14px;"><img class="icon" src="{{asset('img/calendar.svg')}}" alt="Ícone de calendario"> Período do leilão: <b>{{date('d/m', strtotime($leilao->data_inicio))}}</b> a <b>{{date('d/m', strtotime($leilao->data_fim))}}</b></span>
+                                    </div>
+                                    <div>
+                                        <span class="text-proposta" style="font-size: 14px;"><img class="icon" src="{{asset('img/preco.svg')}}" alt="Ícone de lance mínimo"> Lance mínimo: <b>R$ {{number_format($leilao->valor_minimo, 2,",",".")}}</b></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endif
-            </div>
+                </div>
+            @endif
         </div>
     </div>
     @if (count($errors) > 0)
