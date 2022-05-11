@@ -18,14 +18,10 @@
                 @if(auth()->user()->investidor && $lance->investidor->id == auth()->user()->investidor->id)
                     @include('leiloes.lances.edit', ['leilao' => $lance->leilao, 'lance' => $lance])
                 @endif
-                <div
-                    @class([
-                        "col-md-6 mb-4",
-                        'mt-4' => $index < 2
-                    ])>
+                <div class="col-md-6 mt-2 mb-2">
                     <div class="card">
-                        <div class="card-body py-0">
-                            <div class="row"  style="height: 100%">
+                        <div class="card-body">
+                            <div class="row justify-content-between" style="height: 100%">
                                 <div class="col-md-6 py-0 px-0">
                                     <div class="row area-startup" style="margin-top: -24px;">
                                         <div class="col-md-4"></div>
@@ -44,13 +40,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @can('update', $lance->leilao->proposta->startup)
-                                        <div class="row mb-4 pl-3">
-                                            <div class="col-md-12">
-                                                <a href="{{route('leilao.create')}}?produto={{$lance->leilao->proposta->id}}" class="btn btn-success btn-default btn-padding border"><img src="{{asset('img/dolar-bag.svg')}}" alt="Ícone de criar" style="width: 40px;"><span style="font-weight: bolder;">Criar leilão</span></a>
-                                            </div>
-                                        </div>
-                                    @endcan
                                     <div class="row mb-4 pl-3 mt-3">
                                         @if ($leilao = $lance->leilao->proposta->leilao_atual())
                                             <div>
@@ -79,43 +68,46 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if ($lance->leilao->proposta->leilao_atual())
-                                    <div class="col-md-6 bg-fundo pt-3 grid content-between">
-                                        @forelse ($lance->leilao->proposta->leilao_atual()->lances as $index => $lance)
-                                            <div @class([
-                                                    'w-1/2' => $index == 1 || $index == 2,
-                                                    'w-full' => $index != 1 && $index != 2,
-                                                ])>
-                                                <div class="grid justify-content-center">
-                                                    <div @class([
-                                                            'rounded-full grid place-content-center',
-                                                            'h-12 w-12' => $index >= 3,
-                                                            'h-16 w-16' => $index < 3,
-                                                            'bg-[#EEBC3B]' => $index == 0,
-                                                            'bg-[#989898]' => $index == 1,
-                                                            'bg-[#BE770C]' => $index == 2,
-                                                            'bg-[#C4C4C4]' => $index > 2,
-                                                        ])>
-                                                        <img src="{{ $lance->investidor->user->profile_photo_url }}" alt="{{ $lance->investidor->user->name }}"
-                                                            @class([
-                                                                'rounded-full object-cover',
-                                                                'h-8 w-8' => $index >= 3,
-                                                                'h-12 w-12' => $index < 3,
-                                                            ])>
-                                                    </div>
-                                                </div>
-                                                <p @class([
-                                                        'text-sm font-bold mb-0 text-center',
-                                                        'text-blue-500' => $lance->investidor->user->id == auth()->user()->id,
+                                <div class="col-md-6 bg-fundo pt-3 grid content-between">
+                                    <div class="row">
+                                        @forelse ($lance->leilao->lances as $index => $lance)
+                                            @if($index < $lance->leilao->numero_ganhadores)
+
+                                                <div @class([
+                                                        'w-1/2' => $index == 1 || $index == 2,
+                                                        'w-full' => $index != 1 && $index != 2,
                                                     ])>
-                                                    @if ($lance->investidor->user->id == auth()->user()->id)
-                                                        Você
-                                                    @else
-                                                        {{ $lance->investidor->user->name }}
-                                                    @endif
-                                                </p>
-                                                <p class="text-xs text-center">R$ {{ number_format($lance->valor, 2,",",".") }}</p>
-                                            </div>
+                                                    <div class="grid justify-content-center">
+                                                        <div @class([
+                                                                'rounded-full grid place-content-center',
+                                                                'h-12 w-12' => $index >= 3,
+                                                                'h-16 w-16' => $index < 3,
+                                                                'bg-[#EEBC3B]' => $index == 0,
+                                                                'bg-[#989898]' => $index == 1,
+                                                                'bg-[#BE770C]' => $index == 2,
+                                                                'bg-[#C4C4C4]' => $index > 2,
+                                                            ])>
+                                                            <img src="{{ $lance->investidor->user->profile_photo_url }}" alt="{{ $lance->investidor->user->name }}"
+                                                                @class([
+                                                                    'rounded-full object-cover',
+                                                                    'h-8 w-8' => $index >= 3,
+                                                                    'h-12 w-12' => $index < 3,
+                                                                ])>
+                                                        </div>
+                                                    </div>
+                                                    <p @class([
+                                                            'text-sm font-bold mb-0 text-center',
+                                                            'text-blue-500' => $lance->investidor->user->id == auth()->user()->id,
+                                                        ])>
+                                                        @if ($lance->investidor->user->id == auth()->user()->id)
+                                                            Você
+                                                        @else
+                                                            {{ $lance->investidor->user->name }}
+                                                        @endif
+                                                    </p>
+                                                    <p class="text-xs text-center">R$ {{ number_format($lance->valor, 2,",",".") }}</p>
+                                                </div>
+                                            @endif
                                         @empty
                                             <h3 class="w-full text-center">Nenhum lance realizado</h3>
                                         @endforelse
@@ -132,7 +124,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endif
+                                </div>
                             </div>
                         </div>
                     </div>
