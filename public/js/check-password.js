@@ -8,7 +8,7 @@ $(document).ready(function () {
     })
     $('#password_confirmation').keyup(function () {  
         checkConfirmation();
-    })  
+    })
     function checkConfirmation() { 
         var password = $("#password").val();
         var confirmPassword = $("#password_confirmation").val();
