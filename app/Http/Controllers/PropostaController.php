@@ -80,16 +80,18 @@ class PropostaController extends Controller
     {
         $startup = Startup::find($startup);
         $proposta = Proposta::find($proposta);
+        $leilao = null;
 
-        if($proposta->leilao_atual()){
-            $leilao = $proposta->leilao_atual();
-        }else{
-            if($proposta->leiloes->first()){
-                $leilao = $proposta->leiloes()->last();
+        if($proposta){
+            if($proposta->leilao_atual()){
+                $leilao = $proposta->leilao_atual();
             }else{
-                $leilao = null;
+                if($proposta->leiloes->first()){
+                    $leilao = $proposta->leiloes()->last();
+                }
             }
         }
+        
             
         if ($startup == null || $proposta == null) {
             abort(404);
