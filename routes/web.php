@@ -64,4 +64,5 @@ Route::middleware([
 
 });
 
+    Route::post('pagseguro/notificacao', [PagamentoController::class, 'notificacao'])->name('pagamento.notificacao');
 

@@ -16,8 +16,9 @@ class CreatePagamentosTable extends Migration
         Schema::create('pagamentos', function (Blueprint $table) {
             $table->id();
             $table->double('valor');
-            $table->boolean('status_transacao');
+            $table->integer('status_transacao');
             $table->string('hash_pagamento');
+            $table->string('codigo')->nullable(true);
             $table->foreignId('investidor_id')->constrained();
             $table->timestamps();
         });

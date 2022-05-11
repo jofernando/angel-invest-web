@@ -29,7 +29,15 @@ class PagamentoRequest extends FormRequest
             "nome"=>["required","max:255", "min:10"],
             "mes"=>["required","max:2","min:1"],
             "ano"=>["required","max:4","min:4"],
-            "cvv"=>["required","min:3","max:3"]
+            "cvv"=>["required","min:3","max:3"],
+            "telefone"=>["required","max:20","min:15"],
+            "cep"=>["required","max:9", "min:9"],
+            "bairro"=>["required","max:255"],
+            "rua"=>["required","max:255"],
+            "numero"=>["required","min:1","max:10"],
+            "estado"=>["required"],
+            "cidade"=>["required"],
+
         ];
     }
     public function messages()
@@ -46,6 +54,19 @@ class PagamentoRequest extends FormRequest
             'cvv.required' => 'O Código de segurança (CVV) é obrigatório.',
             'cvv.max' => 'O Código de segurança (CVV) deve conter 3 números.',
             'cvv.min' => 'O Código de segurança (CVV) deve conter 3 números.',
+            'telefone.required'=> 'Campo telefone é obrigatório.',
+            'cep.required'=> 'Campo CEP é obrigatório.',
+            'cep.max' => 'O CEP deve conter 9 números.',
+            'cep.min' => 'O CEP deve conter 9 números.',
+            'bairro.required'=> 'Campo bairro é obrigatório.',
+            'bairro.max' => 'O nome da bairro deve conter máximo 255 caracteres.',
+            'rua.required'=> 'Campo rua é obrigatório.',
+            'rua.max' => 'O nome da rua deve conter máximo 255 caracteres.',
+            'numero.required'=> 'Campo número é obrigatório.',
+            'numero.max' => 'O número deve conter máximo 10 caracteres.',
+            'numero.min' => 'O número deve conter minimo 1 caractere.',
+            'estado.required'=> 'Campo estado é obrigatório.',
+            'cidade.required'=> 'Campo cidade é obrigatório.',
         ];
     }
     public function prepareForValidation()
