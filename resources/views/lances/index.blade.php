@@ -74,7 +74,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12" style="font-size: 14px">
-                                                <span style="font-weight: bolder;">Contato: </span> (87) 99999-9999
+                                                <span style="font-weight: bolder;">Contato: </span> {{$lance->leilao->proposta->startup->telefones->first()->numero}}
                                             </div>
                                         </div>
                                     </div>

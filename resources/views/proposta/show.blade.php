@@ -81,11 +81,12 @@
                                     <div class="row">
                                         <div class="col-md-12 ml-2">
                                             @foreach ($startup->documentos as $i => $documento)
-                                                <div class="documentos">
-                                                    <a href="{{route('documento.arquivo', ['documento' => $documento->id])}}" target="_blank">
+                                                <a href="{{route('documento.arquivo', ['documento' => $documento->id])}}" target="_blank">
+                                                    <div class="documentos">
+                                                        <span style="font-weight: bold; color: rgb(0, 0, 0)">{{$documento->nome}} </span>
                                                         <img  src="{{asset('img/pdf-icon.svg')}}" alt="Ícone de documento" title="Nome do documento">
-                                                    </a>
-                                                </div>
+                                                    </div>
+                                                </a>
                                             @endforeach
                                         </div>
                                     </div>
@@ -103,7 +104,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <span style="font-weight: bolder;">Contato: </span> (87) 99999-9999
+                                            <span style="font-weight: bolder;">Contato: </span> {{$startup->telefones->first()->numero}}
                                         </div>
                                     </div>
                                 </div>
@@ -112,34 +113,37 @@
                                 <div class="w-full md:w-1/4 bg-white pt-3 grid content-between">
                                     <div class="flex flex-wrap">
                                         @forelse ($proposta->leilao_atual()->lances as $index => $lance)
-                                            @if(auth()->user() && auth()->user()->investidor && $lance->investidor->id == auth()->user()->investidor->id)
-                                                @include('leiloes.lances.edit', ['leilao' => $leilao, 'lance' => $lance])
-                                            @endif
-                                            <div @class([
-                                                    'w-1/2' => $index == 1 || $index == 2,
-                                                    'w-full' => $index != 1 && $index != 2,
-                                                ])>
-                                                <div class="grid justify-content-center">
-                                                    <div @class([
-                                                            'rounded-full grid place-content-center',
-                                                            'h-12 w-12' => $index >= 3,
-                                                            'h-16 w-16' => $index < 3,
-                                                            'bg-[#EEBC3B]' => $index == 0,
-                                                            'bg-[#989898]' => $index == 1,
-                                                            'bg-[#BE770C]' => $index == 2,
-                                                            'bg-[#C4C4C4]' => $index > 2,
-                                                        ])>
-                                                        <img src="{{ $lance->investidor->user->profile_photo_url }}" alt="{{ $lance->investidor->user->name }}"
-                                                            @class([
-                                                                'rounded-full object-cover',
-                                                                'h-8 w-8' => $index >= 3,
-                                                                'h-12 w-12' => $index < 3,
+                                            @if($index < $proposta->leilao_atual()->numero_ganhadores)
+                                                <p class="col-md-12 display-4 fw-bold" style="text-align: center; font-size: 20px;">Investidores contemplados</p>
+                                                @if(auth()->user() && auth()->user()->investidor && $lance->investidor->id == auth()->user()->investidor->id)
+                                                    @include('leiloes.lances.edit', ['leilao' => $leilao, 'lance' => $lance])
+                                                @endif
+                                                <div @class([
+                                                        'w-1/2' => $index == 1 || $index == 2,
+                                                        'w-full' => $index != 1 && $index != 2,
+                                                    ])>
+                                                    <div class="grid justify-content-center">
+                                                        <div @class([
+                                                                'rounded-full grid place-content-center',
+                                                                'h-12 w-12' => $index >= 3,
+                                                                'h-16 w-16' => $index < 3,
+                                                                'bg-[#EEBC3B]' => $index == 0,
+                                                                'bg-[#989898]' => $index == 1,
+                                                                'bg-[#BE770C]' => $index == 2,
+                                                                'bg-[#C4C4C4]' => $index > 2,
                                                             ])>
+                                                            <img src="{{ $lance->investidor->user->profile_photo_url }}" alt="{{ $lance->investidor->user->name }}"
+                                                                @class([
+                                                                    'rounded-full object-cover',
+                                                                    'h-8 w-8' => $index >= 3,
+                                                                    'h-12 w-12' => $index < 3,
+                                                                ])>
+                                                        </div>
                                                     </div>
+                                                    <p class="text-sm font-bold mb-0 text-center">{{ $lance->investidor->user->name }}</p>
+                                                    <p class="text-xs text-center">R$ {{ number_format($lance->valor, 2,",",".") }}</p>
                                                 </div>
-                                                <p class="text-sm font-bold mb-0 text-center">{{ $lance->investidor->user->name }}</p>
-                                                <p class="text-xs text-center">R$ {{ number_format($lance->valor, 2,",",".") }}</p>
-                                            </div>
+                                            @endif
                                         @empty
                                             <div class="p-5 mb-4 rounded-3">
                                                 <h4 class="display-5 fw-bold">Nenhum lance realizado</h4>
@@ -154,9 +158,6 @@
                                     <div>
                                         @auth
                                             @if($leilao->esta_no_periodo_de_lances() && auth()->user()->tipo != App\Models\User::PROFILE_ENUM['entrepreneur'])
-                                                <div class="w-full grid justify-center" style="margin-top: -50px">
-                                                    <img src="{{asset('img/triple-coins.png')}}" width="300px" alt="">
-                                                </div>
                                                 <div class="w-full grid justify-center mb-2">
                                                         {{-- <a href="{{route('leiloes.lances.create', $leilao)}}" class="btn btn-success btn-color-dafault mb-4">
                                                         {{ __('Fazer lance') }}

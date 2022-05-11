@@ -7,15 +7,15 @@
             </div>
             <div class="modal-body bg-azul ">
                 <div class="card-body px-0 pt-1 flex flex-wrap">
-                    <div class="order-1 col-12 flex justify-end">
+                    {{--<div class="order-1 col-12 flex justify-end">
                         <div class="w-1/4 flex justify-center">
                             <button type="button" id="menu">
                                 <img src="{{ asset('img/menu.svg') }}"
                                     alt="botao">
                             </button>
                         </div>
-                    </div>
-                    <div id="divFormFazerLance" class="order-3 order-lg-2 mb-9 mt-2 px-0 bg-fundo col-lg-9 col-12">
+                    </div>--}}
+                    <div id="divFormFazerLance" class="order-3 order-lg-2 mb-2 mt-4 px-0 bg-fundo col-lg-12 col-12">
                         <form id="formFazerLance" action="{{route('leiloes.lances.update', ['leilao' => $leilao, 'lance' => $lance])}}" method="POST">
                             @csrf
                             @method('PUT')
@@ -74,7 +74,7 @@
                             </div>
                         </form>
                     </div>
-                    <div id="collapseExample" class="order-2 order-lg-3 pt-0 px-0 col-lg-3 col-12">
+                    {{--<div id="collapseExample" class="order-2 order-lg-3 pt-0 px-0 col-lg-3 col-12">
                         <div class="grid justify-center">
                             <div>
                                 <h6 class="text-white text-center font-bold mt-3">{{trans_choice('messages.contemplados', $leilao->numero_ganhadores)}}</h6>
@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
                 </div>
             </div>
         </div>
