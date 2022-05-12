@@ -1,12 +1,16 @@
 $(document).ready(function () {  
-    $('#password').keyup(function () {  
+    $('#password').keyup(function () {
+        $('#strengthMessage').html("");
+        $("#strengthMessage").show();
         $('#strengthMessage').html(checkStrength($('#password').val()));
         var confirmPassword = $("#password_confirmation").val();
         if(confirmPassword.length > 0){
             checkConfirmation();
         }
     })
-    $('#password_confirmation').keyup(function () {  
+    $('#password_confirmation').keyup(function () {
+        $("#passwordMessage").html("");
+        $("#passwordMessage").show();
         checkConfirmation();
     })
     function checkConfirmation() { 

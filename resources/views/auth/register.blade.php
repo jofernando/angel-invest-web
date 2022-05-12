@@ -147,7 +147,7 @@
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
-                                                    <div class="row col-md-12" id="strengthMessage"></div> 
+                                                    <div class="row col-md-12" id="strengthMessage" style="display: none">mensagem</div> 
                                                     <div class="row col-md-12">
                                                         <span style="font-size: 14px;">Uma senha forte contém:</span>
                                                         <ul style="list-style-type: disc !important; padding-left:1em !important; margin-left:1em;">
@@ -163,7 +163,7 @@
                                                 <div class="col-md-6">
                                                     <label for="password-confirmation" class="form-label">Confirmar senha <span style="color: red;">*</span></label>
                                                     <input id="password_confirmation" name="password_confirmation" type="password" class="form-control" required>
-                                                    <div class="row col-md-12" id="passwordMessage"></div> 
+                                                    <div class="row col-md-12" id="passwordMessage" style="display: none">mensagem de confirmação</div> 
                                                 </div>
                                             </div>
                                             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
