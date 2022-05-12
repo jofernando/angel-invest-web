@@ -19,11 +19,11 @@
                                         <div id="btn-div" class="row">
                                             <div class="col-md-12">
                                                 <div class="row">
-                                                    <div id="text-bnt-users" class="text-users" style="font-weight: bold; font-size: 20px;">
+                                                    <div id="text-bnt-users" class="text-users" style="font-weight: bold; font-size: 20px; margin-top: 0px;">
                                                         Você é... ?
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row" style=" margin-top: -15px;">
                                                     <div class="col-md-12">
                                                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                                             <button id="btn-entrepreneur" class="btn btn-outline-investidor-empreendedor @if(old('profile') == \App\Models\User::PROFILE_ENUM['investor']) @else selected @endif" type="button" onclick="alterar_img('{{asset('img/empreendedor-preto.svg')}}', 'entrepreneur-registration')">Empreendedor</button>
@@ -47,28 +47,29 @@
                                 </div>
                                 <div class="card-body">
                                     <div id="form-registration" class="container">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3 id="investor-registration" class="card-title" style="display: none;">Cadastro de <span style="color: rgb(41, 103, 129);">investidor-anjo</span></h3>
-                                                <h3 id="entrepreneur-registration" class="card-title">Cadastro de <span style="color: rgb(41, 103, 129);">empreendedor</span></h3>
-                                            </div>
-                                        </div>
                                         <form id="form-registration-user" method="POST" action="{{ route('register') }}" enctype="multipart/form-data"  style="text-align: left;">
                                             @csrf
                                             <input id="profile" type="hidden" name="profile" value="{{\App\Models\User::PROFILE_ENUM['entrepreneur']}}">
-                                            <div class="row mb-3" style="text-align: right;">
-                                                <div class="col-md-9"></div>
-                                                <div class="col-md-3" style="text-align: center">
-                                                    <label id="label-photo" for="foto_do_perfil" class="form-label">Foto do perfil</label>
-                                                    <img id="input-profile-photo" src="img/perfil.svg" alt="Imagem default perfil" onclick="click_file_input()">
-                                                    <div style="display: none;">
-                                                        <input id="foto_do_perfil" name="foto_do_perfil" type="file" class="form-control" accept=".png, .jpg">
-                                                    </div>
-                                                    @error('foto_do_perfil')
-                                                        <div id="validationServer03Feedback" class="invalid-feedback">
-                                                            {{ $message }}
+                                            <div class="row mb-3">
+                                                <div class="col-md-9">
+                                                    <h3 id="investor-registration" class="card-title" style="display: none;">Cadastro de <span style="color: rgb(41, 103, 129);">investidor-anjo</span></h3>
+                                                    <h3 id="entrepreneur-registration" class="card-title">Cadastro de <span style="color: rgb(41, 103, 129);">empreendedor</span></h3>
+                                                </div>
+                                                <div class="col-md-3" style="text-align: rigth;">
+                                                    <div style="text-align: center">
+                                                        <div class="row">
+                                                            <label id="label-photo" for="foto_do_perfil" class="form-label">Foto do perfil</label>
                                                         </div>
-                                                    @enderror
+                                                        <img id="input-profile-photo" src="img/perfil.svg" alt="Imagem default perfil" onclick="click_file_input()">
+                                                        <div style="display: none;">
+                                                            <input id="foto_do_perfil" name="foto_do_perfil" type="file" class="form-control" accept=".png, .jpg">
+                                                        </div>
+                                                        @error('foto_do_perfil')
+                                                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row" style="text-align: right;">
@@ -147,23 +148,12 @@
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
-                                                    <div class="row col-md-12" id="strengthMessage" style="display: none">mensagem</div> 
-                                                    <div class="row col-md-12">
-                                                        <span style="font-size: 14px;">Uma senha forte contém:</span>
-                                                        <ul style="list-style-type: disc !important; padding-left:1em !important; margin-left:1em;">
-                                                            <li style="font-size: 12px;">Pelo menos oito caracteres;</li>
-                                                            <li style="font-size: 12px;">Uma combinação de letras, números e símbolos;</li>
-                                                            <li style="font-size: 12px;">Dígitos de 0 a 9;</li>
-                                                            <li style="font-size: 12px;">Símbolos (exemplo: !"£$%^*&*);</li>
-                                                            <li style="font-size: 12px;">Letras maiúsculas e minúsculas.</li>
-                                                        </ul>
-                                                        <small id="password-minimo">Exigimos que a senha tenha no mínimo 8 caracteres </small>
-                                                    </div>
+                                                    <div class="row col-md-12" id="strengthMessage"></div> 
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="password-confirmation" class="form-label">Confirmar senha <span style="color: red;">*</span></label>
                                                     <input id="password_confirmation" name="password_confirmation" type="password" class="form-control" required>
-                                                    <div class="row col-md-12" id="passwordMessage" style="display: none">mensagem de confirmação</div> 
+                                                    <div class="row col-md-12" id="passwordMessage"></div> 
                                                 </div>
                                             </div>
                                             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
@@ -190,8 +180,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div id="bottom-img" class="col-md-5"></div>
-                            <div id="bottom-form" class="col-md-7"></div>
+                            <div id="bottom-form" class="col-md-12"></div>
                         </div>
                     </div>
                 </div>
