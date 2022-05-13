@@ -37,7 +37,9 @@ class PagamentoRequest extends FormRequest
             "numero"=>["required","min:1","max:10"],
             "estado"=>["required"],
             "cidade"=>["required"],
-
+            "senderHash"=>["required"],
+            "band_cartao"=>["required"],
+            "token_cartao"=>["required"],
         ];
     }
     public function messages()
@@ -67,6 +69,9 @@ class PagamentoRequest extends FormRequest
             'numero.min' => 'O número deve conter minimo 1 caractere.',
             'estado.required'=> 'Campo estado é obrigatório.',
             'cidade.required'=> 'Campo cidade é obrigatório.',
+            'senderHash.required'=>'Algo aconteceu de errado, por favor tente novamente mais tarde.',
+            'band_cartao.required'=>'Algo aconteceu de errado, por favor tente novamente mais tarde.',
+            'token_cartao.required'=>'Algo aconteceu de errado, por favor tente novamente mais tarde.',
         ];
     }
     public function prepareForValidation()

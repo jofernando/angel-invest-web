@@ -250,6 +250,10 @@
             $('.cartao').mask('0000 0000 0000 0000');
 
             $('#submeter').click(function(){
+                $('#submeter').attr('disabled', 'disabled');
+                $('#submeter').html('Aguarde...');
+                $('#submeter').attr('backgroundColor', 'd8');
+                
                 $('#senderHash').val(PagSeguroDirectPayment.getSenderHash());
                 get_bandeira();
                 consultar_token_cartao();

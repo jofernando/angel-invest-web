@@ -17,7 +17,6 @@ class PagamentoController extends Controller
     }
 
     public function store(PagamentoRequest $request) {
-
         $pagamento = new Pagamento();
         $pagamento->valor = $request->valor;
         $pagamento->status_transacao = 1;
