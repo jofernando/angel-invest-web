@@ -39,8 +39,16 @@
             @endif
         </div>
         <div class="row mt-4">
-
-            @if ($pagamentos->count() > 0)
+            <div class="col-md-3">
+                <div class="card text-white bg-success card-carteira ml-3 mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Quantia de créditos na carteira</h5>
+                        <p class="card-text">R$ {{auth()->user()->investidor->carteira}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                @if ($pagamentos->count() > 0)
                 <div class="table-responsive mb-5">
                     <table class="table table-striped">
                         <thead class="table-dark default-table-head-color">
@@ -61,17 +69,17 @@
                         </tbody>
                     </table>
                 </div>
-            @else
-                <div class="col-md-12">
-                    <div class="p-5 mb-4 bg-light rounded-3">
-                        <div class="container-fluid py-5">
-                            <h1 class="display-5 fw-bold">Carteira</h1>
-                            <p class="col-md-8 fs-4">Sua carteira está fazia. Para efetuar investimentos nos Leilões é necessário adicionar créditos.<a href="{{route('pagamento.create')}}">Clique aqui</a> para adicionar créditos.</p>
+                @else
+                    <div class="col-md-12">
+                        <div class="p-5 mb-4 bg-light rounded-3">
+                            <div class="container-fluid py-5">
+                                <h1 class="display-5 fw-bold">Histórico de compras</h1>
+                                <p class="col-md-8 fs-4">Seu histórico de transações está vazio. Para efetuar investimentos nos Leilões é necessário adicionar créditos.<a href="{{route('pagamento.create')}}">Clique aqui</a> para adicionar créditos.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endif
-
+                @endif
+            </div>
         </div>
     </div>
 </x-app-layout>

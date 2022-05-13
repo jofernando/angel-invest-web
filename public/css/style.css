@@ -803,3 +803,9 @@ label {
   transition: background-size .2s ease-in-out;
 }
 /* X VIDEO BUTTON PLAYER X */
+
+/* PAGAMENTO */
+.card-carteira {
+  background-color: var(--ternary-color) !important;
+}
+/* X PAGAMENTO X */
