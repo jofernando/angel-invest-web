@@ -87,7 +87,7 @@ class PropostaController extends Controller
                 $leilao = $proposta->leilao_atual();
             }else{
                 if($proposta->leiloes->first()){
-                    $leilao = $proposta->leiloes()->last();
+                    $leilao = $proposta->leiloes->last();
                 }
             }
         }
