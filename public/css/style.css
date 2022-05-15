@@ -874,3 +874,8 @@ label {
 }
 
 /* X VALIDACAO DE SENHA X */
+/* PAGAMENTO */
+.card-carteira {
+  background-color: var(--ternary-color) !important;
+}
+/* X PAGAMENTO X */
