@@ -151,6 +151,8 @@
                                                     <p class="col-md-12 fs-4">Faça um lance clicando no botão abaixo</p>
                                                 @endif
                                             @endif
+                                        @else
+                                            <p class="col-md-12 fs-6"> <a href="{{route('register')}}">Cadastre-se</a> para fazer um lance</p>
                                         @endauth
                                     </div>
                                 @endforelse
@@ -166,7 +168,7 @@
                                                     
                                                 @else
                                                     @include('leiloes.lances.create', ['leilao' => $proposta->leilao_atual()])
-                                                    <button class="btn btn-success btn-yellow btn-padding border" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    <button class="btn btn-success btn-yellow btn-padding border" style="width: 100%" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                         <img src="{{asset('img/dolar-white.svg')}}" width="35px" alt="">
                                                         <span style="text-shadow: 2px 1px 4px rgb(49, 49, 21); font-size: 18px;">Fazer lance</span>
                                                     </button>
@@ -175,9 +177,9 @@
                                         @endif
                                     @endif
                                     @can('update', $proposta)
-                                        <button class="btn btn-success btn-default btn-padding border" type="button">
+                                        <a class="btn btn-success btn-default btn-padding border" type="button" href="{{route('leilao.lances', $leilao)}}">
                                             <span style="text-shadow: 2px 1px 4px rgb(49, 49, 21);">Ver todos os lances</span>
-                                        </button>
+                                        </a>
                                     @endcan
                                 @endauth
                             </div>
