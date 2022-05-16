@@ -91,20 +91,27 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="row mb-3">
-                                        <div class="col-md-12">
-                                            Contato
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div>
+                                                Contato
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div>
+                                                <b>E-mail: </b> {{$startup->email}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div>
+                                                <b>Contato: </b> (87) 99999-9999
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <span style="font-weight: bolder;">E-mail: </span> {{$startup->email}}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <span style="font-weight: bolder;">Contato: </span> (87) 99999-9999
-                                        </div>
+                                    <div class="col-md-6">
+                                        <a href="{{route('chat', $startup->user)}}" class="btn btn-success btn-color-dafault mb-4">
+                                            {{ __('Chat privado') }}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
