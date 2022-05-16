@@ -32,9 +32,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    /*Route::get('/dashboard', function () {
         return view('dashboard');
-    })->name('dashboard');
+    })->name('dashboard');*/
     Route::resource('startups', StartupController::class);
 
     Route::get('/get-component', [StartupController::class, 'startupGetComponent'])->name('startup.component.ajax');
@@ -48,6 +48,7 @@ Route::middleware([
     ])->except('index');
     Route::get('lances', [LanceController::class, 'index'])->name('lances');
     Route::get('leilao/{leilao}/termo', [LeilaoController::class, 'show_termo'])->name('leilao.termo');
+    Route::get('leilao/{leilao}/lances', [LeilaoController::class, 'leilaoLances'])->name('leilao.lances');
 
     Route::get('startups/{startup}/documentos-edit', [DocumentoController::class, 'edit'])->name('documentos.edit');
     Route::put('startups/{startup}/documentos-update', [DocumentoController::class, 'update'])->name('documentos.update');
